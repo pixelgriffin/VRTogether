@@ -1,9 +1,16 @@
-[Ll]ibrary/
-[Tt]emp/
-[Oo]bj/
-[Bb]uild/
-[Bb]uilds/
-Assets/AssetStoreTools*
+VRTogetherDesktop/[Ll]ibrary/
+VRTogetherDesktop/[Tt]emp/
+VRTogetherDesktop/[Oo]bj/
+VRTogetherDesktop/[Bb]uild/
+VRTogetherDekstop/[Bb]uilds/
+VRTogetherDekstop/Assets/AssetStoreTools*
+VRTogetherAndroid/[Ll]ibrary/
+VRTogetherAndroid/[Tt]emp/
+VRTogetherAndroid/[Oo]bj/
+VRTogetherAndroid/[Bb]uild/
+VRTogetherAndroid/[Bb]uilds/
+VRTogetherAndroid/Assets/AssetStoreTools*
+
 
 # Visual Studio cache directory
 .vs/
