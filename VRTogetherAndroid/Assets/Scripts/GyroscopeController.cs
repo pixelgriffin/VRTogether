@@ -7,14 +7,14 @@ public class GyroscopeController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         Input.gyro.enabled = true;
-        transform.localRotation = Quaternion.Euler(90f, 90f, 0f);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
         Quaternion orientation = Input.gyro.attitude;
-        transform.localRotation = new Quaternion(
+        transform.rotation = Quaternion.Euler(90, 0, 0);
+        transform.rotation *= new Quaternion(
             orientation.x,
             orientation.y,
             -orientation.z,
