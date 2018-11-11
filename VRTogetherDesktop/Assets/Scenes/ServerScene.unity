@@ -242,6 +242,7 @@ MonoBehaviour:
   - {fileID: 745696381}
   - {fileID: 745696380}
   - {fileID: 745696382}
+  flyPrefab: {fileID: 1772552104350924, guid: 2f527b7981dc6a6428debb70cae31d0c, type: 2}
 --- !u!4 &726212398
 Transform:
   m_ObjectHideFlags: 0
