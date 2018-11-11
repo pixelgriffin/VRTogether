@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SlaveFly : MonoBehaviour
 {
+    public int id = -1;
+
     public bool moving = false;
 
     private bool swatted = false;
@@ -34,5 +36,9 @@ public class SlaveFly : MonoBehaviour
     public void Swat()
     {
         swatted = true;
+
+        GameObject.FindGameObjectWithTag("Server").GetComponent<ServerManager>().SwatFlyOverNetwork(this.id);
+
+        this.gameObject.SetActive(false);
     }
 }

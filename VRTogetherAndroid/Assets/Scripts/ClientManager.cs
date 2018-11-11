@@ -17,6 +17,8 @@ public class ClientManager : MonoBehaviour
 
     public GameObject flyPrefab;
 
+    public GameObject spectatorCamera;
+
     public FlyController localController;
     public Text debugText;
 
@@ -62,6 +64,7 @@ public class ClientManager : MonoBehaviour
             client.RegisterHandler(VRMsgType.FlyMove, OnFlyMoved);
             client.RegisterHandler(VRMsgType.FlySwatted, OnFlySwatted);
             client.RegisterHandler(VRMsgType.FlyGrapeInfo, OnFlyGrapeChanged);
+            client.RegisterHandler(VRMsgType.FlySwatted, OnFlySwatted);
 
             client.Connect("172.20.10.11", 4444);
             isListening = true;
@@ -113,7 +116,7 @@ public class ClientManager : MonoBehaviour
 
             client.Send(VRMsgType.FlyGrapeInfo, msg);
 
-            localController.DropDrop();
+            localController.DropGrape();
         }
     }
 
@@ -121,9 +124,13 @@ public class ClientManager : MonoBehaviour
     {
         VRFlySwattedMessage msg = netMsg.ReadMessage<VRFlySwattedMessage>();
 
+        Log("swatted " + msg.id);
+
         if(msg.id == flyID)
         {
             //Move us to spectator camera
+            spectatorCamera.SetActive(true);
+            localController.gameObject.SetActive(false);
         }
         else
         {

@@ -59,10 +59,11 @@ public class ServerManager : MonoBehaviour {
         return isListening;
     }
 
-    public void SwatFlyOverNetwork(Transform flyTransform)
+    public void SwatFlyOverNetwork(int id)
     {
+        Debug.Log("Sending fly swatted message!!!!!!!!!!111!!");
         VRFlySwattedMessage msg = new VRFlySwattedMessage();
-        msg.id = GetIDFromTransform(flyTransform);
+        msg.id = id;
 
         NetworkServer.SendToAll(VRMsgType.FlySwatted, msg);
     }
@@ -127,6 +128,7 @@ public class ServerManager : MonoBehaviour {
 
         //Add new fly to the list of our existing flies
         GameObject fly = Instantiate(flyPrefab, Vector3.zero, Quaternion.identity);
+        fly.GetComponent<SlaveFly>().id = flyIDCounter;
         flies.Add(flyIDCounter, fly.GetComponent<SlaveFly>());
 
         flyIDCounter++;
