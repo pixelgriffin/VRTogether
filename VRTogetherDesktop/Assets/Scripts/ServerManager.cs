@@ -15,6 +15,8 @@ public class ServerManager : MonoBehaviour {
 
     private int flyIDCounter = 0;
 
+    private int flyScore = 0;
+
     private void Awake()
     {
         flies = new Dictionary<int, SlaveFly>();
@@ -66,6 +68,24 @@ public class ServerManager : MonoBehaviour {
         msg.id = id;
 
         NetworkServer.SendToAll(VRMsgType.FlySwatted, msg);
+
+        bool vrWin = true;
+        foreach(SlaveFly enemy in flies.Values)
+        {
+            if(enemy.gameObject.activeSelf)
+            {
+                vrWin = false;
+                break;
+            }
+        }
+
+        if(vrWin)
+        {
+            VRGameOverMessage over = new VRGameOverMessage();
+            over.fliesWon = false;
+
+            NetworkServer.SendToAll(VRMsgType.GameOver, over);
+        }
     }
 
     public int GetIDFromTransform(Transform t)
@@ -94,11 +114,22 @@ public class ServerManager : MonoBehaviour {
             if (msg.holdingGrape)
                 fly.PickupGrape();
             else
+            {
                 fly.DropGrape();
+                flyScore++;
+            }
         }
 
         //Tell everyone else they changed their grape status
         SendToAllBut(netMsg.conn.connectionId, VRMsgType.FlyGrapeInfo, msg);
+
+        if(flyScore >= 10)
+        {
+            VRGameOverMessage over = new VRGameOverMessage();
+            over.fliesWon = true;
+
+            NetworkServer.SendToAll(VRMsgType.GameOver, over);
+        }
     }
 
     public void OnFlyJoined(NetworkMessage netMsg)

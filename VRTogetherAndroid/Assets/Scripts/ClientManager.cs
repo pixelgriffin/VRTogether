@@ -21,6 +21,10 @@ public class ClientManager : MonoBehaviour
 
     public FlyController localController;
     public Text debugText;
+    public Text scoreText;
+    public Text bigText;
+
+    private int flyScore = 0;
 
     public List<Transform> networkedOrientationList;
 
@@ -49,6 +53,8 @@ public class ClientManager : MonoBehaviour
 
             client.Send(VRMsgType.FlyMove, moveMsg);
         }
+
+        scoreText.text = flyScore + "/10 grapes stolen";
     }
 
     private void TryStartClient()
@@ -66,11 +72,29 @@ public class ClientManager : MonoBehaviour
             client.RegisterHandler(VRMsgType.FlyGrapeInfo, OnFlyGrapeChanged);
             client.RegisterHandler(VRMsgType.FlySwatted, OnFlySwatted);
 
+            client.RegisterHandler(VRMsgType.GameOver, OnGameOver);
+
             client.Connect("172.20.10.11", 4444);
             isListening = true;
 
             Log("Started Client");
         }
+    }
+
+    public void OnGameOver(NetworkMessage netMsg)
+    {
+        VRGameOverMessage msg = netMsg.ReadMessage<VRGameOverMessage>();
+
+        if(msg.fliesWon)
+        {
+            bigText.text = "THE FLIES HAVE\\nWON";
+        }
+        else
+        {
+            bigText.text = "THE EXTERMINATOR\\NHAS WON";
+        }
+
+        SwapToSpectator();
     }
 
     public void OnFlyGrapeChanged(NetworkMessage netMsg)
@@ -87,6 +111,7 @@ public class ClientManager : MonoBehaviour
             else
             {
                 fly.DropGrape();
+                flyScore++;
             }
         }
     }
@@ -117,7 +142,14 @@ public class ClientManager : MonoBehaviour
             client.Send(VRMsgType.FlyGrapeInfo, msg);
 
             localController.DropGrape();
+            flyScore++;
         }
+    }
+
+    private void SwapToSpectator()
+    {
+        spectatorCamera.SetActive(true);
+        localController.gameObject.SetActive(false);
     }
 
     public void OnFlySwatted(NetworkMessage netMsg)
@@ -129,8 +161,7 @@ public class ClientManager : MonoBehaviour
         if(msg.id == flyID)
         {
             //Move us to spectator camera
-            spectatorCamera.SetActive(true);
-            localController.gameObject.SetActive(false);
+            SwapToSpectator();
         }
         else
         {
