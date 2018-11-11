@@ -11,13 +11,13 @@ public class ServerManager : MonoBehaviour {
     public List<Transform> networkedOrientationList;
     public GameObject flyPrefab;
 
-    private Dictionary<int, Transform> flies;
+    private Dictionary<int, SlaveFly> flies;
 
     private int flyIDCounter = 0;
 
     private void Awake()
     {
-        flies = new Dictionary<int, Transform>();
+        flies = new Dictionary<int, SlaveFly>();
 
         TryStartServer();
         DontDestroyOnLoad(this.gameObject);
@@ -48,9 +48,9 @@ public class ServerManager : MonoBehaviour {
         if (!isListening)
         {
             isListening = NetworkServer.Listen(4444);
-            NetworkServer.RegisterHandler(MsgType.Connect, OnOtherConnected);
             NetworkServer.RegisterHandler(VRMsgType.FlyAdd, OnFlyJoined);
             NetworkServer.RegisterHandler(VRMsgType.FlyMove, OnFlyMoved);
+            NetworkServer.RegisterHandler(VRMsgType.FlyGrapeInfo, OnFlyGrapeChanged);
 
             if(isListening)
                 Debug.Log("Started server");
@@ -59,9 +59,45 @@ public class ServerManager : MonoBehaviour {
         return isListening;
     }
 
-    public void OnOtherConnected(NetworkMessage msg)
+    public void SwatFlyOverNetwork(Transform flyTransform)
     {
-        Debug.Log("???????????????/");
+        VRFlySwattedMessage msg = new VRFlySwattedMessage();
+        msg.id = GetIDFromTransform(flyTransform);
+
+        NetworkServer.SendToAll(VRMsgType.FlySwatted, msg);
+    }
+
+    public int GetIDFromTransform(Transform t)
+    {
+        foreach(int id in flies.Keys)
+        {
+            if(flies[id] == t)
+            {
+                return id;
+            }
+        }
+
+        return -1;
+    }
+
+    public void OnFlyGrapeChanged(NetworkMessage netMsg)
+    {
+        VRFlyGrapeMessage msg = netMsg.ReadMessage<VRFlyGrapeMessage>();
+
+        Debug.Log("Fly " + msg.id + " picked up a grape!");
+
+        //Change our fly's grape status
+        SlaveFly fly;
+        if(flies.TryGetValue(msg.id, out fly))
+        {
+            if (msg.holdingGrape)
+                fly.PickupGrape();
+            else
+                fly.DropGrape();
+        }
+
+        //Tell everyone else they changed their grape status
+        SendToAllBut(netMsg.conn.connectionId, VRMsgType.FlyGrapeInfo, msg);
     }
 
     public void OnFlyJoined(NetworkMessage netMsg)
@@ -91,7 +127,7 @@ public class ServerManager : MonoBehaviour {
 
         //Add new fly to the list of our existing flies
         GameObject fly = Instantiate(flyPrefab, Vector3.zero, Quaternion.identity);
-        flies.Add(flyIDCounter, fly.transform);
+        flies.Add(flyIDCounter, fly.GetComponent<SlaveFly>());
 
         flyIDCounter++;
     }
@@ -100,15 +136,13 @@ public class ServerManager : MonoBehaviour {
     {
         VRFlyMoveMessage moveMsg = netMsg.ReadMessage<VRFlyMoveMessage>();
 
-        Debug.Log("ID: " + moveMsg.id);
-
         //Update this fly's position and sich
-        Transform fly;
+        SlaveFly fly;
         if(flies.TryGetValue(moveMsg.id, out fly))
         {
             fly.transform.position = moveMsg.position;
             fly.transform.rotation = moveMsg.rotation;
-            fly.GetComponent<SlaveFly>().moving = moveMsg.moving;
+            fly.moving = moveMsg.moving;
         }
 
         //Inform all the other flies!

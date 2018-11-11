@@ -6,12 +6,8 @@ public class FlyController : MonoBehaviour {
 
     public float moveStep = 2f;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
+    private bool isHoldingGrape = false;
+
 	void Update () {
 		if (IsMoving())
         {
@@ -22,5 +18,20 @@ public class FlyController : MonoBehaviour {
     public bool IsMoving()
     {
         return Input.touchCount > 0;
+    }
+
+    public void HoldGrape()
+    {
+        isHoldingGrape = true;
+    }
+
+    public void DropGrape()
+    {
+        isHoldingGrape = false;
+    }
+
+    public bool IsHoldingGrape()
+    {
+        return isHoldingGrape;
     }
 }
