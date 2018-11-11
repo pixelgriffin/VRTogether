@@ -90,6 +90,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4553484015674934}
   - component: {fileID: 96746599312502570}
+  - component: {fileID: 114449736637518480}
   m_Layer: 0
   m_Name: Fly
   m_TagString: Untagged
@@ -500,6 +501,18 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!114 &114449736637518480
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1772552104350924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42bae7510ba095349896d72da7b8cb39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moving: 0
 --- !u!135 &135103891013277542
 SphereCollider:
   m_ObjectHideFlags: 1
