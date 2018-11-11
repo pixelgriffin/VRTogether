@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FlyController : MonoBehaviour {
 
-    public float moveStep = 0.1f;
+    public float moveStep = 2f;
 
 	// Use this for initialization
 	void Start () {
@@ -13,9 +13,14 @@ public class FlyController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.touchCount > 0)
+		if (IsMoving())
         {
             transform.localPosition += transform.forward * Time.deltaTime * moveStep;
         }
 	}
+
+    public bool IsMoving()
+    {
+        return Input.touchCount > 0;
+    }
 }
