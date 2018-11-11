@@ -37,8 +37,8 @@ public class SlaveFly : MonoBehaviour
     {
         swatted = true;
 
-        GameObject.FindGameObjectWithTag("Server").GetComponent<ServerManager>().SwatFlyOverNetwork(this.id);
-
         this.gameObject.SetActive(false);
+
+        GameObject.FindGameObjectWithTag("Server").GetComponent<ServerManager>().SwatFlyOverNetwork(this.id);
     }
 }

@@ -87,11 +87,11 @@ public class ClientManager : MonoBehaviour
 
         if(msg.fliesWon)
         {
-            bigText.text = "THE FLIES HAVE\\nWON";
+            bigText.text = "THE FLIES HAVE\nWON".Replace("\\n","\n");
         }
         else
         {
-            bigText.text = "THE EXTERMINATOR\\NHAS WON";
+            bigText.text = "THE EXTERMINATOR\nHAS WON".Replace("\\n","\n");
         }
 
         SwapToSpectator();
@@ -150,6 +150,12 @@ public class ClientManager : MonoBehaviour
     {
         spectatorCamera.SetActive(true);
         localController.gameObject.SetActive(false);
+    }
+
+    private void SwapToFlyView()
+    {
+        spectatorCamera.SetActive(false);
+        localController.gameObject.SetActive(true);
     }
 
     public void OnFlySwatted(NetworkMessage netMsg)
