@@ -27,12 +27,15 @@ public class ClientManager : MonoBehaviour
     private int flyScore = 0;
 
     public List<Transform> networkedOrientationList;
+    public List<Transform> flySpawns;
 
     private void Awake()
     {
         flies = new Dictionary<int, SlaveFly>();
 
         TryStartClient();
+        SwapToSpectator();
+
         DontDestroyOnLoad(this.gameObject);
     }
 
@@ -73,12 +76,26 @@ public class ClientManager : MonoBehaviour
             client.RegisterHandler(VRMsgType.FlySwatted, OnFlySwatted);
 
             client.RegisterHandler(VRMsgType.GameOver, OnGameOver);
+            client.RegisterHandler(VRMsgType.GameStart, OnGameStart);
 
             client.Connect("172.20.10.11", 4444);
             isListening = true;
 
             Log("Started Client");
         }
+    }
+
+    public void OnGameStart(NetworkMessage netMsg)
+    {
+        Transform spawnPoint;
+        int index = Random.Range(0, flySpawns.Count);
+        spawnPoint = flySpawns[index];
+
+        localController.transform.position = spawnPoint.position;
+        //localController.transform.rotation = spawnPoint.rotation;
+
+        SwapToFlyView();
+        bigText.enabled = false;
     }
 
     public void OnGameOver(NetworkMessage netMsg)
@@ -167,6 +184,7 @@ public class ClientManager : MonoBehaviour
         if(msg.id == flyID)
         {
             //Move us to spectator camera
+            bigText.text = "YOU GOT SWATTED";
             SwapToSpectator();
         }
         else

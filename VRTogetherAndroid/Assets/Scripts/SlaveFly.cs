@@ -17,11 +17,11 @@ public class SlaveFly : MonoBehaviour {
 
     public void PickupGrape()
     {
-        this.transform.Find("Grape").gameObject.SetActive(true);
+        this.transform.GetChild(0).Find("Grape").gameObject.SetActive(true);
     }
 
     public void DropGrape()
     {
-        this.transform.Find("Grape").gameObject.SetActive(false);
+        this.transform.GetChild(0).Find("Grape").gameObject.SetActive(false);
     }
 }

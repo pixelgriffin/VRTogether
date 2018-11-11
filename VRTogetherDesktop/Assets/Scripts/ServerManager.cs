@@ -61,6 +61,13 @@ public class ServerManager : MonoBehaviour {
         return isListening;
     }
 
+    public void StartGame()
+    {
+        VRGameStartMessage msg = new VRGameStartMessage();
+
+        NetworkServer.SendToAll(VRMsgType.GameStart, msg);
+    }
+
     public void SwatFlyOverNetwork(int id)
     {
         Debug.Log("Sending fly swatted message!!!!!!!!!!111!!");
