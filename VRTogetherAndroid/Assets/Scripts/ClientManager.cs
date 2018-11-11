@@ -33,8 +33,8 @@ public class ClientManager : MonoBehaviour
     {
         flies = new Dictionary<int, SlaveFly>();
 
-        TryStartClient();
-        SwapToSpectator();
+        //TryStartClient();
+        //SwapToSpectator();
 
         DontDestroyOnLoad(this.gameObject);
     }
@@ -60,10 +60,12 @@ public class ClientManager : MonoBehaviour
         scoreText.text = flyScore + "/10 grapes stolen";
     }
 
-    private void TryStartClient()
+    public void TryStartClient(string ip)
     {
         if (!isListening)
         {
+            Debug.Log("Not listening, creating client");
+
             client = new NetworkClient();
 
             client.RegisterHandler(MsgType.Connect, OnConnected);
@@ -78,7 +80,7 @@ public class ClientManager : MonoBehaviour
             client.RegisterHandler(VRMsgType.GameOver, OnGameOver);
             client.RegisterHandler(VRMsgType.GameStart, OnGameStart);
 
-            client.Connect("172.20.10.11", 4444);
+            client.Connect(ip, 4444);//"172.20.10.11"
             isListening = true;
 
             Log("Started Client");
