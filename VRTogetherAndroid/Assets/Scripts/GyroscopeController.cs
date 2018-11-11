@@ -6,20 +6,20 @@ public class GyroscopeController : MonoBehaviour {
 
     public float beta = 0.1f;
 
-    Quaternion orientation;
+    //Quaternion orientation;
 
 	// Use this for initialization
 	void Start () {
         Input.gyro.enabled = true;
-        orientation = Quaternion.identity;
+        //orientation = Quaternion.identity;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        Vector3 accelInput = Input.acceleration;
+        /*Vector3 accelInput = Input.acceleration;
         Vector3 gyroInput = Mathf.Deg2Rad * (Input.gyro.attitude.eulerAngles);
-        FuseSensorData(gyroInput, accelInput);
-        /*
+        FuseSensorData(gyroInput, accelInput);*/
+        
         Quaternion orientation = Input.gyro.attitude;
         transform.localRotation = Quaternion.Euler(90, 0, 0);
         transform.localRotation *= new Quaternion(
@@ -27,12 +27,12 @@ public class GyroscopeController : MonoBehaviour {
             orientation.y,
             -orientation.z,
             -orientation.w);
-        */
+        
         //transform.localRotation *= new Quaternion(0,0,1,0);
-        transform.localRotation = orientation;
+        //transform.localRotation = orientation;
 	}
 
-    private void FuseSensorData(Vector3 gyro, Vector3 acc)
+    /*private void FuseSensorData(Vector3 gyro, Vector3 acc)
     {
         Quaternion q = orientation;
         Quaternion qDot;
@@ -63,5 +63,5 @@ public class GyroscopeController : MonoBehaviour {
 
         //final quaternion of fused data
         orientation = q;
-    }
+    }*/
 }

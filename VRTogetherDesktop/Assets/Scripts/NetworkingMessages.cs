@@ -12,6 +12,30 @@ namespace VRNetworkingMessages
         public static short FlyMove = MsgType.Highest + 3;
         public static short FlyAdd = MsgType.Highest + 4;
         public static short IDHandshake = MsgType.Highest + 5;
+        public static short GameStart = MsgType.Highest + 6;
+        public static short FlyGrapeInfo = MsgType.Highest + 7;
+        public static short FlySwatted = MsgType.Highest + 8;
+        public static short GameOver = MsgType.Highest + 9;
+    }
+
+    public class VRGameOverMessage : MessageBase
+    {
+        public bool fliesWon;
+    }
+    
+    public class VRGameStartMessage : MessageBase
+    {
+    }
+
+    public class VRFlyGrapeMessage : MessageBase
+    {
+        public int id;
+        public bool holdingGrape;
+    }
+
+    public class VRFlySwattedMessage : MessageBase
+    {
+        public int id;
     }
 
     public class VROrientationMessage : MessageBase

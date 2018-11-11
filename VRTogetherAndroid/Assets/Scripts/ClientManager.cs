@@ -11,7 +11,7 @@ public class ClientManager : MonoBehaviour
 
     private NetworkClient client;
 
-    private Dictionary<int, Transform> flies;
+    private Dictionary<int, SlaveFly> flies;
 
     private int flyID = -1;
 
@@ -24,7 +24,7 @@ public class ClientManager : MonoBehaviour
 
     private void Awake()
     {
-        flies = new Dictionary<int, Transform>();
+        flies = new Dictionary<int, SlaveFly>();
 
         TryStartClient();
         DontDestroyOnLoad(this.gameObject);
@@ -60,11 +60,74 @@ public class ClientManager : MonoBehaviour
             client.RegisterHandler(VRMsgType.FlyAdd, OnFlyJoined);
             client.RegisterHandler(VRMsgType.IDHandshake, OnHandshake);
             client.RegisterHandler(VRMsgType.FlyMove, OnFlyMoved);
+            client.RegisterHandler(VRMsgType.FlySwatted, OnFlySwatted);
+            client.RegisterHandler(VRMsgType.FlyGrapeInfo, OnFlyGrapeChanged);
 
             client.Connect("172.20.10.11", 4444);
             isListening = true;
 
             Log("Started Client");
+        }
+    }
+
+    public void OnFlyGrapeChanged(NetworkMessage netMsg)
+    {
+        VRFlyGrapeMessage msg = netMsg.ReadMessage<VRFlyGrapeMessage>();
+
+        SlaveFly fly;
+        if(flies.TryGetValue(msg.id, out fly))
+        {
+            if(msg.holdingGrape)
+            {
+                fly.PickupGrape();
+            }
+            else
+            {
+                fly.DropGrape();
+            }
+        }
+    }
+
+    public void PickupGrapeOverNetwork()
+    {
+        if (!localController.IsHoldingGrape())
+        {
+            Log("Picked up grape over network!");
+            VRFlyGrapeMessage msg = new VRFlyGrapeMessage();
+            msg.id = flyID;
+            msg.holdingGrape = true;
+
+            client.Send(VRMsgType.FlyGrapeInfo, msg);
+
+            localController.HoldGrape();
+        }
+    }
+
+    public void DropGrapeOverNetwork()
+    {
+        if (localController.IsHoldingGrape())
+        {
+            VRFlyGrapeMessage msg = new VRFlyGrapeMessage();
+            msg.id = flyID;
+            msg.holdingGrape = false;
+
+            client.Send(VRMsgType.FlyGrapeInfo, msg);
+
+            localController.DropDrop();
+        }
+    }
+
+    public void OnFlySwatted(NetworkMessage netMsg)
+    {
+        VRFlySwattedMessage msg = netMsg.ReadMessage<VRFlySwattedMessage>();
+
+        if(msg.id == flyID)
+        {
+            //Move us to spectator camera
+        }
+        else
+        {
+            flies[msg.id].gameObject.SetActive(false);
         }
     }
 
@@ -118,7 +181,7 @@ public class ClientManager : MonoBehaviour
         //We were told by the server there's a new fly in town!
         //Create new fly prefab
         GameObject fly = Instantiate(flyPrefab, Vector3.zero, Quaternion.identity);
-        flies.Add(msg.id, fly.transform);
+        flies.Add(msg.id, fly.GetComponent<SlaveFly>());
     }
 
     public void OnFlyMoved(NetworkMessage netMsg)
@@ -127,12 +190,12 @@ public class ClientManager : MonoBehaviour
         Log("Another fly moved! (" + moveMsg.id + ")");
 
         //Update that fly's position and sich
-        Transform fly;
+        SlaveFly fly;
         if (flies.TryGetValue(moveMsg.id, out fly))
         {
             fly.transform.position = moveMsg.position;
             fly.transform.rotation = moveMsg.rotation;
-            fly.GetComponent<SlaveFly>().moving = moveMsg.moving;
+            fly.moving = moveMsg.moving;
         }
     }
 
