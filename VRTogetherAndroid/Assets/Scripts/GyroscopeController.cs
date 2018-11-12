@@ -6,20 +6,51 @@ public class GyroscopeController : MonoBehaviour {
 
     public float beta = 0.1f;
 
-    Quaternion orientation;
+    //Quaternion orientation;
 
 	// Use this for initialization
 	void Start () {
         Input.gyro.enabled = true;
-        orientation = Quaternion.identity;
+        //orientation = Quaternion.identity;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        Vector3 accelInput = Input.acceleration;
-        Vector3 gyroInput = Mathf.Deg2Rad * (Input.gyro.attitude.eulerAngles);
-        FuseSensorData(gyroInput, accelInput);
+
+        /*SEMI WORKING IMPLEMENTATION*/
         /*
+        Vector3 accelInput = Input.acceleration;
+        Quaternion gyroInput = Input.gyro.attitude;
+        Quaternion gyroInputCorrected = Quaternion.Euler(90, 0, 0);
+        gyroInputCorrected *= new Quaternion(
+            gyroInput.x,
+            gyroInput.y,
+            -gyroInput.z,
+            -gyroInput.w);
+        Quaternion orientation = transform.localRotation;
+
+        Vector3 gyroEuler = gyroInputCorrected.eulerAngles;
+        Vector3 orientationEuler = orientation.eulerAngles;
+        Vector3 gyroRate = (gyroEuler - orientationEuler);
+
+        orientationEuler = (0.98f * (orientationEuler + gyroRate)) + (0.02f * accelInput);
+
+        orientation = Quaternion.Euler(
+            orientationEuler.x,
+            orientationEuler.y,
+            orientationEuler.z);
+
+        transform.localRotation = orientation;
+        */
+        /*END SEMI WORKING IMPLEMENTATION*/
+
+        //FuseSensorData(gyroInput, accelInput);
+
+        //Vector3 currentAngles = Mathf.Deg2Rad * orientation.eulerAngles;
+        //currentAngles = (0.9998f * (currentAngles + (gyroInput * ((float)Time.deltaTime)))) + (0.0002f * accelInput);
+        //currentAngles = Mathf.Rad2Deg * currentAngles;
+
+        /*FULLY WORKING IMPLEMENTATION*/
         Quaternion orientation = Input.gyro.attitude;
         transform.localRotation = Quaternion.Euler(90, 0, 0);
         transform.localRotation *= new Quaternion(
@@ -27,12 +58,21 @@ public class GyroscopeController : MonoBehaviour {
             orientation.y,
             -orientation.z,
             -orientation.w);
-        */
-        //transform.localRotation *= new Quaternion(0,0,1,0);
-        transform.localRotation = orientation;
-	}
+        /*END FULLY WORKING IMPLEMENTATION*/
+    }
 
-    private void FuseSensorData(Vector3 gyro, Vector3 acc)
+    /*
+    public Vector3 Scale(Vector3 vector, float scalar)
+    {
+        vector.x *= scalar;
+        vector.y *= scalar;
+        vector.z *= scalar;
+        return vector;
+    }
+    */
+
+    /*
+    private Vector3 FuseSensorData(Vector3 orientation, Vector3 gyro, Vector3 acc)
     {
         Quaternion q = orientation;
         Quaternion qDot;
@@ -42,7 +82,7 @@ public class GyroscopeController : MonoBehaviour {
         acc.Normalize();
 
         //get step magnitude then normalize
-        stepMagnitude.x = 4f * q.x * q.z * q.z + 2f * q.z + acc.x - 2f * q.y * acc.y;
+        stepMagnitude.x = 4f * q.x * q.z * q.z + 2f * q.z * acc.x + 4f * q.x * q.y * q.y - 2f * q.y * acc.y;
         stepMagnitude.y = 4f * q.y * q.w * q.w - 2f * q.w * acc.x + 4f * q.x * q.x * q.y - 2f * q.x * acc.y - 4f * q.y + 8f * q.y * q.y * q.y + 8f * q.y * q.z * q.z + 4f * q.y + acc.z;
         stepMagnitude.z = 4f * q.x * q.x * q.z + 2f * q.x * acc.x + 4f * q.z * q.w * q.w - 2f * q.w * acc.y - 4f * q.z + 8f * q.z * q.y * q.y + 8f * q.z * q.z * q.z + 4f * q.z * acc.z;
         stepMagnitude.w = 4f * q.y * q.y * q.w - 2f * q.y * acc.x + 4f * q.z * q.z * q.w - 2f * q.z * acc.y;
@@ -64,4 +104,5 @@ public class GyroscopeController : MonoBehaviour {
         //final quaternion of fused data
         orientation = q;
     }
+    */
 }
