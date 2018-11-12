@@ -37,6 +37,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4331012234920976}
+  - component: {fileID: 135363714511259804}
+  - component: {fileID: 114806062563416952}
   m_Layer: 0
   m_Name: Fly (1)
   m_TagString: Untagged
@@ -290,7 +292,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1772552104350924}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.0192821, y: 0.873, z: 1.3834782}
+  m_LocalPosition: {x: 0.8705262, y: 0.4, z: 1.1582433}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children:
   - {fileID: 4890379905452328}
@@ -818,6 +820,58 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: -1
   moving: 0
+--- !u!114 &114806062563416952
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1150922457096538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 166c7ec6ea87f7942938c25de9b1cf6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  col: {fileID: 0}
+  checkTag: Swatter
+  OnCollided:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114739455873682418}
+        m_MethodName: Swat
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1772552104350924}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+--- !u!135 &135363714511259804
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1150922457096538}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.2
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135534623696395820
 SphereCollider:
   m_ObjectHideFlags: 1
