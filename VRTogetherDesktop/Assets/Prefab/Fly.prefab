@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 82550045484936062}
   m_Layer: 0
   m_Name: Fly (1)
-  m_TagString: Untagged
+  m_TagString: Fly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -295,7 +295,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1772552104350924}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.0350499, y: 0, z: 1.1256416}
+  m_LocalPosition: {x: 1.0583484, y: 0, z: 1.2716081}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children:
   - {fileID: 4890379905452328}

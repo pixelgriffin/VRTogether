@@ -132,7 +132,7 @@ public class ServerManager : MonoBehaviour {
         //Tell everyone else they changed their grape status
         SendToAllBut(netMsg.conn.connectionId, VRMsgType.FlyGrapeInfo, msg);
 
-        if(flyScore >= 10)
+        if(flyScore >= 6)
         {
             VRGameOverMessage over = new VRGameOverMessage();
             over.fliesWon = true;

@@ -57,7 +57,7 @@ public class ClientManager : MonoBehaviour
             client.Send(VRMsgType.FlyMove, moveMsg);
         }
 
-        scoreText.text = flyScore + "/10 grapes stolen";
+        scoreText.text = flyScore + "/6 grapes stolen";
     }
 
     public void TryStartClient(string ip)

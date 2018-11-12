@@ -14,7 +14,7 @@ public class SlaveFly : MonoBehaviour
     {
         if (moving)
         {
-            this.transform.position += this.transform.forward * Time.deltaTime * 2f;
+            this.transform.position += this.transform.forward * Time.deltaTime * 3f;
         }
     }
 

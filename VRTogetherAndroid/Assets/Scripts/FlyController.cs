@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FlyController : MonoBehaviour {
 
-    public float moveStep = 2f;
+    public float moveStep = 3f;
 
     private bool isHoldingGrape = false;
 

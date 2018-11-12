@@ -2075,7 +2075,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc2dfe489c3ad054c94f6d97d11055e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveStep: 2
+  moveStep: 3
 --- !u!1 &544677010
 GameObject:
   m_ObjectHideFlags: 0
@@ -8326,7 +8326,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 0/10 grapes stolen
+  m_Text: 0/6 grapes stolen
 --- !u!222 &1922958571
 CanvasRenderer:
   m_ObjectHideFlags: 0
