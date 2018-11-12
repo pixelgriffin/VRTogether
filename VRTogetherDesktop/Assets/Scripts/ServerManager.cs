@@ -118,6 +118,8 @@ public class ServerManager : MonoBehaviour {
         SlaveFly fly;
         if(flies.TryGetValue(msg.id, out fly))
         {
+            fly.GetComponent<AudioSource>().Play();
+
             if (msg.holdingGrape)
                 fly.PickupGrape();
             else
