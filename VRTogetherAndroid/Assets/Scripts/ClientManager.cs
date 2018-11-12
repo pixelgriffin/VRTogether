@@ -169,6 +169,7 @@ public class ClientManager : MonoBehaviour
     {
         spectatorCamera.SetActive(true);
         localController.gameObject.SetActive(false);
+        bigText.gameObject.SetActive(true);
     }
 
     private void SwapToFlyView()
