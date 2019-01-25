@@ -59,21 +59,30 @@ public class JoystickController : MonoBehaviour
             Vector3 temp = rotationTarget.localRotation.eulerAngles;
             Debug.Log("rotx: " + temp.x);
             Debug.Log("roty: " + temp.y);
-            if ((temp.x <= 360 && temp.x > 275) || (temp.x >= 0 && temp.x < 85))
+            if (Mathf.Abs(temp.x) <= 360 && Mathf.Abs(temp.x) >= 270)
             {
                 temp.x -= zMovementRightJoystick * rotationSpeed;
+                if (temp.x < 275)
+                {
+                    temp.x = 275;
+                }
             }
-            else if (temp.x <= 360 && temp.x < 275)
+            else if (Mathf.Abs(temp.x) >= 0 && Mathf.Abs(temp.x) <= 90)
             {
-                
+                temp.x -= zMovementRightJoystick * rotationSpeed;
+                if (temp.x > 85)
+                {
+                    temp.x = 85;
+                }
             }
+
             temp.y += xMovementRightJoystick * rotationSpeed;
             Vector3 newRotation = temp;
             Vector3 lookDirection = rotationTarget.localRotation.eulerAngles - temp;
             if (lookDirection != Vector3.zero)
             {
-                //rotationTarget.localRotation = Quaternion.Slerp(rotationTarget.localRotation, Quaternion.Euler(newRotation), rotationSpeed * Time.deltaTime);
-                rotationTarget.localRotation = Quaternion.Euler(newRotation);
+                rotationTarget.localRotation = Quaternion.Slerp(rotationTarget.localRotation, Quaternion.Euler(newRotation), rotationSpeed * Time.deltaTime);
+                //rotationTarget.localRotation = Quaternion.Euler(newRotation);
             }
         }
     }

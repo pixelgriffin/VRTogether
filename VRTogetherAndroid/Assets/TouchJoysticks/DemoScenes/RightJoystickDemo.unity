@@ -1347,7 +1347,7 @@ MonoBehaviour:
   rightJoystick: {fileID: 76426474}
   rotationTarget: {fileID: 1207458672}
   moveSpeed: 6
-  rotationSpeed: 1
+  rotationSpeed: 16
   animator: {fileID: 1735770576}
 --- !u!1 &615544569
 GameObject:
