@@ -12,6 +12,8 @@ public class LobbyManager : MonoBehaviour {
 	public GameObject ipPanel;
 	public GameObject lobbyPanel;
 
+	public Text roomCodeText;
+
 	public void JoinLobby ()
 	{
 		if (code != string.Empty)
@@ -25,7 +27,10 @@ public class LobbyManager : MonoBehaviour {
 
 			}
 
+			roomCodeText.text = "Room Code: " + code;
+
 			//Actual code to connect here...
+				//Check if room code or IP
 
 		}
 
