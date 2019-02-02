@@ -7,6 +7,8 @@ TagManager:
   - Fly
   - Swatter
   - Server
+  - Grape
+  - DropZone
   layers:
   - Default
   - TransparentFX
