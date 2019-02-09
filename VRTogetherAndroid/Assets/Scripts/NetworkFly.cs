@@ -12,13 +12,35 @@ public class NetworkFly : MonoBehaviour {
 
     private NetworkBool holdingGrape = new NetworkBool("holdingGrape", false);
 
+    private Camera camera;
+
 	void Start () {
         id = GetComponent<NetworkID>();
         MinigameClient.Instance.RegisterVariable(id.netID, holdingGrape);
+
+        //create a camera with the same transform as the fly and parent it
+        GameObject cameraObject = Instantiate(GameObject.Find("EmptyObject"), this.transform);
+        camera = cameraObject.AddComponent<Camera>();
+        camera.name = "camera_" + id.netID;
+
+        //if this is not a slave, set camera to active
+        if (!MinigameClient.Instance.networkedPrefabs.IsSlave(id.netID))
+        {
+            GameObject.Find("FlyOverviewCamera").GetComponent<Camera>().enabled = false;
+            camera.enabled = true;
+        }
     }
 	
 	void Update () {
-        body.SetActive(MinigameClient.Instance.networkedPrefabs.IsSlave(id.netID));//If this is not a slave then it is us, and we don't want to see the body
+        if (MinigameClient.Instance.networkedPrefabs.IsSlave(id.netID)) //if this is a slave
+        {
+            body.SetActive(true); //show body
+        }
+        else //if this is us
+        {
+            body.SetActive(false); //don't show body
+        }
+
         grape.SetActive(holdingGrape.value);//If we are holding a grape then show a grape
 	}
 
