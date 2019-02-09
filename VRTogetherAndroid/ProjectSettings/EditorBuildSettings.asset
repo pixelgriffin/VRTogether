@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/MiniScene.unity
     guid: 9b5add4ac273af043b104be32c9138fc
+  - enabled: 1
+    path: Assets/Scenes/FlySwatter.unity
+    guid: 18ed3c224d7a5404b847337a448049bd
   m_configObjects: {}
