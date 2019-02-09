@@ -17,7 +17,7 @@ public class FlyController : MonoBehaviour {
 
     public bool IsMoving()
     {
-        return Input.touchCount > 0;
+        return Input.touchCount > 0 || Input.GetKey(KeyCode.Mouse0);
     }
 
     public void HoldGrape()

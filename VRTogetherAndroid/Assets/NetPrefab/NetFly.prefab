@@ -188,6 +188,7 @@ GameObject:
   - component: {fileID: 135206073929724186}
   - component: {fileID: 114606826981105582}
   - component: {fileID: 54268918299092328}
+  - component: {fileID: 114461149143052320}
   m_Layer: 0
   m_Name: NetFly
   m_TagString: Untagged
@@ -822,6 +823,18 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!114 &114461149143052320
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1772552104350924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc2dfe489c3ad054c94f6d97d11055e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveStep: 3
 --- !u!114 &114606826981105582
 MonoBehaviour:
   m_ObjectHideFlags: 1
