@@ -34,8 +34,8 @@ public class JoystickController : MonoBehaviour
 
         {
             Vector3 rotation = rotationTarget.localRotation.eulerAngles;
-            Debug.Log("rotx: " + rotation.y);
-            Debug.Log("roty: " + rotation.x);
+            //Debug.Log("rotx: " + rotation.y);
+            //Debug.Log("roty: " + rotation.x);
             //Debug.Log("x: " + x + ", y: " + y);
             if (Mathf.Abs(rotation.x) <= 360 && Mathf.Abs(rotation.x) >= 270)
             {

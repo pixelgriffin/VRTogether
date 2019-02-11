@@ -50,13 +50,15 @@ public class NetworkFly : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
+
         if(collision.collider.tag == "Grape")
         {
             //If we control this fly we should tell everyone else we now are holding a grape
-            if (!MinigameClient.Instance.networkedPrefabs.IsSlave(id.netID))
+            if (!MinigameClient.Instance.networkedPrefabs.IsSlave(id.netID) && !holdingGrape.value)
             {
                 holdingGrape.value = true;//Change the local value since we are authoritative
                 MinigameClient.Instance.SendBooleanToAll(holdingGrape);//Update the variable over the network
+                Debug.Log("Picked up a grape!");
             }
         }
         else if(collision.collider.tag == "DropZone")
@@ -72,6 +74,8 @@ public class NetworkFly : MonoBehaviour {
                     ScoreCounter counter = FindObjectOfType<ScoreCounter>();
                     counter.flyScore.value++;
                     MinigameClient.Instance.SendIntegerToAll(counter.flyScore);
+
+                    Debug.Log("Score!");
                 }
             }
         }
