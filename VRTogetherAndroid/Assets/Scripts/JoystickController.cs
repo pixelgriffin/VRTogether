@@ -24,10 +24,6 @@ public class JoystickController : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-    }
-
     void FixedUpdate()
     {
         // get input from joystick
@@ -37,7 +33,6 @@ public class JoystickController : MonoBehaviour
         float y = rightJoystickInput.y; // The vertical movement from joystick 02
 
         {
-
             Vector3 rotation = rotationTarget.localRotation.eulerAngles;
             Debug.Log("rotx: " + rotation.y);
             Debug.Log("roty: " + rotation.x);
