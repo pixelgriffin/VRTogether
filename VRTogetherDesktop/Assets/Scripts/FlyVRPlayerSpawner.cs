@@ -18,16 +18,19 @@ public class FlyVRPlayerSpawner : MonoBehaviour {
             {
                 Debug.Log("Net create cube");
 
+                // spawn vr player's right hand transform
                 GameObject inst1 = MinigameServer.Instance.NetworkInstantiate(rightHand);
                 inst1.transform.position = parentRightHand.transform.position;
                 inst1.transform.rotation = parentRightHand.transform.rotation;
                 inst1.transform.SetParent(parentRightHand.transform);
 
+                // spawn vr player's left hand transform
                 GameObject inst2 = MinigameServer.Instance.NetworkInstantiate(leftHand);
                 inst2.transform.position = parentLeftHand.transform.position;
                 inst2.transform.rotation = parentLeftHand.transform.rotation;
                 inst2.transform.SetParent(parentLeftHand.transform);
 
+                // spawn vr player's head transform
                 GameObject inst3 = MinigameServer.Instance.NetworkInstantiate(head);
                 inst3.transform.position = parentHead.transform.position;
                 inst3.transform.rotation = parentHead.transform.rotation;

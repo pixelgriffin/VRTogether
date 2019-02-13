@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class NetworkFlyRightHand : MonoBehaviour {
 
+    public GameObject swatterPrefab;
+
     private GameObject body;
     private bool addComponent = true;
 
@@ -15,6 +17,9 @@ public class NetworkFlyRightHand : MonoBehaviour {
         GameObject body_ik = body.transform.GetChild(0).gameObject;
         body_ik.GetComponent<IK>().rightHandObj = this.transform;
         addComponent = false;
+
+        // spawn swatter
+        Instantiate(swatterPrefab, this.transform, false);
 
     }
 	

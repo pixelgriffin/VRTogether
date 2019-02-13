@@ -143,9 +143,11 @@ MonoBehaviour:
   parentRightHand: {fileID: 237166449}
   parentLeftHand: {fileID: 237166447}
   parentHead: {fileID: 237166451}
+  parentSwatter: {fileID: 476349588}
   rightHand: {fileID: 1697818443337168, guid: bed3db7ae5878464d870fa6bcb57fece, type: 2}
   leftHand: {fileID: 1379021649044302, guid: 24565fb08642249609b619d25ace15b9, type: 2}
   head: {fileID: 1431006551072866, guid: d7245ed61bd814a0fb84c5eecb5598a6, type: 2}
+  swatter: {fileID: 1310310712367994, guid: c5695504b5d724c75b78d2b147f6071c, type: 2}
 --- !u!4 &10542140
 Transform:
   m_ObjectHideFlags: 0
