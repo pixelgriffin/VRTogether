@@ -12,25 +12,53 @@ public class NetworkFly : MonoBehaviour {
 
     private NetworkBool holdingGrape = new NetworkBool("holdingGrape", false);
 
+    private Camera camera;
+
 	void Start () {
         id = GetComponent<NetworkID>();
         MinigameClient.Instance.RegisterVariable(id.netID, holdingGrape);
+
+        //create a camera with the same transform as the fly and parent it
+        GameObject cameraObject = Instantiate(GameObject.Find("EmptyObject"), this.transform);
+        camera = cameraObject.AddComponent<Camera>();
+        camera.name = "camera_" + id.netID;
+
+        //if this is not a slave, set camera to active and enable joystick canvas if using joystick controls
+        if (!MinigameClient.Instance.networkedPrefabs.IsSlave(id.netID))
+        {
+            GameObject.Find("FlyOverviewCamera").GetComponent<Camera>().enabled = false;
+            camera.enabled = true;
+            if (!GetComponent<FlyControlSwitch>().useGyroControls)
+            {
+                GameObject.Find("RightJoystickCanvas").GetComponent<Canvas>().enabled = true;
+            }
+        }
     }
 	
 	void Update () {
-        body.SetActive(MinigameClient.Instance.networkedPrefabs.IsSlave(id.netID));//If this is not a slave then it is us, and we don't want to see the body
+        if (MinigameClient.Instance.networkedPrefabs.IsSlave(id.netID)) //if this is a slave
+        {
+            body.SetActive(true); //show body
+        }
+        else //if this is us
+        {
+            body.SetActive(false); //don't show body
+        }
+
         grape.SetActive(holdingGrape.value);//If we are holding a grape then show a grape
 	}
 
     private void OnCollisionEnter(Collision collision)
     {
+
         if(collision.collider.tag == "Grape")
         {
             //If we control this fly we should tell everyone else we now are holding a grape
-            if (!MinigameClient.Instance.networkedPrefabs.IsSlave(id.netID))
+            if (!MinigameClient.Instance.networkedPrefabs.IsSlave(id.netID) && !holdingGrape.value)
             {
                 holdingGrape.value = true;//Change the local value since we are authoritative
                 MinigameClient.Instance.SendBooleanToAll(holdingGrape);//Update the variable over the network
+                Debug.Log("Picked up a grape!");
             }
         }
         else if(collision.collider.tag == "DropZone")
@@ -46,6 +74,8 @@ public class NetworkFly : MonoBehaviour {
                     ScoreCounter counter = FindObjectOfType<ScoreCounter>();
                     counter.flyScore.value++;
                     MinigameClient.Instance.SendIntegerToAll(counter.flyScore);
+
+                    Debug.Log("Score!");
                 }
             }
         }
