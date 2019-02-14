@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18068156, g: 0.2261892, b: 0.30713528, a: 1}
+  m_IndirectSpecularColor: {r: 0.18068196, g: 0.22618999, b: 0.30713663, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -143,11 +143,9 @@ MonoBehaviour:
   parentRightHand: {fileID: 237166449}
   parentLeftHand: {fileID: 237166447}
   parentHead: {fileID: 237166451}
-  parentSwatter: {fileID: 476349588}
   rightHand: {fileID: 1697818443337168, guid: bed3db7ae5878464d870fa6bcb57fece, type: 2}
   leftHand: {fileID: 1379021649044302, guid: 24565fb08642249609b619d25ace15b9, type: 2}
   head: {fileID: 1431006551072866, guid: d7245ed61bd814a0fb84c5eecb5598a6, type: 2}
-  swatter: {fileID: 1310310712367994, guid: c5695504b5d724c75b78d2b147f6071c, type: 2}
 --- !u!4 &10542140
 Transform:
   m_ObjectHideFlags: 0
@@ -790,6 +788,10 @@ Prefab:
     - target: {fileID: 4201051648442228, guid: 482883152a5ab44e5b175bf53dc85644, type: 2}
       propertyPath: m_RootOrder
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1227490037367812, guid: 482883152a5ab44e5b175bf53dc85644, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 81890020158456870, guid: 482883152a5ab44e5b175bf53dc85644, type: 2}
