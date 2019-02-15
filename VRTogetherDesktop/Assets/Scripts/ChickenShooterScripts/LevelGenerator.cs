@@ -23,16 +23,13 @@ public enum FloorSpace
 
 public class LevelGenerator : MonoBehaviour {
 
-    public GameObject floorOpen, floorFence, floorWall;
-
     public int spaceCount = 36;
     public int minNoFloor = 10, maxNoFloor = 15;
 
     private int[] spaceStats;
 
-	// Use this for initialization
-	void Start () {
-
+    private void Awake()
+    {
         // list to hold all floors (this excludes noFloors)
         List<int> floorList = new List<int>(spaceCount);
 
@@ -74,18 +71,65 @@ public class LevelGenerator : MonoBehaviour {
             int floorIndex = Random.Range(1, floorList.Count - 1);
 
             // set space to noFloor
-            spaceStats[floorList[floorIndex]] = (int)FloorSpace.NO_FLOOR;
+            //try
+            //{
+                spaceStats[floorList[floorIndex]] = (int)FloorSpace.NO_FLOOR;
+            //}
+            //catch
+            //{
+            //    Debug.Log("Exception thrown at size " + floorList.Count);
+            //    Debug.Log("floor index = " + floorIndex);
+            //}
+
 
             // remove adjacent floors
-            floorList.Remove(floorIndex + 1);
-            floorList.Remove(floorIndex - 1);
-            floorList.Remove(floorIndex);
+            if (floorIndex == 1)
+            {
+                if (floorList.Count > 2)
+                {
+                    floorList.RemoveAt(floorIndex + 1);
+                    floorList.RemoveAt(floorIndex);
+                }
+                else
+                {
+                //    try
+                //    {
+                       floorList.RemoveAt(floorIndex);
+                //    }
+                //    catch
+                //    {
+                //        Debug.Log("Exception thrown at size " + floorList.Count);
+                //        Debug.Log("floor index = " + floorIndex);
+                //    }
+                }
+
+            }
+            else if (floorIndex == floorList.Count - 2)
+            {
+                floorList.RemoveAt(floorIndex);
+                floorList.RemoveAt(floorIndex - 1);
+            }
+            else
+            {
+                floorList.RemoveAt(floorIndex + 1);
+                floorList.RemoveAt(floorIndex - 1);
+            }
         }
+
+        // set space count and stats in spawner
+        GetComponent<FloorSpawner>().SetSpaceStats(spaceStats);
+        GetComponent<FloorSpawner>().SetSpaceCount(spaceCount);
 
         for (int i = 0; i < spaceCount; i++)
         {
             Debug.Log("Floor " + i + ": " + spaceStats[i]);
         }
+        Debug.Log("Generated " + noFloorCount + " noFloors");
+
+    }
+
+    // Use this for initialization
+    void Start () {
 
     }
 	
