@@ -113,6 +113,47 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &38555778
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 38555780}
+  - component: {fileID: 38555779}
+  m_Layer: 0
+  m_Name: MinigameController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &38555779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 38555778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 132f5159983e46f4b967abea38a98c08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  networkedPrefabs: {fileID: 11400000, guid: 02c4797acd67746d893b937badc606a8, type: 2}
+--- !u!4 &38555780
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 38555778}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.7756495, y: 7.205331, z: 1.9654074}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &346254687
 GameObject:
   m_ObjectHideFlags: 0
@@ -123,6 +164,7 @@ GameObject:
   - component: {fileID: 346254688}
   - component: {fileID: 346254689}
   - component: {fileID: 346254690}
+  - component: {fileID: 346254691}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -141,7 +183,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &346254689
 MonoBehaviour:
@@ -154,9 +196,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eede68b7f35544fedac66199444c8fee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spaceCount: 36
-  minNoFloor: 16
-  maxNoFloor: 17
 --- !u!114 &346254690
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,6 +211,18 @@ MonoBehaviour:
   floorFence: {fileID: 1105793253103898, guid: 8e4a4cd268cff4219afa3e39dd817467, type: 2}
   floorWall: {fileID: 1796790577864274, guid: b85505be19aab4004ab003d0295c2d67, type: 2}
   radius: 10
+--- !u!114 &346254691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 346254687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd35eddd9d0e3c544aded1c319894980, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  netID: 
 --- !u!1 &447517028
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,11 +294,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 447517028}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 10, z: 0}
+  m_LocalPosition: {x: 0, y: 20, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &1890833179
 GameObject:
@@ -313,5 +364,5 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}

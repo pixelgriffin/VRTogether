@@ -12,6 +12,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VRTogether.Net;
 
 public enum FloorSpace
 {
@@ -23,10 +24,18 @@ public enum FloorSpace
 
 public class LevelGenerator : MonoBehaviour {
 
-    public int spaceCount = 36;
-    public int minNoFloor = 10, maxNoFloor = 15;
+    public const int spaceCount = 36;
+    public const int minNoFloor = 10, maxNoFloor = 15;
 
     private int[] spaceStats;
+
+    private NetworkID id;
+    private NetworkInt[] networkedSpaceStats = new NetworkInt[spaceCount];
+    private NetworkBool networkSendReady = new NetworkBool(
+        "networkSendReady", false);
+    private NetworkBool spaceStatsSent = new NetworkBool(
+        "spaceStatsSent", false);
+    private bool networkDataSent = false;
 
     private void Awake()
     {
@@ -131,12 +140,44 @@ public class LevelGenerator : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
+        // send data over network
+        id = GetComponent<NetworkID>();
+        for (int i = 0; i < spaceCount; i++)
+        {
+            networkedSpaceStats[i] = new NetworkInt(
+                "networkedSpaceStats" + i,
+                0);
+
+            MinigameServer.Instance.RegisterVariable(
+                id.netID,
+                networkedSpaceStats[i]);
+
+            networkedSpaceStats[i].value = spaceStats[i];
+        }
+
+        MinigameServer.Instance.RegisterVariable(id.netID, networkSendReady);
+
+        MinigameServer.Instance.RegisterVariable(id.netID, spaceStatsSent);
     }
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+
+        if (networkSendReady.value && !networkDataSent)
+        {
+            for (int i = 0; i < spaceCount; i++)
+            {
+                MinigameServer.Instance.SendIntegerToAll(networkedSpaceStats[i]);
+                Debug.Log("Space Stats sent");
+            }
+
+            spaceStatsSent.value = true;
+            MinigameServer.Instance.SendBooleanToAll(spaceStatsSent);
+
+            networkDataSent = true;
+        }
+
+    }
 
     public int[] GetSpaceStats()
     {
