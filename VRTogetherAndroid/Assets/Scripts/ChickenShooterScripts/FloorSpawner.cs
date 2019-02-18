@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class FloorSpawner : MonoBehaviour {
 
-    public GameObject floorOpen, floorFence, floorWall;
+    public GameObject floorOpen, floorFence, floorWall, noFloor;
+    public GameObject wall;
 
     public float radius = 10;
 
@@ -28,8 +29,7 @@ public class FloorSpawner : MonoBehaviour {
         for (int i = 0; i < spaceCount; i++)
         {
             //Debug.Log("Creating space of type: " + spaceStats[i]);
-            if (spaceStats[i] != (int)FloorSpace.NO_FLOOR &&
-                i != 0 && i != spaceCount - 1)
+            if (i != 0 && i != spaceCount - 1)
             {
                 Vector3 position = NextCirclePos(
                 transform.position,
@@ -54,6 +54,11 @@ public class FloorSpawner : MonoBehaviour {
                 switch (spaceStats[i])
                 {
                     case (int)FloorSpace.NO_FLOOR:
+                        floorInstance = Instantiate(
+                            noFloor,
+                            position,
+                            rotation,
+                            transform);
                         break;
 
                     case (int)FloorSpace.OPEN:
@@ -86,10 +91,16 @@ public class FloorSpawner : MonoBehaviour {
 
                 floorInstance.name = "FloorPiece" + i;
 
+                // ensure last piece is rotated correctly
                 if (i == spaceCount - 1 && (360 % spaceCount) == 0)
                 {
                     floorInstance.transform.Rotate(new Vector3(180, 180, 0));
                 }
+
+                // spawn walls
+                GameObject wallInstance = Instantiate(
+                    wall,
+                    floorInstance.transform);
 
                 //this.GetComponent<turretController>().turretSet.Add(turretInstance);
             }

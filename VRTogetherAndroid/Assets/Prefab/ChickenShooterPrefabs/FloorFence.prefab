@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4060688438532570}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: pCube2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34,7 +34,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4456190412954382}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: pCube1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51,7 +51,7 @@ GameObject:
   - component: {fileID: 4610720789897796}
   - component: {fileID: 33899672459997318}
   - component: {fileID: 23691327247889090}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: pCube4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -66,7 +66,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4539193813646406}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: transform3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81,7 +81,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4793625824075348}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: transform1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 64278929575694034}
   - component: {fileID: 65159388097083228}
   - component: {fileID: 65549457368696106}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FloorFence
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -114,7 +114,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4732253450033904}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: pCube3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,7 +129,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4828549647942614}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: transform2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -312,10 +312,10 @@ BoxCollider:
   m_GameObject: {fileID: 1905852407089086}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: 2.33, y: 1.5, z: 0.5}
-  m_Center: {x: 0, y: 0.5, z: -2.26}
+  m_Size: {x: 2.33, y: 4.5, z: 0.5}
+  m_Center: {x: 0, y: 2, z: -2.26}
 --- !u!65 &65549457368696106
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -324,7 +324,7 @@ BoxCollider:
   m_GameObject: {fileID: 1905852407089086}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: 1.46, y: 1.5, z: 0.5}
-  m_Center: {x: 0, y: 0.5, z: 2.255}
+  m_Size: {x: 1.46, y: 4.5, z: 0.5}
+  m_Center: {x: 0, y: 2, z: 2.255}

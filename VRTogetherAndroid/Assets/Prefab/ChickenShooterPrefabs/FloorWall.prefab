@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 64494932867580526}
   - component: {fileID: 65830680206003210}
   - component: {fileID: 65174994584103732}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FloorWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,10 +108,10 @@ BoxCollider:
   m_GameObject: {fileID: 1570590945978280}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: 1.46, y: 1.5, z: 0.5}
-  m_Center: {x: 0, y: 0.5, z: 2.255}
+  m_Size: {x: 1.46, y: 4.5, z: 0.5}
+  m_Center: {x: 0, y: 2, z: 2.255}
 --- !u!65 &65830680206003210
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -120,7 +120,7 @@ BoxCollider:
   m_GameObject: {fileID: 1570590945978280}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: 2.33, y: 1.5, z: 0.5}
-  m_Center: {x: 0, y: 0.5, z: -2.26}
+  m_Size: {x: 2.33, y: 4.5, z: 0.5}
+  m_Center: {x: 0, y: 2, z: -2.26}
