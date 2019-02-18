@@ -11,4 +11,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00a1827f593babb48a27328361db6583, type: 3}
   m_Name: ChickenShooterPrefabList
   m_EditorClassIdentifier: 
-  prefabs: []
+  prefabs:
+  - {fileID: 1086002431604188, guid: 2cecfd29655534bd7a0a4e9d2833ae9d, type: 2}

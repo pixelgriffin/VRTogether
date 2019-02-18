@@ -28,7 +28,8 @@ public class FloorSpawner : MonoBehaviour {
         for (int i = 0; i < spaceCount; i++)
         {
             //Debug.Log("Creating space of type: " + spaceStats[i]);
-            if (spaceStats[i] != (int)FloorSpace.NO_FLOOR)
+            if (spaceStats[i] != (int)FloorSpace.NO_FLOOR &&
+                i != 0 && i != spaceCount - 1)
             {
                 Vector3 position = NextCirclePos(
                 transform.position,
