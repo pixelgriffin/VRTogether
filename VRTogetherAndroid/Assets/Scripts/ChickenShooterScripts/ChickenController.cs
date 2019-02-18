@@ -10,12 +10,14 @@ public class ChickenController : MonoBehaviour {
 
     private GameObject chicken;
     private Rigidbody chickenRB;
+    private CharacterController chickenCtrl;
 
 	// Use this for initialization
 	void Start () {
 
         chicken = transform.GetChild(0).gameObject;
-        chickenRB = chicken.GetComponent<Rigidbody>();
+        //chickenRB = chicken.GetComponent<Rigidbody>();
+        chickenCtrl = chicken.GetComponent<CharacterController>();
 		
 	}
 	
@@ -34,8 +36,9 @@ public class ChickenController : MonoBehaviour {
 
         if (Input.GetKey(KeyCode.A))
         {
-            Vector3 movement = Vector3.left * Time.deltaTime * xMoveSpeed;
-            chicken.transform.Translate(movement, Space.Self);
+            Vector3 movement = chicken.transform.TransformDirection(Vector3.left) * Time.deltaTime * xMoveSpeed;
+            //chicken.transform.Translate(movement, Space.Self);
+            chickenCtrl.Move(movement);
             /*
             chickenRB.AddRelativeForce(-xMoveSpeed, 0, 0, ForceMode.VelocityChange);
             Debug.Log(chickenRB.GetRelativePointVelocity(transform.position));
@@ -48,8 +51,9 @@ public class ChickenController : MonoBehaviour {
 
         if (Input.GetKey(KeyCode.D))
         {
-            Vector3 movement = Vector3.right * Time.deltaTime * xMoveSpeed;
-            chicken.transform.Translate(movement, Space.Self);
+            Vector3 movement = chicken.transform.TransformDirection(Vector3.right) * Time.deltaTime * xMoveSpeed;
+            //chicken.transform.Translate(movement, Space.Self);
+            chickenCtrl.Move(movement);
             /*
             chickenRB.AddRelativeForce(xMoveSpeed, 0, 0, ForceMode.VelocityChange);
             if (chickenRB.GetRelativePointVelocity(transform.position).x < -maxVelocityX)
