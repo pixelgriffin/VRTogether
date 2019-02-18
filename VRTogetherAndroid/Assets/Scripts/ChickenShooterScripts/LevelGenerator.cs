@@ -31,6 +31,7 @@ public class LevelGenerator : MonoBehaviour {
         "networkSendReady", false);
     private NetworkBool spaceStatsSent = new NetworkBool(
         "spaceStatsSent", false);
+    private bool levelSpawned = false;
 
     private void Awake()
     {
@@ -75,7 +76,7 @@ public class LevelGenerator : MonoBehaviour {
             Debug.Log("Ready confirmation sent");
         }
 
-        if (spaceStatsSent.value)
+        if (spaceStatsSent.value && !levelSpawned)
         {
             int[] spaceStats = new int[spaceCount];
             for (int i = 0; i < spaceCount; i++)
@@ -86,6 +87,8 @@ public class LevelGenerator : MonoBehaviour {
             GetComponent<FloorSpawner>().Spawn(
                 spaceStats,
                 spaceCount);
+
+            levelSpawned = true;
         }
 
     }

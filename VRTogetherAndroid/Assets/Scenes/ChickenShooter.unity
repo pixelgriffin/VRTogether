@@ -255,9 +255,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64d82bcea7ac345ffb2dee5b3647829b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floorOpen: {fileID: 1703934600947754, guid: d7fd120aba9284b239cf8eeb01663680, type: 2}
-  floorFence: {fileID: 1105793253103898, guid: 8e4a4cd268cff4219afa3e39dd817467, type: 2}
-  floorWall: {fileID: 1796790577864274, guid: b85505be19aab4004ab003d0295c2d67, type: 2}
+  floorOpen: {fileID: 1780403977542766, guid: d7fd120aba9284b239cf8eeb01663680, type: 2}
+  floorFence: {fileID: 1905852407089086, guid: 8e4a4cd268cff4219afa3e39dd817467, type: 2}
+  floorWall: {fileID: 1570590945978280, guid: b85505be19aab4004ab003d0295c2d67, type: 2}
   radius: 10
 --- !u!1 &958696447
 GameObject:
