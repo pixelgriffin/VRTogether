@@ -207,9 +207,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64d82bcea7ac345ffb2dee5b3647829b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floorOpen: {fileID: 1780403977542766, guid: d7fd120aba9284b239cf8eeb01663680, type: 2}
-  floorFence: {fileID: 1905852407089086, guid: 8e4a4cd268cff4219afa3e39dd817467, type: 2}
-  floorWall: {fileID: 1570590945978280, guid: b85505be19aab4004ab003d0295c2d67, type: 2}
+  floorOpen: {fileID: 1801487157493922, guid: 62cc5a28761664e3ab4d5c3b97f976b3, type: 2}
+  floorFence: {fileID: 1340347784698422, guid: 2ecf27e6e158948be88267f69c4bfedf, type: 2}
+  floorWall: {fileID: 1643188071413024, guid: 142fe8a2069ad4cdf94fd75bfd88516a, type: 2}
   radius: 10
 --- !u!114 &346254691
 MonoBehaviour:
