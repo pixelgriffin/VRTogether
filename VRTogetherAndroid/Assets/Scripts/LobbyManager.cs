@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using VRTogether.Net;
 
 public class LobbyManager : MonoBehaviour {
 
@@ -14,19 +15,18 @@ public class LobbyManager : MonoBehaviour {
 
 	public Text roomCodeText;
 
+	private MacrogameClient macrogameClient;
+
+	void Start ()
+	{
+		macrogameClient = GetComponent<MacrogameClient>();
+
+	}
+
 	public void JoinLobby ()
 	{
 		if (code != string.Empty)
 		{
-			//A test code used to bring up the lobby screen for demo purposes
-			if (code == "DEMO")
-			{
-				ipPanel.SetActive(false);
-				codePanel.SetActive(false);
-				lobbyPanel.SetActive(true);
-
-			}
-
 			roomCodeText.text = "Room Code: " + code;
 
 			//Actual code to connect here...
@@ -36,12 +36,18 @@ public class LobbyManager : MonoBehaviour {
 
 			}
 
+			string ip = "";
+
 			if (code.Length == 4)
 			{
 				//Get the IP corresponding to the room code here
 
+			} else {
+				ip = code;
+
 			}
 
+			macrogameClient.AttemptConnection(ip);
 
 
 		}
@@ -56,7 +62,9 @@ public class LobbyManager : MonoBehaviour {
 
 	public void SetUsername (string newUsername)
 	{
-		username = newUsername.ToUpper();
+		username = newUsername;
+
+		macrogameClient.playerName = username;
 
 	}
 
