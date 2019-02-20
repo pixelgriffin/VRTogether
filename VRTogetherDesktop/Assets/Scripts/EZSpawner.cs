@@ -22,4 +22,9 @@ public class EZSpawner : MonoBehaviour {
             }
         }
 	}
+
+    public bool HasObjectSpawned()
+    {
+        return !doSpawn;
+    }
 }

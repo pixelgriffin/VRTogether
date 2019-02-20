@@ -8,18 +8,19 @@ public class GyroscopeController : MonoBehaviour {
 
     //Quaternion orientation;
 
-	// Use this for initialization
 	void Start () {
+
         Input.gyro.enabled = true;
+       
         //orientation = Quaternion.identity;
 	}
-	
-	// Update is called once per frame
+
 	void Update () {
+
         /*Vector3 accelInput = Input.acceleration;
         Vector3 gyroInput = Mathf.Deg2Rad * (Input.gyro.attitude.eulerAngles);
         FuseSensorData(gyroInput, accelInput);*/
-        
+
         Quaternion orientation = Input.gyro.attitude;
         transform.localRotation = Quaternion.Euler(90, 0, 0);
         transform.localRotation *= new Quaternion(
@@ -65,3 +66,5 @@ public class GyroscopeController : MonoBehaviour {
         orientation = q;
     }*/
 }
+
+
