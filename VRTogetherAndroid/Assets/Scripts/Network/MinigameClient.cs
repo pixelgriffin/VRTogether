@@ -28,6 +28,7 @@ namespace VRTogether.Net
                 client.RegisterHandler(MiniMsgType.MiniRequestDestroySlave, OnNetDestroyRequested);
 
                 client.RegisterHandler(MiniMsgType.MiniBoolVar, OnBooleanVariableReceived);
+                client.RegisterHandler(MiniMsgType.MiniIntVar, OnIntegerVariableReceived);                 client.RegisterHandler(MiniMsgType.MiniFloatVar, OnFloatVariableReceived);
 
                 if (SceneManager.GetActiveScene().name == MacrogameClient.Instance.GetMinigameSceneToLoad())
                 {

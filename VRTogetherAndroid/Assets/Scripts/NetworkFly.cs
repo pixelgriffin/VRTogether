@@ -26,7 +26,7 @@ public class NetworkFly : MonoBehaviour {
         //if this is not a slave, set camera to active and enable joystick canvas if using joystick controls
         if (!MinigameClient.Instance.networkedPrefabs.IsSlave(id.netID))
         {
-            GameObject.Find("FlyOverviewCamera").GetComponent<Camera>().enabled = false;
+            GameObject.Find("FlyOverviewCamera").GetComponent<Camera>().enabled = true;
             camera.enabled = true;
             if (!GetComponent<FlyControlSwitch>().useGyroControls)
             {
