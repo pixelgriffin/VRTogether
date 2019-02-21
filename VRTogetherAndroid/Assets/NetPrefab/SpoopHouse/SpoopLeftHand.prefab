@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4728119272282614}
   - component: {fileID: 114434180848181938}
+  - component: {fileID: 114684631417103424}
   m_Layer: 0
   m_Name: SpoopLeftHand
   m_TagString: Untagged
@@ -52,3 +53,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   netID: 
+--- !u!114 &114684631417103424
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1939300567581096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e93fbcdfdc30b441b71881604b827fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetName: VRLeft
