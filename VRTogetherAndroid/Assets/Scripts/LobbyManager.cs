@@ -12,10 +12,12 @@ public class LobbyManager : MonoBehaviour {
 	public GameObject codePanel;
 	public GameObject ipPanel;
 	public GameObject lobbyPanel;
+	public GameObject errorText;
 
 	public Text roomCodeText;
 
 	private MacrogameClient macrogameClient;
+	private string ip = string.Empty;
 
 	void Start ()
 	{
@@ -36,18 +38,21 @@ public class LobbyManager : MonoBehaviour {
 
 			}
 
-			string ip = "";
-
 			if (code.Length == 4)
 			{
 				//Get the IP corresponding to the room code here
+				transform.GetComponent<CodeToIP>().Submit(code);
 
 			} else {
 				ip = code;
+				errorText.SetActive(false);
+
+				macrogameClient.AttemptConnection(ip);
 
 			}
 
-			macrogameClient.AttemptConnection(ip);
+			//Debug.Log("Wow shit bork, we got the ip:" + ip);
+
 
 
 		}
@@ -93,6 +98,25 @@ public class LobbyManager : MonoBehaviour {
 		// It is a string formatted as a valid IP, will not know if it will connect based off of this though
 		return true;
 
+
+	}
+
+	public void SetIP ()
+	{
+		ip = transform.GetComponent<CodeToIP>().GetIP();
+
+		Debug.Log("Got IP: " + ip);
+
+		code = ip;
+
+		JoinLobby();
+
+	}
+
+	public void EnableError ()
+	{
+		Debug.Log("Invalid IP");
+		errorText.SetActive(true);
 
 	}
 }

@@ -14,6 +14,8 @@ public class CodeToIP : MonoBehaviour {
 
     private ServerRoomCode server;
 
+    private string ip = string.Empty;
+
 	void Start () {
         server = GetComponent<ServerRoomCode>();
 	}
@@ -23,7 +25,7 @@ public class CodeToIP : MonoBehaviour {
         Submit(input.text);
     }
 
-    private void Submit(string code)
+    public void Submit(string code)
     {
         StartCoroutine(SubmitCode(code));
     }
@@ -36,15 +38,30 @@ public class CodeToIP : MonoBehaviour {
         if (ips.isError)
         {
             Debug.Log(ips.errorMessage);
+            ip = "ERROR";
+
+            if (transform.GetComponent<LobbyManager>() != null)
+            {
+                transform.GetComponent<LobbyManager>().EnableError();
+
+            }
         }
         else
         {
-            Debug.Log("Trying to start client from code (" + code + ") with IP (" + ips.data.localIP + ")");
-            mgr.TryStartClient(ips.data.localIP);
+            //Debug.Log("Trying to start client from code (" + code + ") with IP (" + ips.data.localIP + ")");
+            //mgr.TryStartClient(ips.data.localIP);
+            ip = ips.data.localIP;
 
             OnCodeSubmitted.Invoke();
 
             //Debug.Log("Local IP recieved: " + ips.data.localIP);
         }
     }
+
+    public string GetIP ()
+    {
+        return ip;
+
+    }
+
 }

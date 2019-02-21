@@ -284,6 +284,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2134388983}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &60712410
@@ -766,6 +777,8 @@ GameObject:
   - component: {fileID: 164282062}
   - component: {fileID: 164282061}
   - component: {fileID: 164282063}
+  - component: {fileID: 164282064}
+  - component: {fileID: 164282065}
   m_Layer: 0
   m_Name: _LobbyManager
   m_TagString: Untagged
@@ -789,6 +802,7 @@ MonoBehaviour:
   codePanel: {fileID: 820395846}
   ipPanel: {fileID: 0}
   lobbyPanel: {fileID: 1699841786}
+  errorText: {fileID: 2134388983}
   roomCodeText: {fileID: 210113012}
 --- !u!4 &164282062
 Transform:
@@ -815,6 +829,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerName: Player
+--- !u!114 &164282064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 164282060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f50e3493c3d72f46ab600d50ec2e592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mgr: {fileID: 0}
+  input: {fileID: 0}
+  OnCodeSubmitted:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 164282061}
+        m_MethodName: SetIP
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+--- !u!114 &164282065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 164282060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 722275427e3edc94897b2ab972e0533f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serverDeployment: vrt-dev
 --- !u!1 &210113010
 GameObject:
   m_ObjectHideFlags: 0
