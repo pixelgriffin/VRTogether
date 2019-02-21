@@ -325,7 +325,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8be917d827cb22a47a18d677a69c9860, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkedPrefabs: {fileID: 11400000, guid: f9107f92f4b2fc94488ea8ca012eac61, type: 2}
+  networkedPrefabs: {fileID: 11400000, guid: 4f1484356a01f9e478200c8186116974, type: 2}
 --- !u!4 &1729449685
 Transform:
   m_ObjectHideFlags: 0

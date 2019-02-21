@@ -8,7 +8,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7bdb170ba4a4d404d9860ca56aa9a85a, type: 3}
+  m_Script: {fileID: 11500000, guid: 00a1827f593babb48a27328361db6583, type: 3}
   m_Name: SpoopPrefabList
   m_EditorClassIdentifier: 
   prefabs:

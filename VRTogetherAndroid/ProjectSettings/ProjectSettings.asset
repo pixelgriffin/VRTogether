@@ -841,7 +841,7 @@ PlayerSettings:
   cloudServicesEnabled:
     UNet: 1
   facebookSdkVersion: 7.9.4
-  apiCompatibilityLevel: 2
+  apiCompatibilityLevel: 3
   cloudProjectId: a347e6b3-1108-46dc-a3ce-8461cc61409d
   projectName: VRTogetherAndroid
   organizationId: alex-k-1365776
