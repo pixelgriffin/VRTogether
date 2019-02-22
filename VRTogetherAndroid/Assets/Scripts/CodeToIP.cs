@@ -30,6 +30,11 @@ public class CodeToIP : MonoBehaviour {
         StartCoroutine(SubmitCode(code));
     }
 
+    /*
+        Modified to not start the game, instead it stores the returned IP and invokes the event.
+        Add functions to the event in the editor to modify the behavior for what should happen once
+        an IP is returned.
+     */
     private IEnumerator SubmitCode(string code)
     {
 
