@@ -72,10 +72,10 @@ public class ServerRoomCode : MonoBehaviour {
         outData(parsedData);
     }
 
-    bool AssertIP(string ip, out string reason) {
+    public bool AssertIP(string ip, out string reason) {
         string[] nums = ip.Split('.');
         if (nums.Length != 4) {
-            reason = "INVALID IP: parse error";
+            reason = "INVALID IP: nums.Length != 4 (" + nums.Length + ")";
             return false;
         }
         foreach (string number in nums) {
@@ -88,7 +88,7 @@ public class ServerRoomCode : MonoBehaviour {
             }
             else
             {
-                reason = "INVALID IP: parse error";
+                reason = "INVALID IP: int parse error";
                 return false;
             }
         }
