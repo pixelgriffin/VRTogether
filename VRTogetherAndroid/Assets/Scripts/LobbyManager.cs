@@ -18,10 +18,12 @@ public class LobbyManager : MonoBehaviour {
 
 	private MacrogameClient macrogameClient;
 	private string ip = string.Empty;
+	private ServerRoomCode thisCode;
 
 	void Start ()
 	{
 		macrogameClient = GetComponent<MacrogameClient>();
+		thisCode = GetComponent<ServerRoomCode>();
 
 	}
 
@@ -30,11 +32,25 @@ public class LobbyManager : MonoBehaviour {
 		if (code != string.Empty)
 		{
 			roomCodeText.text = "Room Code: " + code;
+			string failReason = "";
+
+			string testip = "111.111.111.111";
+			Debug.Log(testip.Split('.').Length);
 
 			//Actual code to connect here...
-			if (code.Length != 4 && code.Length != 15) //If it is not an IP or a Code
+			if ((code.Length != 4 && code.Length != 15) || (code.Length == 15 && !thisCode.AssertIP(code, out failReason))) //If it is not an IP or a Code
 			{
 				//Fail the request immediately
+				EnableError ();
+
+				//If it failed because of the Assert, print why
+				if (failReason != "") 
+				{
+					Debug.Log("IP Parse Error =\'" + failReason + "\' for input \'" + code + "\'");
+
+				}
+
+				return;
 
 			}
 
