@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CupController : MonoBehaviour {
 
+	public bool inControl = true;
+
 	public GameObject director;  // The arrow which spins below the cup
 	public SpriteRenderer directorSprite;
 	public float directorRotateSpeed = 5f;  // Degress/s
@@ -19,6 +21,8 @@ public class CupController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		directorStartScale = director.transform.localScale;
+
+		SetInControl (inControl);
 		
 	}
 	
@@ -64,5 +68,22 @@ public class CupController : MonoBehaviour {
 			director.transform.Rotate(Vector3.forward * directorRotateSpeed * Time.deltaTime);
 
 		}
+	}
+
+	void OnTriggerEnter (Collider col)
+	{
+		if (col.tag == "Ball")
+		{
+			Debug.Log("Score!");
+
+		}
+
+	}
+
+	public void SetInControl (bool state)
+	{
+		director.SetActive (state);
+		this.enabled = state;
+
 	}
 }
