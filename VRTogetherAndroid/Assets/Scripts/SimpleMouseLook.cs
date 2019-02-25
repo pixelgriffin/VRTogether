@@ -32,8 +32,21 @@ public class SimpleMouseLook : MonoBehaviour {
 
 		if (Input.GetMouseButton(0) && rotate) 
 		{
-			rotation.y += Input.GetAxis ("Mouse X");
-			rotation.x += -Input.GetAxis ("Mouse Y");
+			
+
+			if (Input.touchCount > 0)
+			{
+				rotation.x += Input.touches[0].deltaPosition.y;
+				rotation.y -= Input.touches[0].deltaPosition.x;
+
+			} else
+			{
+				rotation.y += Input.GetAxis ("Mouse X");
+				rotation.x += -Input.GetAxis ("Mouse Y");
+					
+			}
+
+			rotation.x = Mathf.Clamp(rotation.x, 0, 60);
 			transform.eulerAngles = (Vector2)rotation * speed;
 
 		}

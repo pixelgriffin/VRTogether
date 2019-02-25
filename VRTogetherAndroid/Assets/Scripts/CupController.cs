@@ -54,7 +54,7 @@ public class CupController : MonoBehaviour {
 		if (Input.GetMouseButton(0))
 		{
 			timeHeldRatio = 1 - (-(Time.time - (directorChargeTime + directorHoldStartTime)) / directorChargeTime);
-
+			timeHeldRatio = Mathf.Clamp(timeHeldRatio, 0f, 1f);
 			//Grow the arrow
 			directorSprite.color = powerColors.Evaluate(timeHeldRatio);
 			director.transform.localScale = Vector3.Lerp(directorStartScale, directorChargeScale, timeHeldRatio);
