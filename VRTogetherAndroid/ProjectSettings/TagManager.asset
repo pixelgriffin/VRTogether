@@ -8,6 +8,7 @@ TagManager:
   - Grape
   - DropZone
   - Swatter
+  - Ball
   layers:
   - Default
   - TransparentFX
