@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FlySwatter.unity
     guid: 18ed3c224d7a5404b847337a448049bd
+  - enabled: 1
+    path: Assets/Scenes/SpoopHouse.unity
+    guid: c7e47d06fe58a354bbd41f13cb7becad
   m_configObjects: {}
