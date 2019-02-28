@@ -6,6 +6,9 @@ using Valve.VR;
 
 public class PlayerController : MonoBehaviour {
 
+    public GameObject chickenFeed;
+    public float feedForce;
+
     private int feedLayerMask = 1 << 8;
     private LineRenderer aimAssist;
 
@@ -35,7 +38,7 @@ public class PlayerController : MonoBehaviour {
         if (hit)
         {
             // if raycast hit something, set end position to that thing
-            Debug.Log("Aim assist hit something");
+            //Debug.Log("Aim assist hit something");
             /*
             float distance = Vector3.Distance(
                 transform.position,
@@ -46,7 +49,7 @@ public class PlayerController : MonoBehaviour {
         else
         {
             // default end position is the forward vector * radius of level
-            Debug.Log("Hitting nothing");
+            //Debug.Log("Hitting nothing");
             aimEndPos = transform.position + transform.forward * 10f;
         }
 
@@ -56,7 +59,12 @@ public class PlayerController : MonoBehaviour {
         float distance = Vector3.Distance(aimStartPos, aimEndPos);
         aimAssist.materials[0].mainTextureScale = new Vector3(distance, 1, 1);
 
-        transform.Rotate(Vector3.up, 5.0f * Time.deltaTime);
+        // check for input
+        if (SteamVR_Input._default.inActions.GrabPinch.GetStateDown(SteamVR_Input_Sources.RightHand))
+        {
+            GameObject feedInstance = Instantiate(chickenFeed, transform.position, Quaternion.identity);
+            feedInstance.GetComponent<Rigidbody>().AddForce(transform.forward * feedForce);
+        }
 		
 	}
 }
