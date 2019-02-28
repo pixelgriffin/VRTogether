@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour {
     public GameObject chickenFeed;
     public float feedForce;
 
-    private int feedLayerMask = 1 << 8;
     private LineRenderer aimAssist;
 
     private Vector3 aimStartPos;
@@ -28,28 +27,20 @@ public class PlayerController : MonoBehaviour {
 
         RaycastHit hitInfo;
         bool hit = Physics.Raycast(transform.position, transform.forward, out hitInfo, 10f);
-        Debug.DrawRay(transform.position, transform.forward * 10, Color.yellow);
+        //Debug.DrawRay(transform.position, transform.forward * 10, Color.yellow);
 
         // set start position for aim assist line
         aimStartPos = transform.position;
 
-
         // set end position for aim assist line
         if (hit)
         {
-            // if raycast hit something, set end position to that thing
-            //Debug.Log("Aim assist hit something");
-            /*
-            float distance = Vector3.Distance(
-                transform.position,
-                hitInfo.transform.position);\
-            */               
+            // if raycast hit something, set end position to that thing              
             aimEndPos = hitInfo.point;
         }
         else
         {
             // default end position is the forward vector * radius of level
-            //Debug.Log("Hitting nothing");
             aimEndPos = transform.position + transform.forward * 10f;
         }
 
@@ -65,6 +56,6 @@ public class PlayerController : MonoBehaviour {
             GameObject feedInstance = Instantiate(chickenFeed, transform.position, Quaternion.identity);
             feedInstance.GetComponent<Rigidbody>().AddForce(transform.forward * feedForce);
         }
-		
-	}
+
+    }
 }

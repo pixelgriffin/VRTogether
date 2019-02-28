@@ -177,6 +177,13 @@ public class LevelGenerator : MonoBehaviour {
             networkDataSent = true;
         }
 
+        // for testing
+        if (Input.GetKey(KeyCode.Mouse0))
+        {
+            MinigameServer.Instance.NetworkDestroy(
+                GameObject.Find("Chicken(Clone)"));
+        }
+
     }
 
     public int[] GetSpaceStats()
