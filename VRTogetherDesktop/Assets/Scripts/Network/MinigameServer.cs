@@ -235,6 +235,8 @@ namespace VRTogether.Net
 
         private void OnBooleanVariableReceived(NetworkMessage msg)
         {
+            Debug.Log("Boolean variable received");
+
             BooleanVarMessage boolMsg = msg.ReadMessage<BooleanVarMessage>();
 
             //Process the information for us
