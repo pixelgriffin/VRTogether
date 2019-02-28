@@ -2,22 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SimpleMouseLook : MonoBehaviour {
+public class SimpleTouchLook : MonoBehaviour {
 
-	public GameObject cameraGO;
-	public Camera camera;
+    public Transform target;  // The target to fix this gameOjbect's position to
+    public float targetFollowSpeed = 3f;
+
+    public Camera myCamera;
 
 	Vector2 rotation = new Vector2 (0, 0);
     public float speed = 3;
 	bool rotate = false;
 
+    public string[] tagsToHit;  // If the ray hits an object with this tag, do not rotate
+
 	void Start ()
 	{
-		camera.transform.LookAt (transform.position);
+		myCamera.transform.LookAt (transform.position);
 
 	}
 
     void Update () {
+        transform.position = Vector3.Lerp(transform.position, target.position, Time.deltaTime * targetFollowSpeed);
+
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
 		if (Input.GetMouseButtonDown(0))
