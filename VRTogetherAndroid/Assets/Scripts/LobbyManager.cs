@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using VRTogether.Net;
 
 public class LobbyManager : MonoBehaviour {
 
@@ -11,36 +12,71 @@ public class LobbyManager : MonoBehaviour {
 	public GameObject codePanel;
 	public GameObject ipPanel;
 	public GameObject lobbyPanel;
+	public GameObject errorText;
 
 	public Text roomCodeText;
+
+	private MacrogameClient macrogameClient;
+	private string ip = string.Empty;
+	private ServerRoomCode thisCode;
+
+	void Start ()
+	{
+		macrogameClient = GetComponent<MacrogameClient>();
+		thisCode = GetComponent<ServerRoomCode>();
+
+	}
 
 	public void JoinLobby ()
 	{
 		if (code != string.Empty)
 		{
-			//A test code used to bring up the lobby screen for demo purposes
-			if (code == "DEMO")
-			{
-				ipPanel.SetActive(false);
-				codePanel.SetActive(false);
-				lobbyPanel.SetActive(true);
-
-			}
+            Debug.Log("Recieved code: " + code);
 
 			roomCodeText.text = "Room Code: " + code;
+			string failReason = "";
+
+			string testip = "111.111.111.111";
+			Debug.Log(testip.Split('.').Length);
 
 			//Actual code to connect here...
-			if (code.Length != 4 && code.Length != 15) //If it is not an IP or a Code
+			if (code.Length != 4 && !thisCode.AssertIP(code, out failReason)) //If it is not an IP or a Code
 			{
 				//Fail the request immediately
+				EnableError ();
+
+                Debug.Log("Failed in JoinLobby() Length=" + code.Length);
+
+				//If it failed because of the Assert, print why
+				if (failReason != "") 
+				{
+					Debug.Log("IP Parse Error =\'" + failReason + "\' for input \'" + code + "\'");
+
+				}
+                else
+                {
+                    Debug.Log("No fail reason given.");
+
+                }
+
+                return;
 
 			}
 
 			if (code.Length == 4)
 			{
 				//Get the IP corresponding to the room code here
+				transform.GetComponent<CodeToIP>().Submit(code);
+
+			} else {
+				ip = code;
+				errorText.SetActive(false);
+
+				MacrogameClient.Instance.AttemptConnection(ip);
 
 			}
+
+			//Debug.Log("Wow shit bork, we got the ip:" + ip);
 
 
 
@@ -56,7 +92,9 @@ public class LobbyManager : MonoBehaviour {
 
 	public void SetUsername (string newUsername)
 	{
-		username = newUsername.ToUpper();
+		username = newUsername;
+
+		MacrogameClient.Instance.playerName = username;
 
 	}
 
@@ -85,6 +123,25 @@ public class LobbyManager : MonoBehaviour {
 		// It is a string formatted as a valid IP, will not know if it will connect based off of this though
 		return true;
 
+
+	}
+
+	public void SetIP ()
+	{
+		ip = transform.GetComponent<CodeToIP>().GetIP();
+
+		Debug.Log("Got IP: " + ip);
+
+		code = ip;
+
+		JoinLobby();
+
+	}
+
+	public void EnableError ()
+	{
+		Debug.Log("Invalid IP");
+		errorText.SetActive(true);
 
 	}
 }
