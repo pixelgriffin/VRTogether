@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ChickenShooter.unity
     guid: ef8ca36e189ed48cd80c9ec6734d2b4a
+  - enabled: 1
+    path: Assets/Scenes/CupHunt.unity
+    guid: 9263e4ba3e2504a24bbf05a43c421107
   m_configObjects: {}
