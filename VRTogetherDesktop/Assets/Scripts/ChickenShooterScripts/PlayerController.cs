@@ -8,17 +8,21 @@ public class PlayerController : MonoBehaviour {
 
     public GameObject chickenFeed;
     public float feedForce;
+    public float shootTimer = 2.0f;
 
     private LineRenderer aimAssist;
 
     private Vector3 aimStartPos;
     private Vector3 aimEndPos;
 
+    private float timeSinceLastShot;
+
 	// Use this for initialization
 	void Start () {
 
         aimAssist = GetComponent<LineRenderer>();
         aimAssist.enabled = true;
+        timeSinceLastShot = shootTimer;
 
     }
 	
@@ -44,17 +48,28 @@ public class PlayerController : MonoBehaviour {
             aimEndPos = transform.position + transform.forward * 10f;
         }
 
+        // draw the line
         Vector3[] positions = { aimStartPos, aimEndPos };
         aimAssist.SetPositions(positions);
 
-        float distance = Vector3.Distance(aimStartPos, aimEndPos);
-        aimAssist.materials[0].mainTextureScale = new Vector3(distance, 1, 1);
+        // accumulate timer
+        timeSinceLastShot += Time.deltaTime;
 
         // check for input
-        if (SteamVR_Input._default.inActions.GrabPinch.GetStateDown(SteamVR_Input_Sources.RightHand))
+        if ((SteamVR_Input._default.inActions.GrabPinch.GetStateDown(SteamVR_Input_Sources.RightHand) ||
+            Input.GetKey(KeyCode.Space)) &&
+            timeSinceLastShot >= shootTimer)
         {
-            GameObject feedInstance = Instantiate(chickenFeed, transform.position, Quaternion.identity);
-            feedInstance.GetComponent<Rigidbody>().AddForce(transform.forward * feedForce);
+            // spawn bullet over network (make sure bullet is a networked prefab)
+            if (MinigameServer.Instance.AllPlayersReady())
+            {
+                GameObject feedInstance = MinigameServer.Instance.NetworkInstantiate(chickenFeed);
+                feedInstance.transform.position = this.transform.position;
+                feedInstance.GetComponent<Rigidbody>().AddForce(transform.forward * feedForce);
+            }
+
+            // reset timer
+            timeSinceLastShot = 0.0f;
         }
 
     }

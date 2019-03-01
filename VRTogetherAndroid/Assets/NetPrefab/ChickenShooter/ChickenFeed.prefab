@@ -23,8 +23,7 @@ GameObject:
   - component: {fileID: 23651608603422798}
   - component: {fileID: 135263832919299976}
   - component: {fileID: 54510037081485816}
-  - component: {fileID: 114127752302406964}
-  - component: {fileID: 114942686850761874}
+  - component: {fileID: 114620863956669876}
   m_Layer: 0
   m_Name: ChickenFeed
   m_TagString: Untagged
@@ -102,7 +101,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &114127752302406964
+--- !u!114 &114620863956669876
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -110,19 +109,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1631852410736416}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01331b9be6ebe4e1cabb151431c34a57, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  secondsToDestroy: 1
---- !u!114 &114942686850761874
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1631852410736416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd35eddd9d0e3c544aded1c319894980, type: 3}
+  m_Script: {fileID: 11500000, guid: e57425fdca27fc0418f93ab52c52129b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   netID: 
