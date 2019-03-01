@@ -8,6 +8,8 @@ TagManager:
   - Grape
   - DropZone
   - Swatter
+  - Ball
+  - Cup
   layers:
   - Default
   - TransparentFX
@@ -18,9 +20,11 @@ TagManager:
   - 
   - 
   - PostProcessing
+  - Cup
+  - Static
+  - RenderOnTop
   - Ground
   - Wall
-  - 
   - 
   - 
   - 
