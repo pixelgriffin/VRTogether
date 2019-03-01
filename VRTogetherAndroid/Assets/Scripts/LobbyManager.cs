@@ -31,6 +31,8 @@ public class LobbyManager : MonoBehaviour {
 	{
 		if (code != string.Empty)
 		{
+            Debug.Log("Recieved code: " + code);
+
 			roomCodeText.text = "Room Code: " + code;
 			string failReason = "";
 
@@ -38,10 +40,12 @@ public class LobbyManager : MonoBehaviour {
 			Debug.Log(testip.Split('.').Length);
 
 			//Actual code to connect here...
-			if ((code.Length != 4 && code.Length != 15) || (code.Length == 15 && !thisCode.AssertIP(code, out failReason))) //If it is not an IP or a Code
+			if (code.Length != 4 && !thisCode.AssertIP(code, out failReason)) //If it is not an IP or a Code
 			{
 				//Fail the request immediately
 				EnableError ();
+
+                Debug.Log("Failed in JoinLobby() Length=" + code.Length);
 
 				//If it failed because of the Assert, print why
 				if (failReason != "") 
@@ -49,8 +53,13 @@ public class LobbyManager : MonoBehaviour {
 					Debug.Log("IP Parse Error =\'" + failReason + "\' for input \'" + code + "\'");
 
 				}
+                else
+                {
+                    Debug.Log("No fail reason given.");
 
-				return;
+                }
+
+                return;
 
 			}
 
@@ -63,7 +72,7 @@ public class LobbyManager : MonoBehaviour {
 				ip = code;
 				errorText.SetActive(false);
 
-				macrogameClient.AttemptConnection(ip);
+				MacrogameClient.Instance.AttemptConnection(ip);
 
 			}
 
@@ -85,7 +94,7 @@ public class LobbyManager : MonoBehaviour {
 	{
 		username = newUsername;
 
-		macrogameClient.playerName = username;
+		MacrogameClient.Instance.playerName = username;
 
 	}
 
