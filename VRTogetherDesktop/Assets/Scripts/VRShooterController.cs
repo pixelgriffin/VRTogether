@@ -4,12 +4,13 @@ using UnityEngine;
 using VRTogether.Net;
 using Valve.VR;
 
-public class PlayerController : MonoBehaviour {
+public class VRShooterController : MonoBehaviour {
 
-    public GameObject chickenFeed;
-    public float feedForce;
-    public float shootTimer = 2.0f;
+    public GameObject projectile;
+    public float projectileForce;
+    public float shootTimer = 1.0f;
 
+    public float aimAssistDistance = 10.0f;
     private LineRenderer aimAssist;
 
     private Vector3 aimStartPos;
@@ -30,7 +31,7 @@ public class PlayerController : MonoBehaviour {
 	void Update () {
 
         RaycastHit hitInfo;
-        bool hit = Physics.Raycast(transform.position, transform.forward, out hitInfo, 10f);
+        bool hit = Physics.Raycast(transform.position, transform.forward, out hitInfo, aimAssistDistance);
         //Debug.DrawRay(transform.position, transform.forward * 10, Color.yellow);
 
         // set start position for aim assist line
@@ -45,7 +46,7 @@ public class PlayerController : MonoBehaviour {
         else
         {
             // default end position is the forward vector * radius of level
-            aimEndPos = transform.position + transform.forward * 10f;
+            aimEndPos = transform.position + transform.forward * aimAssistDistance;
         }
 
         // draw the line
@@ -63,9 +64,9 @@ public class PlayerController : MonoBehaviour {
             // spawn bullet over network (make sure bullet is a networked prefab)
             if (MinigameServer.Instance.AllPlayersReady())
             {
-                GameObject feedInstance = MinigameServer.Instance.NetworkInstantiate(chickenFeed);
+                GameObject feedInstance = MinigameServer.Instance.NetworkInstantiate(projectile);
                 feedInstance.transform.position = this.transform.position;
-                feedInstance.GetComponent<Rigidbody>().AddForce(transform.forward * feedForce);
+                feedInstance.GetComponent<Rigidbody>().AddForce(transform.forward * projectileForce);
             }
 
             // reset timer

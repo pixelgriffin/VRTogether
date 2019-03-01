@@ -361,7 +361,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!120 &1270911520
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -532,10 +532,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7984206d5f91d42e3af3924b92b0d06a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chickenFeed: {fileID: 1631852410736416, guid: c4562293ba6a94a5a8e09a7d90926a45,
-    type: 2}
-  feedForce: 4000
-  shootTimer: 2
+  projectile: {fileID: 1631852410736416, guid: c4562293ba6a94a5a8e09a7d90926a45, type: 2}
+  projectileForce: 4000
+  shootTimer: 1
+  aimAssistDistance: 10
 --- !u!1 &1505248477 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 160596, guid: dc06161b6d97feb419f45f03b62e14b9,
@@ -644,10 +644,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7984206d5f91d42e3af3924b92b0d06a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chickenFeed: {fileID: 1631852410736416, guid: c4562293ba6a94a5a8e09a7d90926a45,
-    type: 2}
-  feedForce: 4000
-  shootTimer: 2
+  projectile: {fileID: 1631852410736416, guid: c4562293ba6a94a5a8e09a7d90926a45, type: 2}
+  projectileForce: 4000
+  shootTimer: 1
+  aimAssistDistance: 10
 --- !u!1 &1890833179
 GameObject:
   m_ObjectHideFlags: 0
