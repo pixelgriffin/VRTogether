@@ -23,6 +23,8 @@ TagManager:
   - Cup
   - Static
   - RenderOnTop
+  - Ground
+  - Wall
   - 
   - 
   - 
