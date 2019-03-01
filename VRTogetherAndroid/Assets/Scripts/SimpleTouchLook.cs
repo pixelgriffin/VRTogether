@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SimpleTouchLook : MonoBehaviour {
 
@@ -11,9 +12,11 @@ public class SimpleTouchLook : MonoBehaviour {
 
 	Vector2 rotation = new Vector2 (0, 0);
     public float speed = 3;
-	bool rotate = false;
+	public bool rotate = false;
 
-    public string[] tagsToHit;  // If the ray hits an object with this tag, do not rotate
+    public string[] layersToHit;  // If the ray hits an object in this layer, do not rotate
+
+    public UnityEvent onLayerHit; // Run these actions when an object in the layers above is hit
 
 	void Start ()
 	{
@@ -24,19 +27,38 @@ public class SimpleTouchLook : MonoBehaviour {
     void Update () {
         transform.position = Vector3.Lerp(transform.position, target.position, Time.deltaTime * targetFollowSpeed);
 
-		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
 
 		if (Input.GetMouseButtonDown(0))
 		{
-			rotate = !Physics.Raycast(ray, 100);
+            Vector2 touchPosition = Input.mousePosition;
 
-		} else if (Input.GetMouseButtonUp(0))
+            if (Input.touchCount > 0)
+            {
+                touchPosition = Input.touches[0].position;
+
+            }
+
+            Ray ray = Camera.main.ScreenPointToRay(touchPosition);
+            RaycastHit hit;
+
+            Debug.DrawLine(ray.origin, ray.GetPoint(1000), Color.red);
+
+            rotate = !Physics.Raycast(ray, out hit, 1000, LayerMask.GetMask(layersToHit));
+            
+            if (!rotate)
+            {
+                hit.transform.GetComponentInParent<CupController>().SetCharge(true);
+
+            }
+
+        } else if (Input.GetMouseButtonUp(0))
 		{
 			rotate = false;
 		}
 
 
-		if (Input.GetMouseButton(0) && rotate) 
+        if (Input.GetMouseButton(0) && rotate) 
 		{
 			
 

@@ -18,6 +18,8 @@ public class CupController : MonoBehaviour {
 
 	public Gradient powerColors;
 
+    private bool canCharge = false;
+
 	// Use this for initialization
 	void Start () {
 		directorStartScale = director.transform.localScale;
@@ -34,13 +36,15 @@ public class CupController : MonoBehaviour {
 
 			When the mouse is first released, apply the charged force 
 		 */
-		if (Input.GetMouseButtonDown(0))
+		if (Input.GetMouseButtonDown(0) && canCharge)
 		{
 			directorHoldStartTime = Time.time;
 
-		} else if (Input.GetMouseButtonUp(0))
+		} else if (Input.GetMouseButtonUp(0) && canCharge)
 		{
 			GetComponent<Rigidbody>().AddForce (director.transform.up * timeHeldRatio * moveForceMax);
+
+            canCharge = false;
 
 		}
 
@@ -51,7 +55,7 @@ public class CupController : MonoBehaviour {
 			Else reset the color and scale of the director (this doesn't need to be done every frame) and rotate it
 
 		 */
-		if (Input.GetMouseButton(0))
+		if (Input.GetMouseButton(0) && canCharge)
 		{
 			timeHeldRatio = 1 - (-(Time.time - (directorChargeTime + directorHoldStartTime)) / directorChargeTime);
 			timeHeldRatio = Mathf.Clamp(timeHeldRatio, 0f, 1f);
@@ -76,6 +80,9 @@ public class CupController : MonoBehaviour {
 		{
 			Debug.Log("Score!");
 
+            col.GetComponent<Rigidbody>().isKinematic = true;
+            col.transform.SetParent(transform);
+
 		}
 
 	}
@@ -86,4 +93,10 @@ public class CupController : MonoBehaviour {
 		this.enabled = state;
 
 	}
+
+    public void SetCharge (bool state)
+    {
+        canCharge = state;
+
+    }
 }
