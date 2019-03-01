@@ -804,6 +804,7 @@ MonoBehaviour:
   lobbyPanel: {fileID: 1699841786}
   errorText: {fileID: 2134388983}
   roomCodeText: {fileID: 210113012}
+  playerListText: {fileID: 549793984}
 --- !u!4 &164282062
 Transform:
   m_ObjectHideFlags: 0
@@ -829,6 +830,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerName: Player
+  lobbyManager: {fileID: 164282061}
 --- !u!114 &164282064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1500,13 +1502,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Players Connected:
-
-    <color=#ff00ffff>Bryce</color>
-
-    Ronn
-
-    Alex'
+  m_Text: 'Players Connected:'
 --- !u!222 &549793985
 CanvasRenderer:
   m_ObjectHideFlags: 0

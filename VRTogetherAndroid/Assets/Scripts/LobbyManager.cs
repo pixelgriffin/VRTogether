@@ -15,6 +15,7 @@ public class LobbyManager : MonoBehaviour {
 	public GameObject errorText;
 
 	public Text roomCodeText;
+    public Text playerListText;
 
 	private MacrogameClient macrogameClient;
 	private string ip = string.Empty;
@@ -144,4 +145,29 @@ public class LobbyManager : MonoBehaviour {
 		errorText.SetActive(true);
 
 	}
+
+    public void SwitchToLobby ()
+    {
+        lobbyPanel.SetActive(true);
+        codePanel.SetActive(false);
+
+    }
+
+    public void AddPlayerNameToPlayerList (string name)
+    {
+        string nameList = playerListText.text;
+
+        if (name == MacrogameClient.Instance.playerName)
+        {
+            nameList += "\n<color=#ff00ffff>" + name + "</color>";
+
+        } else
+        {
+            nameList += "\n" + name;
+
+        }
+
+        playerListText.text = nameList;
+
+    }
 }

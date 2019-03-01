@@ -10,6 +10,8 @@ namespace VRTogether.Net
 
         public string playerName = "Player";
 
+        public LobbyManager lobbyManager = null;
+
         private bool isListening = false;
 
         private NetworkClient client;
@@ -64,17 +66,28 @@ namespace VRTogether.Net
         }
 
         private void OnPlayerJoined(NetworkMessage msg)
-        {
+        { 
+
             StringMessage nameMsg = msg.ReadMessage<StringMessage>();
 
-            if(nameMsg.str == playerName)
+            Debug.Log("Player " + nameMsg.str + " Joined");
+
+            if (nameMsg.str == playerName)
             {
                 //We were accepted by the server
+                if (lobbyManager)
+                {
+                    lobbyManager.SwitchToLobby();
+
+                }
             }
             else
             {
                 //Another player has joined
             }
+
+            lobbyManager.AddPlayerNameToPlayerList(nameMsg.str);
+
         }
 
         private void OnServerRejectedName(NetworkMessage msg)
