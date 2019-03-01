@@ -28,13 +28,19 @@ namespace VRTogether.Net
                 client.RegisterHandler(MiniMsgType.MiniRequestDestroySlave, OnNetDestroyRequested);
 
                 client.RegisterHandler(MiniMsgType.MiniBoolVar, OnBooleanVariableReceived);
-                client.RegisterHandler(MiniMsgType.MiniIntVar, OnIntegerVariableReceived);                 client.RegisterHandler(MiniMsgType.MiniFloatVar, OnFloatVariableReceived);
+                client.RegisterHandler(MiniMsgType.MiniIntVar, OnIntegerVariableReceived);
+                client.RegisterHandler(MiniMsgType.MiniFloatVar, OnFloatVariableReceived);
 
                 if (SceneManager.GetActiveScene().name == MacrogameClient.Instance.GetMinigameSceneToLoad())
                 {
                     client.Send(MacroMsgType.MacroClientMinigameReady, new EmptyMessage());
                     MacrogameClient.Instance.ClearMinigameSceneToLoad();
+                    Debug.Log("Initial message sent");
                 }
+            }
+            else
+            {
+                Debug.Log("Error. Client is null!");
             }
         }
 
@@ -200,6 +206,7 @@ namespace VRTogether.Net
 
         private void OnIntegerVariableReceived(NetworkMessage msg)
         {
+            Debug.Log("Message received");
             IntegerVarMessage intMsg = msg.ReadMessage<IntegerVarMessage>();
 
             //Process the information for us
@@ -207,6 +214,7 @@ namespace VRTogether.Net
             if (vars.TryGetValue(intMsg.networkID + "-" + intMsg.varName, out netInt))
             {
                 ((NetworkInt)netInt).value = intMsg.value;
+                Debug.Log("Network variable set");
             }
         }
 
