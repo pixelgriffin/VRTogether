@@ -9,6 +9,8 @@ TagManager:
   - Server
   - Grape
   - DropZone
+  - projectile
+  - FxTemporaire
   layers:
   - Default
   - TransparentFX
@@ -18,7 +20,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Chicken
   - 
   - 
   - 
