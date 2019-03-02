@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ChickenController : MonoBehaviour {
 
@@ -12,10 +13,15 @@ public class ChickenController : MonoBehaviour {
     public float gravity = -5.0f;
 
     private GameObject chicken;
-    private Rigidbody chickenRB;
     private CharacterController chickenCtrl;
     private Vector3 velocity;
+
+    // ui controls
+    private GameObject canvas;
+    private ChickenUIControls controls;
+
     private bool grounded = false;
+    private bool movingUp, movingDown, movingLeft, movingRight, jumping;
 
 	// Use this for initialization
 	void Start () {
@@ -25,6 +31,11 @@ public class ChickenController : MonoBehaviour {
         chickenCtrl = chicken.GetComponent<CharacterController>();
 
         velocity = Vector3.zero;
+
+        canvas = GameObject.Find("Canvas");
+        canvas.GetComponent<Canvas>().enabled = true;
+        controls = canvas.transform.GetChild(0).gameObject.
+            GetComponent<ChickenUIControls>();
 		
 	}
 	
@@ -45,17 +56,24 @@ public class ChickenController : MonoBehaviour {
             velocity.y = 0f;
         }
 
-        if (Input.GetKey(KeyCode.W))
+        movingUp = controls.IsUpPressed() || Input.GetKey(KeyCode.W);
+        movingDown = controls.IsDownPressed() || Input.GetKey(KeyCode.S);
+        movingLeft = controls.IsLeftPressed() || Input.GetKey(KeyCode.A);
+        movingRight = controls.IsRightPressed() || Input.GetKey(KeyCode.D);
+        jumping = (controls.IsScreenPressed() || Input.GetKey(KeyCode.Space)) 
+            && grounded;
+
+        if (movingUp)
         {
             this.transform.Rotate(Vector3.up, 1.0f * Time.deltaTime * zMoveSpeed);
         }
 
-        if (Input.GetKey(KeyCode.S))
+        if (movingDown)
         {
             this.transform.Rotate(Vector3.up, -1.0f * Time.deltaTime * zMoveSpeed);
         }
 
-        if (Input.GetKey(KeyCode.A))
+        if (movingLeft)
         {
             //Vector3 movement = chicken.transform.TransformDirection(Vector3.left) * Time.deltaTime * xMoveSpeed;
             velocity += chicken.transform.TransformDirection(Vector3.left) * Time.deltaTime * xMoveSpeed;
@@ -71,7 +89,7 @@ public class ChickenController : MonoBehaviour {
             */
         }
 
-        if (Input.GetKey(KeyCode.D))
+        if (movingRight)
         {
             //Vector3 movement = chicken.transform.TransformDirection(Vector3.right) * Time.deltaTime * xMoveSpeed;
             velocity += chicken.transform.TransformDirection(Vector3.right) * Time.deltaTime * xMoveSpeed;
@@ -86,7 +104,7 @@ public class ChickenController : MonoBehaviour {
             */
         }
 
-        if (Input.GetKey(KeyCode.Space) && grounded)
+        if (jumping)
             velocity.y += Mathf.Sqrt(jumpHeight * -2f * gravity * mass);
 
         if (grounded)

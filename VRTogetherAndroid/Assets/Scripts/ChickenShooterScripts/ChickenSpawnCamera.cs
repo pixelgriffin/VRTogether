@@ -17,18 +17,19 @@ public class ChickenSpawnCamera : MonoBehaviour {
 
         id = GetComponent<NetworkID>();
 
-        //create a camera with the same transform as the fly and parent it
-        GameObject cameraObject = Instantiate(
-            GameObject.Find("EmptyObject"),
-            this.transform);
-        cameraObject.transform.localPosition = cameraPos;
-        cameraObject.transform.LookAt(this.transform);
-        camera = cameraObject.AddComponent<Camera>();
-        camera.name = "camera_" + id.netID;
-
         if (!MinigameClient.Instance.networkedPrefabs.IsSlave(id.netID))
         {
-            GameObject.Find("ChickenOverviewCamera").GetComponent<Camera>().enabled = true;
+
+            //create a camera with the same transform as the chicken and parent it
+            GameObject cameraObject = Instantiate(
+                GameObject.Find("EmptyObject"),
+                this.transform);
+            cameraObject.transform.localPosition = cameraPos;
+            cameraObject.transform.LookAt(this.transform);
+            camera = cameraObject.AddComponent<Camera>();
+            camera.name = "camera_" + id.netID;
+
+            GameObject.Find("ChickenOverviewCamera").GetComponent<Camera>().enabled = false;
             camera.enabled = true;
         }
     }
