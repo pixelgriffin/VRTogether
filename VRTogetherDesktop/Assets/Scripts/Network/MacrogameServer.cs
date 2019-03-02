@@ -103,8 +103,11 @@ namespace VRTogether.Net
         {
             foreach (MacrogamePlayer player in macroPlayerList)
             {
+
                 StringMessage playerName = new StringMessage();
                 playerName.str = player.name;
+
+                Debug.Log("Sending player name: " + playerName.str);
 
                 NetworkServer.SendToClient(
                     netMsg.conn.connectionId,
