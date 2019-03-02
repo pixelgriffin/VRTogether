@@ -44,7 +44,7 @@ public class LobbyManager : MonoBehaviour {
 			if (code.Length != 4 && !thisCode.AssertIP(code, out failReason)) //If it is not an IP or a Code
 			{
 				//Fail the request immediately
-				EnableError ();
+				EnableError ("Invalid code or IP.");
 
                 Debug.Log("Failed in JoinLobby() Length=" + code.Length);
 
@@ -139,9 +139,10 @@ public class LobbyManager : MonoBehaviour {
 
 	}
 
-	public void EnableError ()
+	public void EnableError (string error)
 	{
-		Debug.Log("Invalid IP");
+		Debug.Log(error);
+        errorText.GetComponent<Text>().text = error;
 		errorText.SetActive(true);
 
 	}

@@ -3500,7 +3500,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Invalid code or IP, connection failed.
+  m_Text: Generic Error Message. If you see this, :(
 --- !u!222 &2134388986
 CanvasRenderer:
   m_ObjectHideFlags: 0
