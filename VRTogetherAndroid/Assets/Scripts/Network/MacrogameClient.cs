@@ -54,6 +54,11 @@ namespace VRTogether.Net
             }
         }
 
+        public void Disconnect()
+        {
+            client.Shutdown();
+        }
+
         public NetworkClient GetClient()
         {
             return client;
