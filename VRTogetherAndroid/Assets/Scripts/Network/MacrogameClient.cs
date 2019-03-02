@@ -118,6 +118,8 @@ namespace VRTogether.Net
         {
             StringMessage nameMsg = msg.ReadMessage<StringMessage>();
             lobbyManager.AddPlayerNameToPlayerList(nameMsg.str);
+
+            lobbyManager.ClearPlayerList();
         }
     }
 }

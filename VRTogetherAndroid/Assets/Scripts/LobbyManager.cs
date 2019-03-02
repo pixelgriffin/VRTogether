@@ -171,4 +171,10 @@ public class LobbyManager : MonoBehaviour {
         playerListText.text = nameList;
 
     }
+
+    public void ClearPlayerList ()
+    {
+        playerListText.text = "Players Connected:";
+
+    }
 }
