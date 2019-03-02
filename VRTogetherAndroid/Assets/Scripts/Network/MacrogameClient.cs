@@ -57,6 +57,8 @@ namespace VRTogether.Net
         public void Disconnect()
         {
             client.Shutdown();
+
+            isListening = false;
         }
 
         public NetworkClient GetClient()
