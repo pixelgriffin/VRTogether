@@ -46,6 +46,7 @@ namespace VRTogether.Net
                 client.RegisterHandler(MacroMsgType.MacroServerPlayerJoined, OnPlayerJoined);
                 client.RegisterHandler(MacroMsgType.MacroServerLoadMinigame, OnServerLoadMinigame);
                 client.RegisterHandler(MacroMsgType.MacroServerStartMinigame, OnMinigameStarted);
+                client.RegisterHandler(MacroMsgType.MacroClientSendPlayerName, OnReceivedPlayerName);
 
                 client.Connect(ip, 4444);
                 isListening = true;
@@ -109,6 +110,12 @@ namespace VRTogether.Net
 
         private void OnMinigameStarted(NetworkMessage msg)
         {
+        }
+
+        private void OnReceivedPlayerName(NetworkMessage msg)
+        {
+            StringMessage nameMsg = msg.ReadMessage<StringMessage>();
+            lobbyManager.AddPlayerNameToPlayerList(nameMsg.str);
         }
     }
 }

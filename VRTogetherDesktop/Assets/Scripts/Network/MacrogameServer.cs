@@ -101,6 +101,17 @@ namespace VRTogether.Net
 
         private void OnPlayerConnected(NetworkMessage netMsg)
         {
+            foreach (MacrogamePlayer player in macroPlayerList)
+            {
+                StringMessage playerName = new StringMessage();
+                playerName.str = player.name;
+
+                NetworkServer.SendToClient(
+                    netMsg.conn.connectionId,
+                    MacroMsgType.MacroServerSendPlayerName,
+                    playerName);
+            }
+
             NetworkServer.SendToClient(netMsg.conn.connectionId, MacroMsgType.MacroServerRequestPlayerName, new EmptyMessage());
         }
 
