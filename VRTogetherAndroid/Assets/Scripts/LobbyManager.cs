@@ -177,4 +177,12 @@ public class LobbyManager : MonoBehaviour {
         playerListText.text = "Players Connected:";
 
     }
+
+    public void RemovePlayerFromPlayerList (string name)
+    {
+        Debug.Log("removing " + name);
+
+        playerListText.text = playerListText.text.Replace("\n" + name, "");
+
+    }
 }

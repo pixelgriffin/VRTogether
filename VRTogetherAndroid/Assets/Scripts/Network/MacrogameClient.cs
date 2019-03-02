@@ -100,6 +100,10 @@ namespace VRTogether.Net
         private void OnPlayerLeft(NetworkMessage msg)
         {
             //lobbyManager.ClearPlayerList();
+            StringMessage nameMsg = msg.ReadMessage<StringMessage>();
+
+
+            lobbyManager.RemovePlayerFromPlayerList(nameMsg.str);
         }
 
         private void OnServerRejectedName(NetworkMessage msg)
