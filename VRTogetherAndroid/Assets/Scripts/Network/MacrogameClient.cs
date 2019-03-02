@@ -97,6 +97,8 @@ namespace VRTogether.Net
             client.Shutdown();
             client = null;
             isListening = false;
+
+            lobbyManager.EnableError("Name taken, please pick a new name in Options.");
         }
 
         private void OnServerLoadMinigame(NetworkMessage msg)

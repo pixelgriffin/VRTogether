@@ -47,7 +47,7 @@ public class CodeToIP : MonoBehaviour {
 
             if (transform.GetComponent<LobbyManager>() != null)
             {
-                transform.GetComponent<LobbyManager>().EnableError();
+                transform.GetComponent<LobbyManager>().EnableError("Invalid code or IP, connection failed.");
 
             }
         }
