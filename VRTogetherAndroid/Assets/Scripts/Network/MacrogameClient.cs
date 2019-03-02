@@ -99,6 +99,9 @@ namespace VRTogether.Net
             isListening = false;
 
             lobbyManager.EnableError("Name taken, please pick a new name in Options.");
+
+            lobbyManager.ClearPlayerList();
+
         }
 
         private void OnServerLoadMinigame(NetworkMessage msg)
@@ -119,7 +122,6 @@ namespace VRTogether.Net
             StringMessage nameMsg = msg.ReadMessage<StringMessage>();
             lobbyManager.AddPlayerNameToPlayerList(nameMsg.str);
 
-            lobbyManager.ClearPlayerList();
         }
     }
 }
