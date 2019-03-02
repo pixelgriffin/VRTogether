@@ -44,6 +44,7 @@ namespace VRTogether.Net
                 client.RegisterHandler(MacroMsgType.MacroServerRequestPlayerName, OnServerRequestsName);
                 client.RegisterHandler(MacroMsgType.MacroServerRejectPlayerName, OnServerRejectedName);
                 client.RegisterHandler(MacroMsgType.MacroServerPlayerJoined, OnPlayerJoined);
+                client.RegisterHandler(MacroMsgType.MacroServerPlayerLeft, OnPlayerLeft);
                 client.RegisterHandler(MacroMsgType.MacroServerLoadMinigame, OnServerLoadMinigame);
                 client.RegisterHandler(MacroMsgType.MacroServerStartMinigame, OnMinigameStarted);
                 client.RegisterHandler(MacroMsgType.MacroServerSendPlayerName, OnReceivedPlayerName);
@@ -89,6 +90,11 @@ namespace VRTogether.Net
 
             lobbyManager.AddPlayerNameToPlayerList(nameMsg.str);
 
+        }
+
+        private void OnPlayerLeft(NetworkMessage msg)
+        {
+            //lobbyManager.ClearPlayerList();
         }
 
         private void OnServerRejectedName(NetworkMessage msg)
