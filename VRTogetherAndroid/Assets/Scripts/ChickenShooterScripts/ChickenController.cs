@@ -21,6 +21,11 @@ public class ChickenController : MonoBehaviour {
     private ChickenUIControls controls;
 
     private bool grounded = false;
+    private bool backCollisionWall = false;
+    private bool frontCollisionWall = false;
+    private bool leftCollisionWall = false;
+    private bool rightCollisionWall = false;
+    private bool collidingWithWall = false;
     private bool movingUp, movingDown, movingLeft, movingRight, jumping;
 
 	// Use this for initialization
@@ -49,6 +54,34 @@ public class ChickenController : MonoBehaviour {
             1 << 12
             );
 
+        frontCollisionWall = Physics.CheckBox(
+            chicken.transform.position + chicken.transform.forward * 0.25f,
+            new Vector3(0.05f, 0.05f, 0.2f),
+            Quaternion.identity,
+            1 << 13
+            );
+
+        backCollisionWall = Physics.CheckBox(
+            chicken.transform.position - chicken.transform.forward * 0.25f,
+            new Vector3(0.05f, 0.05f, 0.2f),
+            Quaternion.identity,
+            1 << 13
+            );
+
+        leftCollisionWall = Physics.CheckBox(
+            chicken.transform.position - chicken.transform.right * 0.25f,
+            new Vector3(0.2f, 0.05f, 0.05f),
+            Quaternion.identity,
+            1 << 13
+            );
+
+        rightCollisionWall = Physics.CheckBox(
+            chicken.transform.position + chicken.transform.right * 0.25f,
+            new Vector3(0.2f, 0.05f, 0.05f),
+            Quaternion.identity,
+            1 << 13
+            );
+
         velocity.x = 0f;
         velocity.z = 0f;
         if (grounded && velocity.y <= 0f)
@@ -63,54 +96,28 @@ public class ChickenController : MonoBehaviour {
         jumping = (controls.IsScreenPressed() || Input.GetKey(KeyCode.Space)) 
             && grounded;
 
-        if (movingUp)
+        if (movingUp && !frontCollisionWall)
         {
             this.transform.Rotate(Vector3.up, 1.0f * Time.deltaTime * zMoveSpeed);
         }
 
-        if (movingDown)
+        if (movingDown && !backCollisionWall)
         {
             this.transform.Rotate(Vector3.up, -1.0f * Time.deltaTime * zMoveSpeed);
         }
 
-        if (movingLeft)
+        if (movingLeft && !leftCollisionWall)
         {
-            //Vector3 movement = chicken.transform.TransformDirection(Vector3.left) * Time.deltaTime * xMoveSpeed;
             velocity += chicken.transform.TransformDirection(Vector3.left) * Time.deltaTime * xMoveSpeed;
-            //chicken.transform.Translate(movement, Space.Self);
-            //chickenCtrl.Move(movement);
-            /*
-            chickenRB.AddRelativeForce(-xMoveSpeed, 0, 0, ForceMode.VelocityChange);
-            Debug.Log(chickenRB.GetRelativePointVelocity(transform.position));
-            if (chickenRB.GetRelativePointVelocity(transform.position).x > maxVelocityX)
-            {
-                chickenRB.AddRelativeForce(xMoveSpeed, 0, 0, ForceMode.VelocityChange);
-            }
-            */
         }
 
-        if (movingRight)
+        if (movingRight && !rightCollisionWall)
         {
-            //Vector3 movement = chicken.transform.TransformDirection(Vector3.right) * Time.deltaTime * xMoveSpeed;
             velocity += chicken.transform.TransformDirection(Vector3.right) * Time.deltaTime * xMoveSpeed;
-            //chicken.transform.Translate(movement, Space.Self);
-            //chickenCtrl.Move(movement);
-            /*
-            chickenRB.AddRelativeForce(xMoveSpeed, 0, 0, ForceMode.VelocityChange);
-            if (chickenRB.GetRelativePointVelocity(transform.position).x < -maxVelocityX)
-            {
-                chickenRB.AddRelativeForce(-xMoveSpeed, 0, 0, ForceMode.VelocityChange);
-            }
-            */
         }
 
         if (jumping)
             velocity.y += Mathf.Sqrt(jumpHeight * -2f * gravity * mass);
-
-        if (grounded)
-        {
-            Debug.Log("Grounded at " + Time.time);
-        }
 
         velocity.y += gravity * mass * Time.deltaTime;
 

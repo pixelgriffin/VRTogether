@@ -25,7 +25,7 @@ public enum FloorSpace
 public class LevelGenerator : MonoBehaviour {
 
     public const int spaceCount = 36;
-    public const int minNoFloor = 10, maxNoFloor = 15;
+    public const int minNoFloor = 10, maxNoFloor = 13;
 
     private int[] spaceStats;
 
@@ -40,7 +40,7 @@ public class LevelGenerator : MonoBehaviour {
     private void Awake()
     {
         // list to hold all floors (this excludes noFloors)
-        List<int> floorList = new List<int>(spaceCount);
+        List<int> floorList = new List<int>();
 
         // list to hold stats about all spaces
         spaceStats = new int[spaceCount];
@@ -61,67 +61,61 @@ public class LevelGenerator : MonoBehaviour {
         // generate all floors as not noFloors initially
         spaceStats[0] = (int)FloorSpace.WALLS;
         floorList.Add(0);
-        for (int i = 1; i < spaceCount - 1; i++)
+        spaceStats[1] = (int)FloorSpace.WALLS;
+        floorList.Add(1);
+        spaceStats[2] = (int)FloorSpace.WALLS;
+        floorList.Add(2);
+        for (int i = 3; i < spaceCount - 2; i++)
         {
             spaceStats[i] = Random.Range(1, 4);
 
             // initialize floor list with index
             floorList.Add(i);
         }
+        spaceStats[spaceCount - 2] = (int)FloorSpace.WALLS;
+        floorList.Add(spaceCount - 2);
         spaceStats[spaceCount - 1] = (int)FloorSpace.WALLS;
         floorList.Add(spaceCount - 1);
 
         // for all noFloors remaining, pick a random spot on the list to place
-        // it, then add the noFloor to the array of all spaces, then delete 
-        // that floor and the floors adjacent to it on the list each iteration
+        // it, if this is an invalid place, find the next space that is valid
         for (int i = 0; i < noFloorCount; i++)
         {
             // generate random spot on list of floors
-            int floorIndex = Random.Range(1, floorList.Count - 1);
+            int floorIndex = Random.Range(3, floorList.Count - 2);
+            Debug.Log("no floor at " + floorIndex);
 
-            // set space to noFloor
-            //try
-            //{
-                spaceStats[floorList[floorIndex]] = (int)FloorSpace.NO_FLOOR;
-            //}
-            //catch
-            //{
-            //    Debug.Log("Exception thrown at size " + floorList.Count);
-            //    Debug.Log("floor index = " + floorIndex);
-            //}
-
-
-            // remove adjacent floors
-            if (floorIndex == 1)
+            // iterate until valid space is reached
+            int index = floorIndex;
+            while (spaceStats[index - 1] == (int)FloorSpace.NO_FLOOR
+                || spaceStats[index] == (int)FloorSpace.NO_FLOOR
+                || spaceStats[index + 1] == (int)FloorSpace.NO_FLOOR)
             {
-                if (floorList.Count > 2)
+                if (index == floorList.Count - 3)
                 {
-                    floorList.RemoveAt(floorIndex + 1);
-                    floorList.RemoveAt(floorIndex);
+                    index = 3;
                 }
                 else
                 {
-                //    try
-                //    {
-                       floorList.RemoveAt(floorIndex);
-                //    }
-                //    catch
-                //    {
-                //        Debug.Log("Exception thrown at size " + floorList.Count);
-                //        Debug.Log("floor index = " + floorIndex);
-                //    }
+                    index++;
                 }
+                
+                if (index == floorIndex)
+                {
+                    throw new System.Exception();
+                }
+            }
+            floorIndex = index;
 
-            }
-            else if (floorIndex == floorList.Count - 2)
+            // set space to noFloor
+            try
             {
-                floorList.RemoveAt(floorIndex);
-                floorList.RemoveAt(floorIndex - 1);
+                spaceStats[floorList[floorIndex]] = (int)FloorSpace.NO_FLOOR;
             }
-            else
+            catch
             {
-                floorList.RemoveAt(floorIndex + 1);
-                floorList.RemoveAt(floorIndex - 1);
+                Debug.Log("Exception thrown at size " + floorList.Count);
+                Debug.Log("floor index = " + floorIndex);
             }
         }
 
