@@ -28,7 +28,7 @@ GameObject:
   - component: {fileID: 114650309099353086}
   m_Layer: 14
   m_Name: Chicken
-  m_TagString: Untagged
+  m_TagString: Chicken
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
