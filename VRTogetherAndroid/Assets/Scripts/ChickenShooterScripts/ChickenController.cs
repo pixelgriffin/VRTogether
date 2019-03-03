@@ -46,7 +46,7 @@ public class ChickenController : MonoBehaviour {
             chicken.transform.position,
             new Vector3(0.2f, 0.5f, 0.2f),
             Quaternion.identity,
-            1 << 9
+            1 << 12
             );
 
         velocity.x = 0f;

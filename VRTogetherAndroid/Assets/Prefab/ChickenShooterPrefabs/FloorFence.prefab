@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 64278929575694034}
   - component: {fileID: 65159388097083228}
   - component: {fileID: 65549457368696106}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: FloorFence
   m_TagString: Untagged
   m_Icon: {fileID: 0}
