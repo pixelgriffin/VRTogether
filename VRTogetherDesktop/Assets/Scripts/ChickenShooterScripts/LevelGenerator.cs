@@ -157,7 +157,7 @@ public class LevelGenerator : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if (networkSendReady.value && !networkDataSent)
+        if (MinigameServer.Instance.AllPlayersReady() && !networkDataSent)
         {
             for (int i = 0; i < spaceCount; i++)
             {
