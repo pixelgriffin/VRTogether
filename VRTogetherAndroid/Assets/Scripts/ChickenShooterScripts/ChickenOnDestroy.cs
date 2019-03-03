@@ -9,13 +9,21 @@ public class ChickenOnDestroy : MonoBehaviour {
 
     private void Start()
     {
-
+        // check this id
+        id = GetComponent<NetworkID>();
+        if (!MinigameClient.Instance.networkedPrefabs.IsSlave(id.netID))
+        {
+            Debug.Log("Me: " + id.netID);
+        }
+        else
+        {
+            Debug.Log(id.netID);
+        }
     }
 
     public void OnDestroy()
     {
-        // check this id
-        id = GetComponent<NetworkID>();
+        Debug.Log(id.netID + " being destroyed");
 
         if (!MinigameClient.Instance.networkedPrefabs.IsSlave(id.netID))
         {
