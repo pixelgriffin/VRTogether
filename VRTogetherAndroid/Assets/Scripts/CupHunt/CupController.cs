@@ -30,7 +30,7 @@ public class CupController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        /**
+        /*
 			When the mouse is first held down, store the time
 
 			When the mouse is first released, apply the charged force 
@@ -49,7 +49,7 @@ public class CupController : MonoBehaviour {
 
 		}
 
-		/**
+		/*
 			While the mouse is held, find how long it has been held in terms of a ratio of 0 to 1 where 0 is the start time
 			and 1 is the end time, and use that ratio to scale the director and set its color
 
