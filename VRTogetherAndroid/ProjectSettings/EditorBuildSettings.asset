@@ -11,9 +11,12 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
-  - enabled: 1
+  - enabled: 0
     path: Assets/MacroScene.unity
     guid: b8a938423bf84894dae90dd62fa03793
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 06f600c75f0cd451e9675d525b2d9fcc
   - enabled: 1
     path: Assets/MiniScene.unity
     guid: 9b5add4ac273af043b104be32c9138fc

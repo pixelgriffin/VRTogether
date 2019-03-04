@@ -24,6 +24,8 @@ namespace VRTogether.Net
         public static short ObjectDestroy = MsgType.Highest + 13;
 
         public const short Highest = MsgType.Highest + 14;
+
+        public static short MacroServerSendPlayerName = MsgType.Highest + 15;
     }
 
     public class MiniMsgType

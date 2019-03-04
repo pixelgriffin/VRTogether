@@ -25,10 +25,10 @@ GameObject:
   - component: {fileID: 143039283230849824}
   - component: {fileID: 114047256385951010}
   - component: {fileID: 114746884856804432}
-  - component: {fileID: 114921220562422074}
-  m_Layer: 0
+  - component: {fileID: 114650309099353086}
+  m_Layer: 14
   m_Name: Chicken
-  m_TagString: Untagged
+  m_TagString: Chicken
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -112,6 +112,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   netID: 
+--- !u!114 &114650309099353086
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1086002431604188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d85210b7632284c68a040a2a5ab36446, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114746884856804432
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -124,17 +135,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraPos: {x: 0, y: 5, z: -5}
---- !u!114 &114921220562422074
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1086002431604188}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d85210b7632284c68a040a2a5ab36446, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!143 &143039283230849824
 CharacterController:
   m_ObjectHideFlags: 1

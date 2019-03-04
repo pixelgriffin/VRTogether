@@ -101,6 +101,20 @@ namespace VRTogether.Net
 
         private void OnPlayerConnected(NetworkMessage netMsg)
         {
+            foreach (MacrogamePlayer playerInLobby in macroPlayerList)
+            {
+
+                StringMessage playerName = new StringMessage();
+                playerName.str = playerInLobby.name;
+
+                Debug.Log("Sending player name: " + playerName.str);
+
+                NetworkServer.SendToClient(
+                    netMsg.conn.connectionId,
+                    MacroMsgType.MacroServerSendPlayerName,
+                    playerName);
+            }
+
             NetworkServer.SendToClient(netMsg.conn.connectionId, MacroMsgType.MacroServerRequestPlayerName, new EmptyMessage());
         }
 
@@ -151,6 +165,8 @@ namespace VRTogether.Net
             StringMessage acceptedMsg = new StringMessage();
             acceptedMsg.str = strMsg.str;
             NetworkServer.SendToAll(MacroMsgType.MacroServerPlayerJoined, acceptedMsg);
+
+
         }
 
         private void SendToAllBut(int connectionID, short msgType, MessageBase msg)

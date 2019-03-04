@@ -87,6 +87,8 @@ namespace VRTogether.Net
         /// <param name="id">The network id for this slave</param>
         public void NetworkUnslave(string id)
         {
+            Debug.Log("Unslaving " + id);
+
             NetworkID removeID = null;
             foreach (NetworkID slaveID in slaveNetObjs)
             {
@@ -99,8 +101,8 @@ namespace VRTogether.Net
 
             if (removeID != null)
             {
-                slaveNetObjs.Remove(removeID);
                 Destroy(removeID.gameObject);
+                //slaveNetObjs.Remove(removeID);
             }
         }
 

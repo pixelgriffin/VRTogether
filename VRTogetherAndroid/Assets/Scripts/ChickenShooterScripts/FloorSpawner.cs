@@ -26,84 +26,80 @@ public class FloorSpawner : MonoBehaviour {
     {
         //Debug.Log(spaceCount);
 
-        for (int i = 0; i < spaceCount; i++)
+        for (int i = 3; i < spaceCount - 1; i++)
         {
-            //Debug.Log("Creating space of type: " + spaceStats[i]);
-            if (i != 0 && i != spaceCount - 1)
+            Vector3 position = NextCirclePos(
+            transform.position,
+            radius,
+            i,
+            spaceCount);
+
+            Quaternion rotation = Quaternion.FromToRotation(
+                Vector3.forward,
+                transform.position - position);
+
+            /*
+            Debug.Log(
+                i + ": " +
+                rotation + ", " +
+                position + ", " +
+                position.x + "," +
+                position.z);
+            */
+
+            GameObject floorInstance = null;
+            switch (spaceStats[i])
             {
-                Vector3 position = NextCirclePos(
-                transform.position,
-                radius,
-                i,
-                spaceCount);
+                case (int)FloorSpace.NO_FLOOR:
+                    floorInstance = Instantiate(
+                        noFloor,
+                        position,
+                        rotation,
+                        transform);
+                    break;
 
-                Quaternion rotation = Quaternion.FromToRotation(
-                    Vector3.forward,
-                    transform.position - position);
+                case (int)FloorSpace.OPEN:
+                    floorInstance = Instantiate(
+                        floorOpen,
+                        position,
+                        rotation,
+                        transform);
+                    break;
 
-                /*
-                Debug.Log(
-                    i + ": " +
-                    rotation + ", " +
-                    position + ", " +
-                    position.x + "," +
-                    position.z);
-                */
+                case (int)FloorSpace.FENCES:
+                    floorInstance = Instantiate(
+                        floorFence,
+                        position,
+                        rotation,
+                        transform);
+                    break;
 
-                GameObject floorInstance = null;
-                switch (spaceStats[i])
-                {
-                    case (int)FloorSpace.NO_FLOOR:
-                        floorInstance = Instantiate(
-                            noFloor,
-                            position,
-                            rotation,
-                            transform);
-                        break;
+                case (int)FloorSpace.WALLS:
+                    floorInstance = Instantiate(
+                        floorWall,
+                        position,
+                        rotation,
+                        transform);
+                    break;
 
-                    case (int)FloorSpace.OPEN:
-                        floorInstance = Instantiate(
-                            floorOpen,
-                            position,
-                            rotation,
-                            transform);
-                        break;
-
-                    case (int)FloorSpace.FENCES:
-                        floorInstance = Instantiate(
-                            floorFence,
-                            position,
-                            rotation,
-                            transform);
-                        break;
-
-                    case (int)FloorSpace.WALLS:
-                        floorInstance = Instantiate(
-                            floorWall,
-                            position,
-                            rotation,
-                            transform);
-                        break;
-
-                    default:
-                        break;
-                }
-
-                floorInstance.name = "FloorPiece" + i;
-
-                // ensure last piece is rotated correctly
-                if (i == spaceCount - 1 && (360 % spaceCount) == 0)
-                {
-                    floorInstance.transform.Rotate(new Vector3(180, 180, 0));
-                }
-
-                // spawn walls
-                GameObject wallInstance = Instantiate(
-                    wall,
-                    floorInstance.transform);
-
-                //this.GetComponent<turretController>().turretSet.Add(turretInstance);
+                default:
+                    break;
             }
+
+            floorInstance.name = "FloorPiece" + i;
+
+            // ensure last piece is rotated correctly
+            if (i == spaceCount - 1 && (360 % spaceCount) == 0)
+            {
+                floorInstance.transform.Rotate(new Vector3(180, 180, 0));
+            }
+
+            // spawn walls
+            GameObject wallInstance = Instantiate(
+                wall,
+                floorInstance.transform);
+
+            //this.GetComponent<turretController>().turretSet.Add(turretInstance);
         }
     }
 
