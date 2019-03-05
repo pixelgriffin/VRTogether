@@ -20,6 +20,7 @@ public class FlyController : MonoBehaviour {
 
     void Start()
     {
+        controller = GetComponent<CharacterController>();
         joystick = GetComponent<JoystickController>();
         id = GetComponent<NetworkID>();
     }
