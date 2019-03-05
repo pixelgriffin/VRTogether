@@ -13,6 +13,7 @@ public class FlyController : MonoBehaviour {
 
     private bool shouldMove = false;
 
+    private CharacterController controller;
     private JoystickController joystick;
 
     private NetworkID id;
@@ -102,7 +103,8 @@ public class FlyController : MonoBehaviour {
 
     private void Move()
     {
-        transform.localPosition += transform.forward * Time.deltaTime * moveStep;
+        //transform.localPosition += transform.forward * Time.deltaTime * moveStep;
+        controller.Move(transform.forward * Time.deltaTime * moveStep);
         isMoving = true;
     }
 
