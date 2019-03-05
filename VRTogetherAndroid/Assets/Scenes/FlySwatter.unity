@@ -2055,12 +2055,57 @@ Prefab:
     - target: {fileID: 223410892680599412, guid: ec4f74566873f4aeb9515341ee76ce9d,
         type: 2}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114504475030736654, guid: ec4f74566873f4aeb9515341ee76ce9d,
         type: 2}
       propertyPath: joystickStaysInFixedPosition
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114817545217154338, guid: ec4f74566873f4aeb9515341ee76ce9d,
+        type: 2}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114817545217154338, guid: ec4f74566873f4aeb9515341ee76ce9d,
+        type: 2}
+      propertyPath: m_ReferenceResolution.x
+      value: 3840
+      objectReference: {fileID: 0}
+    - target: {fileID: 114817545217154338, guid: ec4f74566873f4aeb9515341ee76ce9d,
+        type: 2}
+      propertyPath: m_ReferenceResolution.y
+      value: 2160
+      objectReference: {fileID: 0}
+    - target: {fileID: 224721610413372612, guid: ec4f74566873f4aeb9515341ee76ce9d,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 224721610413372612, guid: ec4f74566873f4aeb9515341ee76ce9d,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 224824745374504840, guid: ec4f74566873f4aeb9515341ee76ce9d,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 224824745374504840, guid: ec4f74566873f4aeb9515341ee76ce9d,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 224721610413372612, guid: ec4f74566873f4aeb9515341ee76ce9d,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: -100
+      objectReference: {fileID: 0}
+    - target: {fileID: 224721610413372612, guid: ec4f74566873f4aeb9515341ee76ce9d,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec4f74566873f4aeb9515341ee76ce9d, type: 2}

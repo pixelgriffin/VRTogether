@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using VRTogether.Net;
 
 public class JoystickController : MonoBehaviour
 {
@@ -7,6 +8,10 @@ public class JoystickController : MonoBehaviour
     public int rotationSpeed = 8; // rotation speed of the player character
 
     private Vector3 rightJoystickInput; // holds the input of the Right Joystick
+
+    private bool beingMoved;
+
+    private NetworkID id;
 
     void Start()
     {
@@ -22,17 +27,32 @@ public class JoystickController : MonoBehaviour
         {
             Debug.LogError("The target rotation game object is not attached.");
         }
+
+        id = GetComponent<NetworkID>();
     }
 
-    void FixedUpdate()
+    void Update()
     {
-        // get input from joystick
-        rightJoystickInput = rightJoystick.GetInputDirection();
-
-        float x = rightJoystickInput.x; // The horizontal movement from joystick 02
-        float y = rightJoystickInput.y; // The vertical movement from joystick 02
-
+        if (!MinigameClient.Instance.networkedPrefabs.IsSlave(id.netID))
         {
+            // get input from joystick
+            rightJoystickInput = rightJoystick.GetInputDirection();
+
+            float x = rightJoystickInput.x; // The horizontal movement from joystick 02
+            float y = rightJoystickInput.y; // The vertical movement from joystick 02
+
+            //Debug.Log("X: " + x + " Y: " + y);
+            if (System.Math.Abs(x) < 0.001f && System.Math.Abs(y) < 0.001f)
+            {
+                beingMoved = false;
+                Debug.Log("not moving");
+            }
+            else
+            {
+                beingMoved = true;
+                Debug.Log("moving");
+            }
+
             Vector3 rotation = rotationTarget.localRotation.eulerAngles;
             //Debug.Log("rotx: " + rotation.y);
             //Debug.Log("roty: " + rotation.x);
@@ -65,5 +85,10 @@ public class JoystickController : MonoBehaviour
                 //rotationTarget.localRotation = Quaternion.Euler(newRotation);
             }
         }
+    }
+
+    public bool IsBeingMoved()
+    {
+        return beingMoved;
     }
 }

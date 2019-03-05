@@ -18,14 +18,14 @@ public class NetworkFly : MonoBehaviour {
         id = GetComponent<NetworkID>();
         MinigameClient.Instance.RegisterVariable(id.netID, holdingGrape);
 
-        //create a camera with the same transform as the fly and parent it
-        GameObject cameraObject = Instantiate(GameObject.Find("EmptyObject"), this.transform);
-        camera = cameraObject.AddComponent<Camera>();
-        camera.name = "camera_" + id.netID;
-
         //if this is not a slave, set camera to active and enable joystick canvas if using joystick controls
         if (!MinigameClient.Instance.networkedPrefabs.IsSlave(id.netID))
         {
+            //create a camera with the same transform as the fly and parent it
+            GameObject cameraObject = Instantiate(GameObject.Find("EmptyObject"), this.transform);
+            camera = cameraObject.AddComponent<Camera>();
+            camera.name = "camera_" + id.netID;
+
             GameObject.Find("FlyOverviewCamera").GetComponent<Camera>().enabled = true;
             camera.enabled = true;
             if (!GetComponent<FlyControlSwitch>().useGyroControls)
