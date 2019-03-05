@@ -13,6 +13,7 @@ public class CupController : MonoBehaviour {
 	public float directorRotateSpeed = 5f;  // Degress/s
 	public float directorChargeTime = 3f;  // How long it takes for the director to fully charge
 	public float moveForceMax = 10f;
+    public float correctedForceDistanceOffset = 0.5f;  // [0, 10]
 	private float directorHoldStartTime;  // The time (float) that the mouse was started held down
 	private float timeHeldRatio;
 	public Vector3 directorChargeScale;  // The maximum scale for the director to reach
@@ -46,7 +47,17 @@ public class CupController : MonoBehaviour {
 
 		} else if (Input.GetMouseButtonUp(0) && isCharging)
 		{
-			GetComponent<Rigidbody>().AddForce (director.transform.up * timeHeldRatio * moveForceMax);
+            RaycastHit hit;
+            float correctedForce = timeHeldRatio * moveForceMax;
+
+            // If that path would make us collide with another cup, damp the force.
+            if (Physics.SphereCast(transform.position, 5f, director.transform.up, out hit, 10 * timeHeldRatio, LayerMask.GetMask("Cup")))
+            {
+                correctedForce = Mathf.Clamp(hit.distance - correctedForceDistanceOffset, 0, 10) / 10 * moveForceMax;
+
+            }
+
+			GetComponent<Rigidbody>().AddForce (director.transform.up * correctedForce);
 
             isCharging = false;
 
