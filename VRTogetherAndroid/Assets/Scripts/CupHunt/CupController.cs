@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VRTogether.Net;
 
 public class CupController : MonoBehaviour {
 
 	public bool inControl = true;
 
 	public GameObject director;  // The arrow which spins below the cup
+    public GameObject cameraOject;  // The camera object, spawns only for the cup which is not a slave
 	public SpriteRenderer directorSprite;
 	public float directorRotateSpeed = 5f;  // Degress/s
 	public float directorChargeTime = 3f;  // How long it takes for the director to fully charge
@@ -19,33 +21,36 @@ public class CupController : MonoBehaviour {
 	public Gradient powerColors;
 
     private bool isCharging = false;
+    private bool canCharge = false;  // Is this cup allowed to charge? (Player touching cup)
 
-	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
+        inControl = !MinigameClient.Instance.networkedPrefabs.IsSlave(GetComponent<NetworkID>().netID);
+
 		directorStartScale = director.transform.localScale;
 
 		SetInControl (inControl);
 		
 	}
 	
-	// Update is called once per frame
-	void Update () {
+	void Update () 
+    {
         /*
 			When the mouse is first held down, store the time
 
 			When the mouse is first released, apply the charged force 
 		 */
-        if (Input.GetMouseButtonDown(0) && !isCharging)
+        if (Input.GetMouseButtonDown(0) && !isCharging && canCharge)
 		{
-			directorHoldStartTime = Time.time;
-
-            isCharging = true;
+			
 
 		} else if (Input.GetMouseButtonUp(0) && isCharging)
 		{
 			GetComponent<Rigidbody>().AddForce (director.transform.up * timeHeldRatio * moveForceMax);
 
             isCharging = false;
+
+            canCharge = false;
 
 		}
 
@@ -93,11 +98,28 @@ public class CupController : MonoBehaviour {
 		director.SetActive (state);
 		this.enabled = state;
 
-	}
+        if (state)
+        {
+            GameObject newCam = Instantiate(cameraOject);
+            newCam.GetComponent<SimpleTouchLook>().target = transform;
 
-    public void SetCharge (bool state)
+        }
+
+    }
+
+    public void SetCanCharge (bool state)
     {
-        isCharging = state;
+        canCharge = state;
+
+        if (canCharge)
+        {
+            directorHoldStartTime = Time.time;
+
+            isCharging = true;
+
+        }
+
+
 
     }
 }

@@ -95,8 +95,12 @@ namespace VRTogether.Net
                 //Another player has joined
             }
 
-            lobbyManager.AddPlayerNameToPlayerList(nameMsg.str);
+            if (lobbyManager)
+            {
+                // If the lobby manager exists, add this player's name to the lobby list
+                lobbyManager.AddPlayerNameToPlayerList(nameMsg.str);
 
+            } 
         }
 
         private void OnPlayerLeft(NetworkMessage msg)
