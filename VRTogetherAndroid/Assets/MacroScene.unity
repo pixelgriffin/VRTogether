@@ -285,6 +285,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerName: pixelgriffin
+  lobbyManager: {fileID: 0}
 --- !u!4 &1987791527
 Transform:
   m_ObjectHideFlags: 0

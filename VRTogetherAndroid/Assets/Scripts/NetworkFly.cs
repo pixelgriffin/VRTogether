@@ -25,6 +25,7 @@ public class NetworkFly : MonoBehaviour {
             GameObject cameraObject = Instantiate(GameObject.Find("EmptyObject"), this.transform);
             camera = cameraObject.AddComponent<Camera>();
             camera.name = "camera_" + id.netID;
+            camera.nearClipPlane = 0.1f;
 
             GameObject.Find("FlyOverviewCamera").GetComponent<Camera>().enabled = true;
             camera.enabled = true;
