@@ -123,6 +123,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 12999141}
+  - component: {fileID: 12999142}
   m_Layer: 0
   m_Name: counter (1)
   m_TagString: Untagged
@@ -145,6 +146,18 @@ Transform:
   m_Father: {fileID: 1046718219}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &12999142
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 12999140}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.29, y: 2.03, z: 3.79}
+  m_Center: {x: 0.37, y: 1.01, z: -1.35}
 --- !u!1 &18644893
 GameObject:
   m_ObjectHideFlags: 0
@@ -704,6 +717,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 464598834}
+  - component: {fileID: 464598835}
   m_Layer: 0
   m_Name: counter
   m_TagString: Untagged
@@ -726,6 +740,18 @@ Transform:
   m_Father: {fileID: 1046718219}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!65 &464598835
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 464598833}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.25, y: 2.03, z: 3.54}
+  m_Center: {x: 0.38, y: 1.01, z: -1.48}
 --- !u!1 &501812455
 GameObject:
   m_ObjectHideFlags: 0
@@ -2125,6 +2151,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1118640715}
+  - component: {fileID: 1118640716}
   m_Layer: 0
   m_Name: CabinetGroup
   m_TagString: Untagged
@@ -2140,13 +2167,25 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1118640714}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.018892786, y: 0.08409343, z: -47.55362}
+  m_LocalPosition: {x: 0.018892786, y: 0.08409343, z: -47.05}
   m_LocalScale: {x: 2.6942573, y: 0.11645511, z: 0.053979408}
   m_Children:
   - {fileID: 118157646}
   m_Father: {fileID: 1046718219}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!65 &1118640716
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1118640714}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.13, y: 2.06, z: 3.64}
+  m_Center: {x: -3.99, y: 0.96, z: -1.37}
 --- !u!1001 &1124531054
 Prefab:
   m_ObjectHideFlags: 0
@@ -2245,6 +2284,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1168924187}
+  - component: {fileID: 1168924188}
   m_Layer: 0
   m_Name: counter (3)
   m_TagString: Untagged
@@ -2267,6 +2307,18 @@ Transform:
   m_Father: {fileID: 1046718219}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1168924188
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1168924186}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.18, y: 2.08, z: 3.68}
+  m_Center: {x: 0.41, y: 0.99, z: -1.36}
 --- !u!1 &1188419511
 GameObject:
   m_ObjectHideFlags: 0
@@ -2493,6 +2545,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1300920318}
+  - component: {fileID: 1300920319}
   m_Layer: 0
   m_Name: counter (2)
   m_TagString: Untagged
@@ -2515,6 +2568,18 @@ Transform:
   m_Father: {fileID: 1046718219}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1300920319
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1300920317}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.29, y: 2.03, z: 3.79}
+  m_Center: {x: 0.37, y: 1.01, z: -1.35}
 --- !u!1 &1335748195
 GameObject:
   m_ObjectHideFlags: 0
@@ -2743,6 +2808,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1434155976}
+  - component: {fileID: 1434155977}
   m_Layer: 0
   m_Name: Fridge
   m_TagString: Untagged
@@ -2765,6 +2831,18 @@ Transform:
   m_Father: {fileID: 1046718219}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!65 &1434155977
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1434155975}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.73, y: 5.58, z: 3.17}
+  m_Center: {x: -0.13, y: 3.12, z: -5.16}
 --- !u!1 &1573453808
 GameObject:
   m_ObjectHideFlags: 0
@@ -2806,6 +2884,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1630798320}
+  - component: {fileID: 1630798321}
   m_Layer: 0
   m_Name: Pantry
   m_TagString: Untagged
@@ -2828,6 +2907,18 @@ Transform:
   m_Father: {fileID: 1046718219}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1630798321
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1630798319}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.57, y: 5.62, z: 3.14}
+  m_Center: {x: -0.17, y: 3.09, z: -5.2}
 --- !u!1 &1716308501
 GameObject:
   m_ObjectHideFlags: 0
@@ -3064,6 +3155,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1988009329}
+  - component: {fileID: 1988009330}
   m_Layer: 0
   m_Name: CabinetGroup (1)
   m_TagString: Untagged
@@ -3086,6 +3178,18 @@ Transform:
   m_Father: {fileID: 1046718219}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1988009330
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1988009328}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.12, y: 2.02, z: 3.65}
+  m_Center: {x: -4.02, y: 0.97, z: -1.32}
 --- !u!1 &2092221833
 GameObject:
   m_ObjectHideFlags: 0
