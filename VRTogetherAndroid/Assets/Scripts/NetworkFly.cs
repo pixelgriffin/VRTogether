@@ -49,10 +49,10 @@ public class NetworkFly : MonoBehaviour {
         grape.SetActive(holdingGrape.value);//If we are holding a grape then show a grape
 	}
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collider)
     {
 
-        if(collision.collider.tag == "Grape")
+        if(collider.tag == "Grape")
         {
             //If we control this fly we should tell everyone else we now are holding a grape
             if (!MinigameClient.Instance.networkedPrefabs.IsSlave(id.netID) && !holdingGrape.value)
@@ -62,7 +62,7 @@ public class NetworkFly : MonoBehaviour {
                 Debug.Log("Picked up a grape!");
             }
         }
-        else if(collision.collider.tag == "DropZone")
+        else if(collider.tag == "DropZone")
         {
             //If it is us that touched the drop zone
             if (!MinigameClient.Instance.networkedPrefabs.IsSlave(id.netID))
