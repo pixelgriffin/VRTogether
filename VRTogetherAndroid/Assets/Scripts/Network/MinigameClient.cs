@@ -30,6 +30,8 @@ namespace VRTogether.Net
                 client.RegisterHandler(MiniMsgType.MiniBoolVar, OnBooleanVariableReceived);
                 client.RegisterHandler(MiniMsgType.MiniIntVar, OnIntegerVariableReceived);
                 client.RegisterHandler(MiniMsgType.MiniFloatVar, OnFloatVariableReceived);
+                client.RegisterHandler(MiniMsgType.MiniStringVar, OnStringVariableReceived);
+
 
                 if (SceneManager.GetActiveScene().name == MacrogameClient.Instance.GetMinigameSceneToLoad())
                 {
@@ -227,6 +229,18 @@ namespace VRTogether.Net
             if (vars.TryGetValue(floatMsg.networkID + "-" + floatMsg.varName, out netFloat))
             {
                 ((NetworkFloat)netFloat).value = floatMsg.value;
+            }
+        }
+
+        private void OnStringVariableReceived(NetworkMessage msg)
+        {
+            StringVarMessage stringMsg = msg.ReadMessage<StringVarMessage>();
+
+            //Process the information for us
+            NetworkVariable netString;
+            if (vars.TryGetValue(stringMsg.networkID + "-" + stringMsg.varName, out netString))
+            {
+                ((NetworkString)netString).value = stringMsg.value;
             }
         }
 

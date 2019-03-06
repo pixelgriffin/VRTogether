@@ -39,6 +39,8 @@ namespace VRTogether.Net
         public static short MiniBoolVar = MacroMsgType.Highest + 6;
         public static short MiniIntVar = MacroMsgType.Highest + 7;
         public static short MiniFloatVar = MacroMsgType.Highest + 8;
+        public static short MiniStringVar = MacroMsgType.Highest + 9;
+
     }
 
     public class EmptyMessage : MessageBase
@@ -83,5 +85,12 @@ namespace VRTogether.Net
         public string networkID;
         public string varName;
         public float value;
+    }
+
+    public class StringVarMessage : MessageBase
+    {
+        public string networkID;
+        public string varName;
+        public string value;
     }
 }

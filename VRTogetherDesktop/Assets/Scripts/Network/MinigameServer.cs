@@ -27,6 +27,8 @@ namespace VRTogether.Net
             NetworkServer.RegisterHandler(MiniMsgType.MiniBoolVar, OnBooleanVariableReceived);
             NetworkServer.RegisterHandler(MiniMsgType.MiniIntVar, OnIntegerVariableReceived);
             NetworkServer.RegisterHandler(MiniMsgType.MiniFloatVar, OnFloatVariableReceived);
+            NetworkServer.RegisterHandler(MiniMsgType.MiniStringVar, OnStringVariableReceived);
+
         }
 
         private void Update()
@@ -143,6 +145,16 @@ namespace VRTogether.Net
                 NetworkServer.SendToAll(MacroMsgType.MacroServerStartMinigame, new EmptyMessage());
                 gameStarted = true;
             }
+        }
+
+        public void SendStringToAll(NetworkString netString)
+        {
+            StringVarMessage stringMsg = new StringVarMessage();
+            stringMsg.networkID = netString.objID;
+            stringMsg.varName = netString.name;
+            stringMsg.value = netString.value;
+
+            NetworkServer.SendToAll(MiniMsgType.MiniStringVar, stringMsg);
         }
 
         public void SendBooleanToAll(NetworkBool netBool)
@@ -278,6 +290,21 @@ namespace VRTogether.Net
 
             //Forward the information to the other clients
             SendToAllBut(msg.conn.connectionId, MiniMsgType.MiniFloatVar, floatMsg);
+        }
+
+        private void OnStringVariableReceived(NetworkMessage msg)
+        {
+            StringVarMessage stringMsg = msg.ReadMessage<StringVarMessage>();
+
+            //Process the information for us
+            NetworkVariable netString;
+            if (vars.TryGetValue(stringMsg.networkID + "-" + stringMsg.varName, out netString))
+            {
+                ((NetworkString)netString).value = stringMsg.value;
+            }
+
+            //Forward the information to the other clients
+            SendToAllBut(msg.conn.connectionId, MiniMsgType.MiniStringVar, stringMsg);
         }
 
         private void SendToAllBut(int connectionID, short msgType, MessageBase msg)

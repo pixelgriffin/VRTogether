@@ -40,3 +40,14 @@ public class NetworkFloat : NetworkVariable
 
     public float value;
 }
+
+public class NetworkString : NetworkVariable
+{
+    public NetworkString(string localName, string val)
+    {
+        value = val;
+        name = localName;
+    }
+
+    public string value;
+}
