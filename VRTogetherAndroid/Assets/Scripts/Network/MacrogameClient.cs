@@ -3,14 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 namespace VRTogether.Net
 {
+    [System.Serializable]
+    public class StringEvent : UnityEvent<string>
+    {
+    }
+
     public class MacrogameClient : SingletonComponent<MacrogameClient> {
 
         public string playerName = "Player";
 
-        public LobbyManager lobbyManager = null;
+        [HideInInspector]
+        public UnityEvent OnNameRejected = new UnityEvent();
+        [HideInInspector]
+        public StringEvent OnWeJoinedServer = new StringEvent();
+        [HideInInspector]
+        public StringEvent OnOtherPlayerJoined = new StringEvent();
+        [HideInInspector]
+        public StringEvent OnPlayerNameReceived = new StringEvent();
+        [HideInInspector]
+        public StringEvent OnPlayerLeftServer = new StringEvent();
 
         private bool isListening = false;
 
@@ -33,6 +48,11 @@ namespace VRTogether.Net
         public void ClearMinigameSceneToLoad()
         {
             minigameSceneToLoad = "";
+        }
+
+        public bool IsConnected()
+        {
+            return (client != null && client.isConnected);
         }
 
         public void AttemptConnection(string ip)
@@ -61,6 +81,11 @@ namespace VRTogether.Net
             isListening = false;
         }
 
+        public void RequestNameList()
+        {
+            client.Send(MacroMsgType.MacroClientRequestNameList, new EmptyMessage());
+        }
+
         public NetworkClient GetClient()
         {
             return client;
@@ -84,19 +109,13 @@ namespace VRTogether.Net
             if (nameMsg.str == playerName)
             {
                 //We were accepted by the server
-                if (lobbyManager)
-                {
-                    lobbyManager.SwitchToLobby();
-
-                }
+                OnWeJoinedServer.Invoke(nameMsg.str);
             }
             else
             {
                 //Another player has joined
+                OnOtherPlayerJoined.Invoke(nameMsg.str);
             }
-
-            lobbyManager.AddPlayerNameToPlayerList(nameMsg.str);
-
         }
 
         private void OnPlayerLeft(NetworkMessage msg)
@@ -104,8 +123,7 @@ namespace VRTogether.Net
             //lobbyManager.ClearPlayerList();
             StringMessage nameMsg = msg.ReadMessage<StringMessage>();
 
-
-            lobbyManager.RemovePlayerFromPlayerList(nameMsg.str);
+            OnPlayerLeftServer.Invoke(nameMsg.str);
         }
 
         private void OnServerRejectedName(NetworkMessage msg)
@@ -115,10 +133,7 @@ namespace VRTogether.Net
             client = null;
             isListening = false;
 
-            lobbyManager.EnableError("Name taken, please pick a new name in Options.");
-
-            lobbyManager.ClearPlayerList();
-
+            OnNameRejected.Invoke();
         }
 
         private void OnServerLoadMinigame(NetworkMessage msg)
@@ -137,8 +152,8 @@ namespace VRTogether.Net
         private void OnReceivedPlayerName(NetworkMessage msg)
         {
             StringMessage nameMsg = msg.ReadMessage<StringMessage>();
-            lobbyManager.AddPlayerNameToPlayerList(nameMsg.str);
 
+            OnPlayerNameReceived.Invoke(nameMsg.str);
         }
     }
 }

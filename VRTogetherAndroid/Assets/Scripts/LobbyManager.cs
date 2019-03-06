@@ -18,15 +18,60 @@ public class LobbyManager : MonoBehaviour
     public Text roomCodeText;
     public Text playerListText;
 
-    private MacrogameClient macrogameClient;
     private string ip = string.Empty;
     private ServerRoomCode thisCode;
 
     void Start()
     {
-        macrogameClient = GetComponent<MacrogameClient>();
         thisCode = GetComponent<ServerRoomCode>();
 
+        MacrogameClient.Instance.OnNameRejected.AddListener(OnNameRejected);
+        MacrogameClient.Instance.OnWeJoinedServer.AddListener(OnWeJoinedServer);
+        MacrogameClient.Instance.OnOtherPlayerJoined.AddListener(OnOtherPlayerJoinedServer);
+        MacrogameClient.Instance.OnPlayerNameReceived.AddListener(OnNameReceived);
+        MacrogameClient.Instance.OnPlayerLeftServer.AddListener(OnPlayerLeft);
+
+        if(MacrogameClient.Instance.IsConnected())
+        {
+            MacrogameClient.Instance.RequestNameList();
+            SwitchToLobby();
+        }
+    }
+
+    private void OnDestroy()
+    {
+        MacrogameClient.Instance.OnNameRejected.RemoveListener(OnNameRejected);
+        MacrogameClient.Instance.OnWeJoinedServer.RemoveListener(OnWeJoinedServer);
+        MacrogameClient.Instance.OnOtherPlayerJoined.RemoveListener(OnOtherPlayerJoinedServer);
+        MacrogameClient.Instance.OnPlayerNameReceived.RemoveListener(OnNameReceived);
+        MacrogameClient.Instance.OnPlayerLeftServer.RemoveListener(OnPlayerLeft);
+    }
+
+    private void OnPlayerLeft(string name)
+    {
+        RemovePlayerFromPlayerList(name);
+    }
+
+    private void OnNameRejected()
+    {
+        EnableError("Name taken, please pick a new name in Options.");
+        ClearPlayerList();
+    }
+
+    private void OnWeJoinedServer(string name)
+    {
+        SwitchToLobby();
+        AddPlayerNameToPlayerList(name);
+    }
+
+    private void OnOtherPlayerJoinedServer(string name)
+    {
+        AddPlayerNameToPlayerList(name);
+    }
+
+    private void OnNameReceived(string name)
+    {
+        AddPlayerNameToPlayerList(name);
     }
 
     public void JoinLobby()
@@ -174,6 +219,11 @@ public class LobbyManager : MonoBehaviour
 
         playerListText.text = nameList;
 
+    }
+
+    public void LeaveServer()
+    {
+        MacrogameClient.Instance.Disconnect();
     }
 
     public void ClearPlayerList()

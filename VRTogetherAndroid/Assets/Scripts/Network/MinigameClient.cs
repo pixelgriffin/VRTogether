@@ -31,6 +31,8 @@ namespace VRTogether.Net
                 client.RegisterHandler(MiniMsgType.MiniIntVar, OnIntegerVariableReceived);
                 client.RegisterHandler(MiniMsgType.MiniFloatVar, OnFloatVariableReceived);
 
+                client.RegisterHandler(MiniMsgType.MiniEndGame, OnMinigameEnded);
+
                 if (SceneManager.GetActiveScene().name == MacrogameClient.Instance.GetMinigameSceneToLoad())
                 {
                     client.Send(MacroMsgType.MacroClientMinigameReady, new EmptyMessage());
@@ -228,6 +230,12 @@ namespace VRTogether.Net
             {
                 ((NetworkFloat)netFloat).value = floatMsg.value;
             }
+        }
+
+        private void OnMinigameEnded(NetworkMessage msg)
+        {
+            networkedPrefabs.Shutdown();
+            SceneManager.LoadScene((msg.ReadMessage<StringMessage>()).str);
         }
 
         private void OnOtherPlayersReady(NetworkMessage msg)
