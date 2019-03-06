@@ -15,20 +15,13 @@ public class JoystickController : MonoBehaviour
 
     void Start()
     {
-        rightJoystick = GameObject.Find("RightJoystick").GetComponent<RightJoystick>();
-        rotationTarget = transform;
-
-        if (rightJoystick == null)
-        {
-            Debug.LogError("The right joystick is not attached.");
-        }
-
-        if (rotationTarget == null)
-        {
-            Debug.LogError("The target rotation game object is not attached.");
-        }
-
         id = GetComponent<NetworkID>();
+
+        if (!MinigameClient.Instance.networkedPrefabs.IsSlave(id.netID))
+        {
+            rightJoystick = GameObject.Find("RightJoystick").GetComponent<RightJoystick>();
+            rotationTarget = transform;
+        }
     }
 
     void Update()

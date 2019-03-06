@@ -12,11 +12,13 @@ public class NetworkFly : MonoBehaviour {
     private bool isSlave = false;
     private NetworkBool holdingGrape = new NetworkBool("holdingGrape", false);
 
+    //private RightJoystickTouchContoller joystick;
     private Camera camera;
     private Camera overviewCamera;
-    private Canvas canvas;
+    private Canvas flyCanvas, joystickCanvas;
 
-	void Start () {
+
+    void Start () {
 
         id = GetComponent<NetworkID>();
 
@@ -30,6 +32,8 @@ public class NetworkFly : MonoBehaviour {
         // if this is not a slave, set camera to active and enable joystick canvas if using joystick controls
         if (!isSlave)
         {
+            //joystick = GameObject.Find("RightJoystickTouchController").GetComponent<RightJoystickTouchContoller>();
+
             // create a camera with the same transform as the fly and parent it
             GameObject cameraObject = Instantiate(GameObject.Find("EmptyObject"), this.transform);
             camera = cameraObject.AddComponent<Camera>();
@@ -41,14 +45,15 @@ public class NetworkFly : MonoBehaviour {
             overviewCamera.enabled = false;
             camera.enabled = true;
 
-            // enable the canvas
-            canvas = GameObject.Find("FlyCanvas").GetComponent<Canvas>();
-            canvas.enabled = true;
+            // enable the fly canvas
+            flyCanvas = GameObject.Find("FlyCanvas").GetComponent<Canvas>();
+            flyCanvas.enabled = true;
 
-            // enable the joystick if not using gyro
+            // enable the joystick canvas if not using gyro controls
+            joystickCanvas = GameObject.Find("JoystickCanvas").GetComponent<Canvas>();
             if (!GetComponent<FlyControlSwitch>().useGyroControls)
             {
-                canvas.transform.GetChild(0).gameObject.SetActive(true);
+                joystickCanvas.enabled = true;
             }
         }
     }
@@ -106,11 +111,11 @@ public class NetworkFly : MonoBehaviour {
             // disable the joystick if not using gyro
             if (!GetComponent<FlyControlSwitch>().useGyroControls)
             {
-                canvas.transform.GetChild(0).gameObject.SetActive(false);
+                joystickCanvas.enabled = false;
             }
 
             // enable the overview camera
-            camera.enabled = false;
+            //camera.enabled = false;
             overviewCamera.enabled = true;
         }
     }

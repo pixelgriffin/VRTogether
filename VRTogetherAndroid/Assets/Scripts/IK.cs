@@ -46,13 +46,13 @@ public class IK : MonoBehaviour
 
     void OnAnimatorIK(int layerIndex)
     {
-        Debug.Log("etnered ik update");
+        //Debug.Log("etnered ik update");
 
         if (avatar)
         {
             if (ikActive)
             {
-                Debug.Log("DOING IK");
+                //Debug.Log("DOING IK");
 
                 avatar.SetIKPositionWeight(AvatarIKGoal.LeftFoot, leftFootWeightPosition);
                 avatar.SetIKRotationWeight(AvatarIKGoal.LeftFoot, leftFootWeightRotation);
