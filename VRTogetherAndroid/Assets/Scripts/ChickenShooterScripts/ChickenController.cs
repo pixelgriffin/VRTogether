@@ -11,10 +11,12 @@ public class ChickenController : MonoBehaviour {
     public float jumpHeight = 2.0f;
     public float mass = 0.1f;
     public float gravity = -5.0f;
+    public float jumpTime = 0.5f;
 
     private GameObject chicken;
     private CharacterController chickenCtrl;
     private Vector3 velocity;
+    private float jumpTimer;
 
     // ui controls
     private GameObject canvas;
@@ -37,6 +39,8 @@ public class ChickenController : MonoBehaviour {
 
         velocity = Vector3.zero;
 
+        jumpTimer = jumpTime;
+
         canvas = GameObject.Find("Canvas");
         canvas.GetComponent<Canvas>().enabled = true;
         controls = canvas.transform.GetChild(0).gameObject.
@@ -50,8 +54,8 @@ public class ChickenController : MonoBehaviour {
 	void Update () {
 
         grounded = Physics.CheckBox(
-            chicken.transform.position - chicken.transform.up * 0.3f,
-            new Vector3(0.05f, 0.2f, 0.05f),
+            chicken.transform.position - chicken.transform.up * 0.35f, 
+            new Vector3(0.5f, 0.125f, 0.5f),
             Quaternion.identity,
             1 << 12
             );
@@ -59,29 +63,29 @@ public class ChickenController : MonoBehaviour {
         //DrawBox(chicken.transform.position - chicken.transform.up * 0.3f, new Vector3(0.1f, 0.4f, 0.1f));
 
         frontCollisionWall = Physics.CheckBox(
-            chicken.transform.position + chicken.transform.forward * 0.25f,
-            new Vector3(0.05f, 0.05f, 0.2f),
+            chicken.transform.position + chicken.transform.forward * 0.35f,
+            new Vector3(0.1f, 0.1f, 0.1f),
             Quaternion.identity,
             1 << 13
             );
 
         backCollisionWall = Physics.CheckBox(
-            chicken.transform.position - chicken.transform.forward * 0.25f,
-            new Vector3(0.05f, 0.05f, 0.2f),
+            chicken.transform.position - chicken.transform.forward * 0.35f,
+            new Vector3(0.1f, 0.1f, 0.1f),
             Quaternion.identity,
             1 << 13
             );
 
         leftCollisionWall = Physics.CheckBox(
-            chicken.transform.position - chicken.transform.right * 0.25f,
-            new Vector3(0.2f, 0.05f, 0.05f),
+            chicken.transform.position - chicken.transform.right * 0.35f,
+            new Vector3(0.1f, 0.1f, 0.1f),
             Quaternion.identity,
             1 << 13
             );
 
         rightCollisionWall = Physics.CheckBox(
-            chicken.transform.position + chicken.transform.right * 0.25f,
-            new Vector3(0.2f, 0.05f, 0.05f),
+            chicken.transform.position + chicken.transform.right * 0.35f,
+            new Vector3(0.1f, 0.1f, 0.1f),
             Quaternion.identity,
             1 << 13
             );
@@ -93,12 +97,14 @@ public class ChickenController : MonoBehaviour {
             velocity.y = 0f;
         }
 
+        jumpTimer += Time.deltaTime;
+
         movingUp = controls.IsUpPressed() || Input.GetKey(KeyCode.W);
         movingDown = controls.IsDownPressed() || Input.GetKey(KeyCode.S);
         movingLeft = controls.IsLeftPressed() || Input.GetKey(KeyCode.A);
         movingRight = controls.IsRightPressed() || Input.GetKey(KeyCode.D);
         jumping = (controls.IsScreenPressed() || Input.GetKey(KeyCode.Space)) 
-            && grounded;
+            && grounded && jumpTimer >= jumpTime;
 
         if (movingUp && !frontCollisionWall)
         {
@@ -121,7 +127,10 @@ public class ChickenController : MonoBehaviour {
         }
 
         if (jumping)
+        {
             velocity.y += Mathf.Sqrt(jumpHeight * -2f * gravity * mass);
+            jumpTimer = 0.0f;
+        }
 
         velocity.y += gravity * mass * Time.deltaTime;
 
@@ -137,13 +146,13 @@ public class ChickenController : MonoBehaviour {
     {
         Gizmos.DrawWireCube(chicken.transform.position - chicken.transform.up * 0.35f, new Vector3(0.1f, 0.25f, 0.1f));
         Gizmos.DrawWireCube(chicken.transform.position + chicken.transform.forward * 0.35f,
-            new Vector3(0.25f, 0.05f, 0.05f));
+            new Vector3(0.1f, 0.1f, 0.1f));
         Gizmos.DrawWireCube(chicken.transform.position - chicken.transform.forward * 0.35f,
-            new Vector3(0.25f, 0.05f, 0.05f));
+            new Vector3(0.1f, 0.1f, 0.1f));
         Gizmos.DrawWireCube(chicken.transform.position - chicken.transform.right * 0.35f,
-            new Vector3(0.05f, 0.05f, 0.25f));
+            new Vector3(0.1f, 0.1f, 0.1f));
         Gizmos.DrawWireCube(chicken.transform.position + chicken.transform.right * 0.35f,
-            new Vector3(0.05f, 0.05f, 0.25f));
+            new Vector3(0.1f, 0.1f, 0.1f));
     }
 
     private void DrawBox(Vector3 center, Vector3 extents)

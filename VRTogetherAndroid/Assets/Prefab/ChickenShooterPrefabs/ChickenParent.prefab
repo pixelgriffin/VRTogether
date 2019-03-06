@@ -57,3 +57,4 @@ MonoBehaviour:
   jumpHeight: 0.03
   mass: 0.075
   gravity: -9.81
+  jumpTime: 0.75
