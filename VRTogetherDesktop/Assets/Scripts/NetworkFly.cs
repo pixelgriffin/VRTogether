@@ -20,11 +20,6 @@ public class NetworkFly : MonoBehaviour {
 	void Update () {
         //Since this script is for the server, we know that the fly will always be a slave, in which case we don't need to do much other than read values
         grape.SetActive(holdingGrape.value);
-
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            MinigameServer.Instance.EndGame("Scenes/MainMenu");
-        }
 	}
 
     private void OnCollisionEnter(Collision collision)
