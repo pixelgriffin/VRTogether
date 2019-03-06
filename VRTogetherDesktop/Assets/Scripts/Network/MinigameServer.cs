@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Networking;
 
 namespace VRTogether.Net
@@ -142,6 +143,19 @@ namespace VRTogether.Net
             {
                 NetworkServer.SendToAll(MacroMsgType.MacroServerStartMinigame, new EmptyMessage());
                 gameStarted = true;
+            }
+        }
+
+        public void EndGame(string returnScene)
+        {
+            if(AllPlayersReady())
+            {
+                StringMessage msg = new StringMessage();
+                msg.str = returnScene;
+
+                networkedPrefabs.Shutdown();
+                NetworkServer.SendToAll(MiniMsgType.MiniEndGame, msg);
+                SceneManager.LoadScene(returnScene);
             }
         }
 
