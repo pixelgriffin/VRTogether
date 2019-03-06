@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using VRTogether.Net;
 
-public class LevelManager : MonoBehaviour {
+public class FlyLevelManager : MonoBehaviour {
 
     private NetworkID id;
 
-    private NetworkBool chickenFinished = new NetworkBool("chickenFinished", false);
+    private ScoreCounter scoreCounter;
 
     private int playersAliveCount;
 
@@ -16,24 +16,27 @@ public class LevelManager : MonoBehaviour {
 
         id = GetComponent<NetworkID>();
 
-        MinigameServer.Instance.RegisterVariable(id.netID, chickenFinished);
+        scoreCounter = GameObject.Find("ScoreCounter").GetComponent<ScoreCounter>();
 
         playersAliveCount = MacrogameServer.Instance.GetMacroPlayers().Count;
-		
-	}
+        Debug.Log("Player alive: " + playersAliveCount);
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
 
-        if (chickenFinished.value)
+        // check if score was reached
+        if (scoreCounter.forwardScore >= scoreCounter.goalScore)
         {
-            Debug.Log("GAME OVER - CHICKEN WINS");
+            Debug.Log("GAME OVER - FLIES WIN");
             MinigameServer.Instance.EndGame("Scenes/MainMenu");
         }
 
+        // check if all flies swatted
         if (playersAliveCount <= 0)
         {
-            Debug.Log("GAME OVER - CHICKEN FEEDER WINS");
+            Debug.Log("GAME OVER - FLY SWATTER WINS");
             MinigameServer.Instance.EndGame("Scenes/MainMenu");
         }
 
@@ -42,5 +45,6 @@ public class LevelManager : MonoBehaviour {
     public void DecrPlayersAliveCount()
     {
         playersAliveCount--;
+        Debug.Log("Player alive: " + playersAliveCount);
     }
 }

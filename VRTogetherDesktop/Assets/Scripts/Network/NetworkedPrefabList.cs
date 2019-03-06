@@ -99,8 +99,8 @@ namespace VRTogether.Net
 
             if(removeID != null)
             {
-                slaveNetObjs.Remove(removeID);
                 Destroy(removeID.gameObject);
+                slaveNetObjs.Remove(removeID);
             }
         }
 

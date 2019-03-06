@@ -12,9 +12,13 @@ public class NetworkFly : MonoBehaviour {
 
     private NetworkBool holdingGrape = new NetworkBool("holdingGrape", false);
 
+    private FlyLevelManager levelManager;
+
 	void Start () {
         id = GetComponent<NetworkID>();
         MinigameServer.Instance.RegisterVariable(id.netID, holdingGrape);
+
+        levelManager = GameObject.Find("LevelManager").GetComponent<FlyLevelManager>();
 	}
 	
 	void Update () {
@@ -29,5 +33,10 @@ public class NetworkFly : MonoBehaviour {
             //Network destroy allows us to request the authority on this object destroy it
             MinigameServer.Instance.NetworkDestroy(this.gameObject);
         }
+    }
+
+    private void OnDestroy()
+    {
+        levelManager.DecrPlayersAliveCount();
     }
 }
