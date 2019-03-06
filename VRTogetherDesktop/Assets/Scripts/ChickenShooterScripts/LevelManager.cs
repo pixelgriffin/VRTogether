@@ -20,7 +20,7 @@ public class LevelManager : MonoBehaviour {
         if (playersAliveCount <= 0)
         {
             Debug.Log("GAME OVER");
-            // return to macro scene
+            MinigameServer.Instance.EndGame("Scenes/MainMenu");
         }
 
     }
