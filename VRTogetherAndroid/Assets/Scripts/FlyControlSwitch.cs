@@ -6,17 +6,27 @@ public class FlyControlSwitch : MonoBehaviour {
 
     public bool useGyroControls;
 
+    private GameObject joystickImage;
+    private RightJoystickTouchContoller joystickControl;
+
 	void Awake () {
 
-		if (useGyroControls)
+        joystickImage = GameObject.Find("FlyCanvas").transform.GetChild(0).gameObject;
+        joystickControl = GameObject.Find("RightJoystickTouchController").GetComponent<RightJoystickTouchContoller>();
+       
+    }
+	
+	void Update () {
+
+        if (useGyroControls)
         {
             // enable gyro and diable joystick
             GetComponent<GyroscopeController>().enabled = true;
             GetComponent<JoystickController>().enabled = false;
 
             // disable the joystick canvas and associated scripts
-            GameObject.Find("RightJoystickCanvas").GetComponent<Canvas>().enabled = false;
-            GameObject.Find("RightJoystickTouchController").GetComponent<RightJoystickTouchContoller>().enabled = false;
+            joystickImage.SetActive(false);
+            joystickControl.enabled = false;
 
         }
         else
@@ -26,13 +36,9 @@ public class FlyControlSwitch : MonoBehaviour {
             GetComponent<JoystickController>().enabled = true;
 
             // disable the joystick canvas and associated scripts
-            GameObject.Find("RightJoystickCanvas").GetComponent<Canvas>().enabled = true;
-            GameObject.Find("RightJoystickTouchController").GetComponent<RightJoystickTouchContoller>().enabled = true;
+            joystickImage.SetActive(true);
+            joystickControl.enabled = true;
         }
 
     }
-	
-	void Update () {
-		
-	}
 }

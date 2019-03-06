@@ -45,12 +45,12 @@ public class JoystickController : MonoBehaviour
             if (System.Math.Abs(x) < 0.001f && System.Math.Abs(y) < 0.001f)
             {
                 beingMoved = false;
-                Debug.Log("not moving");
+                //Debug.Log("not moving");
             }
             else
             {
                 beingMoved = true;
-                Debug.Log("moving");
+                //Debug.Log("moving");
             }
 
             Vector3 rotation = rotationTarget.localRotation.eulerAngles;

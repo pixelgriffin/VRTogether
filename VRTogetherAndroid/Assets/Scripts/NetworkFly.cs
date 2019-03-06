@@ -41,11 +41,14 @@ public class NetworkFly : MonoBehaviour {
             overviewCamera.enabled = false;
             camera.enabled = true;
 
-            // enable the canvas if not using gyro
+            // enable the canvas
+            canvas = GameObject.Find("FlyCanvas").GetComponent<Canvas>();
+            canvas.enabled = true;
+
+            // enable the joystick if not using gyro
             if (!GetComponent<FlyControlSwitch>().useGyroControls)
             {
-                canvas = GameObject.Find("RightJoystickCanvas").GetComponent<Canvas>();
-                canvas.enabled = true;
+                canvas.transform.GetChild(0).gameObject.SetActive(true);
             }
         }
     }
@@ -100,10 +103,10 @@ public class NetworkFly : MonoBehaviour {
     {
         if (!isSlave)
         {
-            // disable the canvas if not using gyro
+            // disable the joystick if not using gyro
             if (!GetComponent<FlyControlSwitch>().useGyroControls)
             {
-                canvas.enabled = false;
+                canvas.transform.GetChild(0).gameObject.SetActive(false);
             }
 
             // enable the overview camera
