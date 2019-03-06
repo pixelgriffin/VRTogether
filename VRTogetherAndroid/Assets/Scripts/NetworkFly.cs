@@ -9,35 +9,49 @@ public class NetworkFly : MonoBehaviour {
     public GameObject grape;
 
     private NetworkID id;
-
+    private bool isSlave = false;
     private NetworkBool holdingGrape = new NetworkBool("holdingGrape", false);
 
     private Camera camera;
+    private Camera overviewCamera;
+    private Canvas canvas;
 
 	void Start () {
+
         id = GetComponent<NetworkID>();
+
+        if (MinigameClient.Instance.networkedPrefabs.IsSlave(id.netID))
+        {
+            isSlave = true;
+        }
+
         MinigameClient.Instance.RegisterVariable(id.netID, holdingGrape);
 
-        //if this is not a slave, set camera to active and enable joystick canvas if using joystick controls
-        if (!MinigameClient.Instance.networkedPrefabs.IsSlave(id.netID))
+        // if this is not a slave, set camera to active and enable joystick canvas if using joystick controls
+        if (!isSlave)
         {
-            //create a camera with the same transform as the fly and parent it
+            // create a camera with the same transform as the fly and parent it
             GameObject cameraObject = Instantiate(GameObject.Find("EmptyObject"), this.transform);
             camera = cameraObject.AddComponent<Camera>();
             camera.name = "camera_" + id.netID;
             camera.nearClipPlane = 0.1f;
 
-            GameObject.Find("FlyOverviewCamera").GetComponent<Camera>().enabled = true;
+            // enable the camera
+            overviewCamera = GameObject.Find("FlyOverviewCamera").GetComponent<Camera>();
+            overviewCamera.enabled = false;
             camera.enabled = true;
+
+            // enable the canvas if not using gyro
             if (!GetComponent<FlyControlSwitch>().useGyroControls)
             {
-                GameObject.Find("RightJoystickCanvas").GetComponent<Canvas>().enabled = true;
+                canvas = GameObject.Find("RightJoystickCanvas").GetComponent<Canvas>();
+                canvas.enabled = true;
             }
         }
     }
 	
 	void Update () {
-        if (MinigameClient.Instance.networkedPrefabs.IsSlave(id.netID)) //if this is a slave
+        if (isSlave) //if this is a slave
         {
             body.SetActive(true); //show body
         }
@@ -55,7 +69,7 @@ public class NetworkFly : MonoBehaviour {
         if(collider.tag == "Grape")
         {
             //If we control this fly we should tell everyone else we now are holding a grape
-            if (!MinigameClient.Instance.networkedPrefabs.IsSlave(id.netID) && !holdingGrape.value)
+            if (!isSlave && !holdingGrape.value)
             {
                 holdingGrape.value = true;//Change the local value since we are authoritative
                 MinigameClient.Instance.SendBooleanToAll(holdingGrape);//Update the variable over the network
@@ -65,7 +79,7 @@ public class NetworkFly : MonoBehaviour {
         else if(collider.tag == "DropZone")
         {
             //If it is us that touched the drop zone
-            if (!MinigameClient.Instance.networkedPrefabs.IsSlave(id.netID))
+            if (!isSlave)
             {
                 if (holdingGrape.value)
                 {
@@ -79,6 +93,23 @@ public class NetworkFly : MonoBehaviour {
                     Debug.Log("Score!");
                 }
             }
+        }
+    }
+
+    public void OnDestroy()
+    {
+        if (!isSlave)
+        {
+            // disable the canvas if not using gyro
+            if (!GetComponent<FlyControlSwitch>().useGyroControls)
+            {
+                canvas = GameObject.Find("RightJoystickCanvas").GetComponent<Canvas>();
+                canvas.enabled = true;
+            }
+
+            // enable the overview camera
+            camera.enabled = false;
+            overviewCamera.enabled = true;
         }
     }
 }
