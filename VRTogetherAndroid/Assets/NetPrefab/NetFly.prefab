@@ -192,7 +192,7 @@ GameObject:
   - component: {fileID: 114638255402989448}
   - component: {fileID: 114208093293301648}
   - component: {fileID: 114755877546515616}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: NetFly
   m_TagString: Untagged
   m_Icon: {fileID: 0}
