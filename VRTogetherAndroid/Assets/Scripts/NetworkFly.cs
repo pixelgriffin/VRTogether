@@ -103,8 +103,7 @@ public class NetworkFly : MonoBehaviour {
             // disable the canvas if not using gyro
             if (!GetComponent<FlyControlSwitch>().useGyroControls)
             {
-                canvas = GameObject.Find("RightJoystickCanvas").GetComponent<Canvas>();
-                canvas.enabled = true;
+                canvas.enabled = false;
             }
 
             // enable the overview camera
