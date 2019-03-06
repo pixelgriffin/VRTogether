@@ -48,7 +48,7 @@ public class ChickenController : MonoBehaviour {
 	void Update () {
 
         grounded = Physics.CheckBox(
-            chicken.transform.position - chicken.transform.up * 0.25f,
+            chicken.transform.position - chicken.transform.up * 0.3f,
             new Vector3(0.05f, 0.2f, 0.05f),
             Quaternion.identity,
             1 << 12
