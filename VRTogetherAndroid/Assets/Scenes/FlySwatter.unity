@@ -3131,9 +3131,6 @@ GameObject:
   - component: {fileID: 1737670173}
   - component: {fileID: 1737670178}
   - component: {fileID: 1737670177}
-  - component: {fileID: 1737670176}
-  - component: {fileID: 1737670175}
-  - component: {fileID: 1737670174}
   m_Layer: 0
   m_Name: polySurface9
   m_TagString: Swatter
@@ -3155,47 +3152,6 @@ Transform:
   m_Father: {fileID: 2002443716}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1737670174
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 114971233971357866, guid: 34f70229d2a6148f39d7d6452c763b91,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1737670172}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!65 &1737670175
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 65142531031136318, guid: 34f70229d2a6148f39d7d6452c763b91,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1737670172}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 7, y: 0.058636103, z: 7}
-  m_Center: {x: 0, y: -0.0000036254526, z: 12.700001}
---- !u!54 &1737670176
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 54518824655908054, guid: 34f70229d2a6148f39d7d6452c763b91,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1737670172}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 0
 --- !u!23 &1737670177
 MeshRenderer:
   m_ObjectHideFlags: 0
