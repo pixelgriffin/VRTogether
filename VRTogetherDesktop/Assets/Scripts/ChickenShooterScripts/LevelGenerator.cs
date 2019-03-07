@@ -55,6 +55,7 @@ public class LevelGenerator : MonoBehaviour {
         */
 
         // generate how many noFloors
+        bool justSpawnedOpenFloor = false;
         int noFloorCount = Random.Range(minNoFloor, maxNoFloor + 1);
         int noFloorUsed = 0;
 
@@ -67,7 +68,19 @@ public class LevelGenerator : MonoBehaviour {
         floorList.Add(2);
         for (int i = 3; i < spaceCount - 2; i++)
         {
-            spaceStats[i] = Random.Range(1, 4);
+            if (justSpawnedOpenFloor)
+            {
+                spaceStats[i] = Random.Range(2, 4);
+                justSpawnedOpenFloor = false;
+            }
+            else
+            {
+                spaceStats[i] = Random.Range(1, 4);
+                if (spaceStats[i] == (int)FloorSpace.OPEN)
+                {
+                    justSpawnedOpenFloor = true;
+                }
+            }
 
             // initialize floor list with index
             floorList.Add(i);
@@ -111,6 +124,12 @@ public class LevelGenerator : MonoBehaviour {
             try
             {
                 spaceStats[floorList[floorIndex]] = (int)FloorSpace.NO_FLOOR;
+
+                if (spaceStats[floorList[floorIndex] - 1] == (int)FloorSpace.OPEN
+                    && spaceStats[floorList[floorIndex] + 1] == (int)FloorSpace.OPEN)
+                {
+                    spaceStats[floorList[floorIndex] - 1] = (int)FloorSpace.FENCES;
+                }
             }
             catch
             {
