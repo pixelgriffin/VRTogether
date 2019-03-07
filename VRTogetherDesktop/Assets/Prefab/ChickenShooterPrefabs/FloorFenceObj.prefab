@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 64276024293296868}
   - component: {fileID: 65696870858158514}
   - component: {fileID: 65860007478259548}
+  - component: {fileID: 65529173597740428}
   m_Layer: 0
   m_Name: FloorFenceObj
   m_TagString: Untagged
@@ -130,6 +131,18 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: 979879f46b8de4901ae52adb95c9d99d, type: 3}
+--- !u!65 &65529173597740428
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1340347784698422}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.515617, y: 0.1971972, z: 4.8903637}
+  m_Center: {x: -0.017701209, y: 1.288031, z: 0.079003334}
 --- !u!65 &65696870858158514
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -140,8 +153,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.33, y: 1.5, z: 0.5}
-  m_Center: {x: 0, y: 0.5, z: -2.26}
+  m_Size: {x: 2.3392062, y: 1.5689611, z: 0.5}
+  m_Center: {x: 0.009988606, y: 0.5344806, z: -2.26}
 --- !u!65 &65860007478259548
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -152,5 +165,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.46, y: 1.5, z: 0.5}
-  m_Center: {x: 0, y: 0.5, z: 2.255}
+  m_Size: {x: 1.5752362, y: 1.5150862, z: 0.5}
+  m_Center: {x: -0.010887325, y: 0.5075431, z: 2.255}
