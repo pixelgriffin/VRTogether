@@ -19,7 +19,7 @@ public class NetworkFlyRightHand : MonoBehaviour {
         addComponent = false;
 
         // spawn swatter
-        Instantiate(swatterPrefab, this.transform, false);
+        GameObject swatterInstance = Instantiate(swatterPrefab, this.transform, false);
 
     }
 	
