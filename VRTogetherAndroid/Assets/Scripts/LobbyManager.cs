@@ -18,11 +18,17 @@ public class LobbyManager : MonoBehaviour
     public Text roomCodeText;
     public Text playerListText;
 
+    public InputField userNameInput;
+
     private string ip = string.Empty;
     private ServerRoomCode thisCode;
 
     void Start()
     {
+        SetUsername(PlayerPrefs.GetString("Username", "Player"));
+
+        userNameInput.text = username;
+
         thisCode = GetComponent<ServerRoomCode>();
 
         MacrogameClient.Instance.OnNameRejected.AddListener(OnNameRejected);
@@ -141,6 +147,8 @@ public class LobbyManager : MonoBehaviour
 
     public void SetUsername(string newUsername)
     {
+        PlayerPrefs.SetString("Username", newUsername);
+
         username = newUsername;
 
         MacrogameClient.Instance.playerName = username;
