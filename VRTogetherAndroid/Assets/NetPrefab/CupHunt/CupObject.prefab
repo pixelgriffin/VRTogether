@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 54022189960490184}
   - component: {fileID: 65943046438248452}
   - component: {fileID: 135258971147675494}
+  - component: {fileID: 114740404489963516}
   m_Layer: 0
   m_Name: CupObject
   m_TagString: Untagged
@@ -118,7 +119,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1216134835673108}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.269614, y: 9.1, z: -13.791008}
+  m_LocalPosition: {x: 15.670391, y: 33.105488, z: 2.9889178}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4061639722316382}
@@ -322,6 +323,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 5, y: 0.1, z: 5}
   m_Center: {x: 0, y: -4.9, z: 0}
+--- !u!114 &114740404489963516
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1216134835673108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e57425fdca27fc0418f93ab52c52129b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  netID: 
 --- !u!114 &114797758597204372
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -333,8 +346,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f20939b516a2c4a4689ff23f71fa9f1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inControl: 1
+  inControl: 0
   director: {fileID: 1561472510215388}
+  cameraOject: {fileID: 1390071897540424, guid: 066a9054158364d64816bbdb63a6e759,
+    type: 2}
   directorSprite: {fileID: 212652336847736592}
   directorRotateSpeed: 180
   directorChargeTime: 3

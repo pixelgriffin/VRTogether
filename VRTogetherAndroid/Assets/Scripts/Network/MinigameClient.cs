@@ -26,6 +26,7 @@ namespace VRTogether.Net
                 client.RegisterHandler(MiniMsgType.MiniSyncOrientation, OnSlaveOrient);
                 client.RegisterHandler(MiniMsgType.MiniOtherPlayersReady, OnOtherPlayersReady);
                 client.RegisterHandler(MiniMsgType.MiniRequestDestroySlave, OnNetDestroyRequested);
+                client.RegisterHandler(MiniMsgType.MiniRequestInstantiateObject, OnRequestedInstantiateObject);
 
                 client.RegisterHandler(MiniMsgType.MiniBoolVar, OnBooleanVariableReceived);
                 client.RegisterHandler(MiniMsgType.MiniIntVar, OnIntegerVariableReceived);
@@ -118,11 +119,35 @@ namespace VRTogether.Net
                 newSlaveMsg.objectName = prefab.name;
 
                 client.Send(MiniMsgType.MiniInstantiateObject, newSlaveMsg);
+                
 
                 return obj;
             }
 
             return null;
+        }
+
+        private void OnRequestedInstantiateObject(NetworkMessage msg)
+        {
+            ObjectInstantiateMessage newObjMsg = msg.ReadMessage<ObjectInstantiateMessage>();
+
+            GameObject objPrefab = null;
+            foreach(GameObject obj in networkedPrefabs.prefabs)
+            {
+                if(obj.name == newObjMsg.objectName)
+                {
+                    objPrefab = obj;
+                    break;
+                }
+            }
+
+
+            if(objPrefab != null)
+            {
+                GameObject spawn = NetworkInstantiate(objPrefab);
+                spawn.transform.position = newObjMsg.pos;
+                spawn.transform.rotation = newObjMsg.rot;
+            }
         }
 
         public bool NetworkDestroy(GameObject netObj)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using VRTogether.Net;
 
 public class SimpleTouchLook : MonoBehaviour {
 
@@ -17,7 +18,7 @@ public class SimpleTouchLook : MonoBehaviour {
     public string[] layersToHit;  // If the ray hits an object in this layer, do not rotate
 
     public UnityEvent onLayerHit; // Run these actions when an object in the layers above is hit
-
+    
 	void Start ()
 	{
 		myCamera.transform.LookAt (transform.position);
@@ -42,13 +43,20 @@ public class SimpleTouchLook : MonoBehaviour {
             Ray ray = Camera.main.ScreenPointToRay(touchPosition);
             RaycastHit hit;
 
-            Debug.DrawLine(ray.origin, ray.GetPoint(1000), Color.red);
-
+            // False if can't rotate (touching cup)
             rotate = !Physics.Raycast(ray, out hit, 1000, LayerMask.GetMask(layersToHit));
-            
+
+            Debug.DrawLine(ray.origin, ray.GetPoint(1000), rotate ? Color.red : Color.green);
+
+            target.GetComponent<CupController>().SetCanCharge(!rotate);
+
+
             if (!rotate)
             {
-                hit.transform.GetComponentInParent<CupController>().SetCharge(true);
+
+            } else
+            {
+                //target.GetComponent<CupController>().SetCanCharge(false);
 
             }
 
