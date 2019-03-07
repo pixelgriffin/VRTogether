@@ -33,6 +33,8 @@ namespace VRTogether.Net
                 client.RegisterHandler(MiniMsgType.MiniStringVar, OnStringVariableReceived);
 
 
+                client.RegisterHandler(MiniMsgType.MiniEndGame, OnMinigameEnded);
+
                 if (SceneManager.GetActiveScene().name == MacrogameClient.Instance.GetMinigameSceneToLoad())
                 {
                     client.Send(MacroMsgType.MacroClientMinigameReady, new EmptyMessage());
@@ -232,16 +234,10 @@ namespace VRTogether.Net
             }
         }
 
-        private void OnStringVariableReceived(NetworkMessage msg)
+        private void OnMinigameEnded(NetworkMessage msg)
         {
-            StringVarMessage stringMsg = msg.ReadMessage<StringVarMessage>();
-
-            //Process the information for us
-            NetworkVariable netString;
-            if (vars.TryGetValue(stringMsg.networkID + "-" + stringMsg.varName, out netString))
-            {
-                ((NetworkString)netString).value = stringMsg.value;
-            }
+            networkedPrefabs.Shutdown();
+            SceneManager.LoadScene((msg.ReadMessage<StringMessage>()).str);
         }
 
         private void OnOtherPlayersReady(NetworkMessage msg)

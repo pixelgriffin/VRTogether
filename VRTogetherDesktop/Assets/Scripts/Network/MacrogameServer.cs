@@ -20,6 +20,7 @@ namespace VRTogether.Net
         private List<MacrogamePlayer> macroPlayerList = new List<MacrogamePlayer>();
 
         private string minigameToLoad = "";
+        private string currentMinigameScene = "";
 
         void Awake()
         {
@@ -56,6 +57,7 @@ namespace VRTogether.Net
                 NetworkServer.RegisterHandler(MsgType.Connect, OnPlayerConnected);
                 NetworkServer.RegisterHandler(MsgType.Disconnect, OnPlayerDisconnected);
                 NetworkServer.RegisterHandler(MacroMsgType.MacroClientSendPlayerName, OnReceivedPlayerName);
+                NetworkServer.RegisterHandler(MacroMsgType.MacroClientRequestNameList, OnRequestedNameList);
 
                 if (isListening)
                     Debug.Log("Started server");
@@ -70,7 +72,25 @@ namespace VRTogether.Net
         {
             Debug.Log("Requesting load " + sceneName);
             minigameToLoad = sceneName;
+            currentMinigameScene = sceneName;
             SceneManager.LoadScene(sceneName);
+        }
+
+        private void OnRequestedNameList(NetworkMessage netMsg)
+        {
+            foreach (MacrogamePlayer playerInLobby in macroPlayerList)
+            {
+
+                StringMessage playerName = new StringMessage();
+                playerName.str = playerInLobby.name;
+
+                Debug.Log("Sending player name: " + playerName.str);
+
+                NetworkServer.SendToClient(
+                    netMsg.conn.connectionId,
+                    MacroMsgType.MacroServerSendPlayerName,
+                    playerName);
+            }
         }
 
         private bool RequestClientsLoadMinigame(string sceneName)
@@ -133,6 +153,7 @@ namespace VRTogether.Net
             //If left is not null that means the player successfully joined previously
             if (left != null)
             {
+                Debug.Log("Macro player left!");
                 macroPlayerList.Remove(left);
 
                 StringMessage strMsg = new StringMessage();

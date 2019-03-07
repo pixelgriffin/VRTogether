@@ -65,3 +65,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forwardScore: 0
+  goalScore: 8
+  scoreText: 'Grapes Stolen: '
+  scoreTextObject: {fileID: 0}

@@ -23,9 +23,10 @@ namespace VRTogether.Net
         public static short ObjectInstantiate = MsgType.Highest + 12;
         public static short ObjectDestroy = MsgType.Highest + 13;
 
-        public const short Highest = MsgType.Highest + 14;
+        public const short Highest = MsgType.Highest + 16;
 
         public static short MacroServerSendPlayerName = MsgType.Highest + 15;
+        public static short MacroClientRequestNameList = MsgType.Highest + 16;
     }
 
     public class MiniMsgType
@@ -39,8 +40,9 @@ namespace VRTogether.Net
         public static short MiniBoolVar = MacroMsgType.Highest + 6;
         public static short MiniIntVar = MacroMsgType.Highest + 7;
         public static short MiniFloatVar = MacroMsgType.Highest + 8;
-        public static short MiniStringVar = MacroMsgType.Highest + 9;
 
+        public static short MiniEndGame = MacroMsgType.Highest + 9;
+        
     }
 
     public class EmptyMessage : MessageBase

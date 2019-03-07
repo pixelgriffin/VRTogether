@@ -7,6 +7,9 @@ using UnityEngine.UI;
 
 public class GenerateCode : MonoBehaviour {
 
+    private static bool GENERATED_CODE = false;
+    private static string CODE = "";
+
     public Text codeText;
 
     private ServerRoomCode server;
@@ -14,7 +17,14 @@ public class GenerateCode : MonoBehaviour {
 	void Start () {
         server = GetComponent<ServerRoomCode>();
 
-        StartCoroutine(GetCode());
+        if (!GENERATED_CODE)
+        {
+            StartCoroutine(GetCode());
+        }
+        else
+        {
+            codeText.text = CODE;
+        }
 	}
 	
 	private IEnumerator GetCode()
@@ -27,7 +37,9 @@ public class GenerateCode : MonoBehaviour {
         }
         else
         {
-            codeText.text = ("ENTER CODE:\n" + code.data).Replace("\\n", "\n");
+            GENERATED_CODE = true;
+            CODE = ("ENTER CODE:\n" + code.data).Replace("\\n", "\n");
+            codeText.text = CODE;
         }
     }
 
