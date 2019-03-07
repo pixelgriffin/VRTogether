@@ -32,6 +32,7 @@ namespace VRTogether.Net
     public class MiniMsgType
     {
         public static short MiniInstantiateObject = MacroMsgType.Highest + 1;
+        public static short MiniRequestInstantiateObject = MacroMsgType.Highest + 10;
         public static short MiniDestroyObject = MacroMsgType.Highest + 2;
         public static short MiniSyncOrientation = MacroMsgType.Highest + 3;
         public static short MiniOtherPlayersReady = MacroMsgType.Highest + 4;
@@ -58,6 +59,13 @@ namespace VRTogether.Net
     {
         public string objectName;
         public string networkID;
+    }
+
+    public class ObjectInstantiateMessage : MessageBase
+    {
+        public string objectName;
+        public Vector3 pos;
+        public Quaternion rot;
     }
 
     public class SlaveOrientMessage : MessageBase

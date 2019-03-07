@@ -6,41 +6,30 @@ using VRTogether.Net;
 
 public class CupSpawner : MonoBehaviour {
 
-    public NetworkString spawnString = new NetworkString("spawnString", string.Empty);
-    private NetworkID id;
-    private bool processedSpawn = false;
+    public Transform[] spawnPoints;
 
-	// Use this for initialization
-	void Start () 
-    {
-        id = GetComponent<NetworkID>();
+    public GameObject cup;
 
-        MinigameServer.Instance.RegisterVariable (id.netID, spawnString);
-		
-	}
-	
-	// Update is called once per frame
-	void Update () 
+    int spawnIndex = 0;
+
+    private void Start()
     {
-		if (!processedSpawn && spawnString.value == string.Empty && MinigameServer.Instance.AllPlayersReady())
+        MinigameServer.Instance.OnAllClientsReady.AddListener(OnClientJoined);
+    }
+
+    private void OnDestroy()
+    {
+        MinigameServer.Instance.OnAllClientsReady.RemoveListener(OnClientJoined);
+    }
+
+    private void OnClientJoined()
+    {
+        foreach(MacrogamePlayer p in MacrogameServer.Instance.GetMacroPlayers())
         {
-            int spawnIndex = 0;
+            //Network instantiate
+            MinigameServer.Instance.NetworkRequestInstantiate(cup, spawnPoints[spawnIndex].position, Quaternion.identity, p.connectionID);
 
-            foreach (MacrogamePlayer player in MacrogameServer.Instance.GetMacroPlayers())
-            {
-                spawnString.value += player.name + "$" + spawnIndex + "%";
-
-                spawnIndex++;
-
-            }
-
-            Debug.Log("Sent String: " + spawnString.value);
-
-            MinigameServer.Instance.SendStringToAll (spawnString);
-
-            processedSpawn = true;
-
+            spawnIndex++;
         }
-
     }
 }

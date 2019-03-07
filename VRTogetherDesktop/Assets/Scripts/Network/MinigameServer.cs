@@ -3,9 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Networking;
+using UnityEngine.Events;
 
 namespace VRTogether.Net
 {
+    public class IntegerEvent : UnityEvent<int>
+    {
+    }
+
     public class MinigameServer : SingletonComponent<MinigameServer>
     {
         public NetworkedPrefabList networkedPrefabs;
@@ -16,6 +21,11 @@ namespace VRTogether.Net
 
         private bool playersReady = false;
         private bool gameStarted = false;
+
+        [HideInInspector]
+        public IntegerEvent OnClientJoined = new IntegerEvent();
+        [HideInInspector]
+        public UnityEvent OnAllClientsReady = new UnityEvent();
 
         private void Start()
         {
@@ -28,7 +38,6 @@ namespace VRTogether.Net
             NetworkServer.RegisterHandler(MiniMsgType.MiniBoolVar, OnBooleanVariableReceived);
             NetworkServer.RegisterHandler(MiniMsgType.MiniIntVar, OnIntegerVariableReceived);
             NetworkServer.RegisterHandler(MiniMsgType.MiniFloatVar, OnFloatVariableReceived);
-            NetworkServer.RegisterHandler(MiniMsgType.MiniStringVar, OnStringVariableReceived);
 
         }
 
@@ -53,6 +62,7 @@ namespace VRTogether.Net
                     {
                         playersReady = true;
                         NetworkServer.SendToAll(MiniMsgType.MiniOtherPlayersReady, new EmptyMessage());
+                        OnAllClientsReady.Invoke();
                     }
                 }
             }
@@ -99,6 +109,19 @@ namespace VRTogether.Net
             }
 
             return null;
+        }
+
+        public void NetworkRequestInstantiate(GameObject prefab, Vector3 pos, Quaternion rot, int connectionID)
+        {
+            if(networkedPrefabs.prefabs.Contains(prefab))
+            {
+                ObjectInstantiateMessage newObjectMsg = new ObjectInstantiateMessage();
+                newObjectMsg.objectName = prefab.name;
+                newObjectMsg.pos = pos;
+                newObjectMsg.rot = rot;
+
+                NetworkServer.SendToClient(connectionID, MiniMsgType.MiniRequestInstantiateObject, newObjectMsg);
+            }
         }
 
         public bool NetworkDestroy(GameObject netObj)
@@ -148,16 +171,6 @@ namespace VRTogether.Net
             }
         }
 
-        public void SendStringToAll(NetworkString netString)
-        {
-            StringVarMessage stringMsg = new StringVarMessage();
-            stringMsg.networkID = netString.objID;
-            stringMsg.varName = netString.name;
-            stringMsg.value = netString.value;
-
-            NetworkServer.SendToAll(MiniMsgType.MiniStringVar, stringMsg);
-        }
-
         public void EndGame(string returnScene)
         {
             if(AllPlayersReady())
@@ -204,8 +217,11 @@ namespace VRTogether.Net
 
         private void OnClientReady(NetworkMessage netMsg)
         {
-            if(!readyPlayers.Contains(netMsg.conn.connectionId))
+            if (!readyPlayers.Contains(netMsg.conn.connectionId))
+            {
                 readyPlayers.Add(netMsg.conn.connectionId);
+                OnClientJoined.Invoke(netMsg.conn.connectionId);
+            }
         }
 
         private void OnSlaveInstantiateRequested(NetworkMessage msg)
@@ -215,6 +231,8 @@ namespace VRTogether.Net
 
             //Forward the update message to all other clients
             SendToAllBut(msg.conn.connectionId, MiniMsgType.MiniInstantiateObject, newSlaveMsg);
+
+            Debug.Log("instantiated slave: " + newSlaveMsg.objectName);
         }
 
         private void OnSlaveDestroyRequested(NetworkMessage msg)
@@ -305,21 +323,6 @@ namespace VRTogether.Net
 
             //Forward the information to the other clients
             SendToAllBut(msg.conn.connectionId, MiniMsgType.MiniFloatVar, floatMsg);
-        }
-
-        private void OnStringVariableReceived(NetworkMessage msg)
-        {
-            StringVarMessage stringMsg = msg.ReadMessage<StringVarMessage>();
-
-            //Process the information for us
-            NetworkVariable netString;
-            if (vars.TryGetValue(stringMsg.networkID + "-" + stringMsg.varName, out netString))
-            {
-                ((NetworkString)netString).value = stringMsg.value;
-            }
-
-            //Forward the information to the other clients
-            SendToAllBut(msg.conn.connectionId, MiniMsgType.MiniStringVar, stringMsg);
         }
 
         private void SendToAllBut(int connectionID, short msgType, MessageBase msg)
