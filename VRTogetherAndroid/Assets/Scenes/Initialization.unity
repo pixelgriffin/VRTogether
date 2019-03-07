@@ -187,6 +187,26 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  OnWeJoinedServer:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: VRTogether.Net.StringEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  OnOtherPlayerJoined:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: VRTogether.Net.StringEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  OnPlayerNameReceived:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: VRTogether.Net.StringEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  OnPlayerLeftServer:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: VRTogether.Net.StringEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!4 &2119907693
 Transform:
   m_ObjectHideFlags: 0

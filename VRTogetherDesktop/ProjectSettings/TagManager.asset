@@ -11,6 +11,7 @@ TagManager:
   - DropZone
   - projectile
   - FxTemporaire
+  - UI
   layers:
   - Default
   - TransparentFX
