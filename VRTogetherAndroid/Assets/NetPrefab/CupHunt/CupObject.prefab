@@ -120,7 +120,7 @@ Transform:
   m_GameObject: {fileID: 1216134835673108}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 15.670391, y: 33.105488, z: 2.9889178}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children:
   - {fileID: 4061639722316382}
   - {fileID: 4389855254523282}
@@ -353,7 +353,8 @@ MonoBehaviour:
   directorSprite: {fileID: 212652336847736592}
   directorRotateSpeed: 180
   directorChargeTime: 3
-  moveForceMax: 2500
+  moveForceMax: 250
+  correctedForceDistanceOffset: 0.5
   directorChargeScale: {x: 6, y: 4, z: 1}
   powerColors:
     serializedVersion: 2
