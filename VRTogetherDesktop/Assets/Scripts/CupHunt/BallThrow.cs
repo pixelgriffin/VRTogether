@@ -26,17 +26,11 @@ public class BallThrow : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
     {
-        // Don't do anything if the players aren't ready
-        if (!MinigameServer.Instance.AllPlayersReady())
-        {
-            return;
-
-        }
-
         // Held
         if (heldBall == null && SteamVR_Input._default.inActions.GrabPinch.GetStateDown(source))
         {
-            heldBall = MinigameServer.Instance.NetworkInstantiate(ball);
+            //heldBall = MinigameServer.Instance.NetworkInstantiate(ball);
+            heldBall = Instantiate(ball);
             heldBall.transform.position = thisHand.transform.position;
             heldBall.transform.rotation = thisHand.transform.rotation;
             heldBall.GetComponent<Rigidbody>().isKinematic = true;
@@ -45,7 +39,7 @@ public class BallThrow : MonoBehaviour {
 
         if (heldBall)
         {
-            heldBall.GetComponent<Rigidbody>().position = point.position;
+            heldBall.transform.position = point.position;
             heldBall.transform.rotation = thisHand.transform.rotation;
 
         }
