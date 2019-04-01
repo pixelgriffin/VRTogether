@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Name: ChickenShooterPrefabList
   m_EditorClassIdentifier: 
   prefabs:
-  - {fileID: 1086002431604188, guid: 2cecfd29655534bd7a0a4e9d2833ae9d, type: 2}
+  - {fileID: 1750952419062740, guid: 2cecfd29655534bd7a0a4e9d2833ae9d, type: 2}
   - {fileID: 1631852410736416, guid: c4562293ba6a94a5a8e09a7d90926a45, type: 2}

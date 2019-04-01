@@ -14,6 +14,7 @@ public class ChickenController : MonoBehaviour {
     public float jumpTime = 0.5f;
 
     private GameObject chicken;
+    //private Vector3 orgChickenMeshPos;
     private CharacterController chickenCtrl;
     private Vector3 velocity;
     private float jumpTimer;
@@ -34,6 +35,7 @@ public class ChickenController : MonoBehaviour {
 	void Start () {
 
         chicken = transform.GetChild(0).gameObject;
+        //orgChickenMeshPos = chicken.transform.GetChild(0).localPosition;
         //chickenRB = chicken.GetComponent<Rigidbody>();
         chickenCtrl = chicken.GetComponent<CharacterController>();
 
@@ -105,6 +107,16 @@ public class ChickenController : MonoBehaviour {
         movingRight = controls.IsRightPressed() || Input.GetKey(KeyCode.D);
         jumping = (controls.IsScreenPressed() || Input.GetKey(KeyCode.Space)) 
             && grounded && jumpTimer >= jumpTime;
+
+        //Hop animation
+        if(movingUp || movingDown || movingLeft || movingRight)
+        {
+            chicken.transform.GetChild(0).localPosition = Vector3.up * Mathf.Abs(Mathf.Sin(Time.timeSinceLevelLoad * 10f)) * 0.2f;
+        }
+        else
+        {
+            chicken.transform.GetChild(0).localPosition = Vector3.MoveTowards(chicken.transform.GetChild(0).localPosition, Vector3.zero, Time.deltaTime * 5f);//orgChickenMeshPos;
+        }
 
         if (movingUp && !frontCollisionWall)
         {
