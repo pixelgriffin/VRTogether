@@ -23,6 +23,7 @@ public class CupController : MonoBehaviour {
 
     private bool isCharging = false;
     private bool canCharge = false;  // Is this cup allowed to charge? (Player touching cup)
+    private GameObject myCam;
 
 	void Start ()
     {
@@ -100,6 +101,10 @@ public class CupController : MonoBehaviour {
             col.GetComponent<Rigidbody>().isKinematic = true;
             col.transform.SetParent(transform);
 
+            GameObject.Destroy(myCam);
+            MinigameClient.Instance.NetworkDestroy(col.gameObject);
+            MinigameClient.Instance.NetworkDestroy(gameObject);
+
 		}
 
 	}
@@ -111,8 +116,8 @@ public class CupController : MonoBehaviour {
 
         if (state)
         {
-            GameObject newCam = Instantiate(cameraOject);
-            newCam.GetComponent<SimpleTouchLook>().target = transform;
+            myCam = Instantiate(cameraOject);
+            myCam.GetComponent<SimpleTouchLook>().target = transform;
 
         }
 
