@@ -14,10 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FlySwatter.unity
     guid: 18ed3c224d7a5404b847337a448049bd
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/SpoopHouse.unity
     guid: c7e47d06fe58a354bbd41f13cb7becad
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/ChickenShooter.unity
     guid: 1f5c6880068874f248998e6c1b3ffbc0
   - enabled: 1
