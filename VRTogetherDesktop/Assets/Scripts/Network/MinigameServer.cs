@@ -171,7 +171,7 @@ namespace VRTogether.Net
             }
         }
 
-        public void EndGame(string returnScene)
+        public void EndGame(string returnScene)  // We're in the endgame now
         {
             if(AllPlayersReady())
             {
