@@ -43,6 +43,8 @@ namespace VRTogether.Net
 
         private void Update()
         {
+            Debug.Log(OnClientJoined.ToString());
+
             //Wait until all players have loaded the minigame
             if (!playersReady)
             {
