@@ -20,6 +20,8 @@ public class BallThrow : MonoBehaviour {
         thisHand = GetComponent<Hand>();
         source = thisHand.handType;
         point = thisHand.transform;
+
+        
 		
 	}
 	
@@ -31,7 +33,7 @@ public class BallThrow : MonoBehaviour {
         {
             //heldBall = MinigameServer.Instance.NetworkInstantiate(ball);
             heldBall = Instantiate(ball);
-            heldBall.transform.position = thisHand.transform.position;
+            heldBall.transform.position = thisHand.transform.position + thisHand.transform.up * 3 + thisHand.transform.forward * 3;
             heldBall.transform.rotation = thisHand.transform.rotation;
             heldBall.GetComponent<Rigidbody>().isKinematic = true;
 
@@ -50,7 +52,9 @@ public class BallThrow : MonoBehaviour {
             heldBall.GetComponent<Rigidbody>().isKinematic = false;
             heldBall.GetComponent<Rigidbody>().velocity = thisHand.GetTrackedObjectVelocity();
             heldBall.GetComponent<Rigidbody>().angularVelocity = thisHand.GetTrackedObjectAngularVelocity();
-            
+            heldBall.GetComponent<Ball>().enabled = true;
+            heldBall.GetComponent<Ball>().BeginDestroyTimer();
+
             heldBall = null;
 
         }
