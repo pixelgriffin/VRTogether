@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4259789439314206}
   - component: {fileID: 198836245963028652}
   - component: {fileID: 199207348087143202}
-  - component: {fileID: 114882205610580794}
+  - component: {fileID: 114818901847496322}
   m_Layer: 0
   m_Name: BallDeathParticles
   m_TagString: Untagged
@@ -42,7 +42,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114882205610580794
+--- !u!114 &114818901847496322
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -50,7 +50,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1168577088143514}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd35eddd9d0e3c544aded1c319894980, type: 3}
+  m_Script: {fileID: 11500000, guid: e57425fdca27fc0418f93ab52c52129b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   netID: 

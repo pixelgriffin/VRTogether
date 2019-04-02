@@ -86,6 +86,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4725064792247034}
+  - component: {fileID: 114331569888483234}
   m_Layer: 0
   m_Name: CupObject
   m_TagString: Untagged
@@ -261,6 +262,18 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: c8e84aa47294a4e91965fceaf6701eb0, type: 3}
+--- !u!114 &114331569888483234
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1938845507390096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd35eddd9d0e3c544aded1c319894980, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  netID: 
 --- !u!114 &114798981637617786
 MonoBehaviour:
   m_ObjectHideFlags: 1

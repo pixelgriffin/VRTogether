@@ -24,6 +24,8 @@ public class CupSpawner : MonoBehaviour {
 
     private void OnClientJoined()
     {
+        Debug.Log("Client joined!");
+
         foreach(MacrogamePlayer p in MacrogameServer.Instance.GetMacroPlayers())
         {
             //Network instantiate

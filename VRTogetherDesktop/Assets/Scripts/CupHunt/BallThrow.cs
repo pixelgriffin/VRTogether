@@ -14,9 +14,13 @@ public class BallThrow : MonoBehaviour {
     private SteamVR_Input_Sources source;
     private GameObject heldBall = null;
 
+    public List<GameObject> balls;
+
 	// Use this for initialization
 	void Start () 
     {
+        balls = new List<GameObject>();
+
         thisHand = GetComponent<Hand>();
         source = thisHand.handType;
         point = thisHand.transform;
@@ -29,13 +33,15 @@ public class BallThrow : MonoBehaviour {
 	void Update () 
     {
         // Held
-        if (heldBall == null && SteamVR_Input._default.inActions.GrabPinch.GetStateDown(source))
+        if (heldBall == null && SteamVR_Input._default.inActions.GrabPinch.GetStateDown(source) && balls.Count < 10)
         {
-            //heldBall = MinigameServer.Instance.NetworkInstantiate(ball);
-            heldBall = Instantiate(ball);
+            heldBall = MinigameServer.Instance.NetworkInstantiate(ball);
+            //heldBall = Instantiate(ball);
+            heldBall.GetComponent<Ball>().thrower = this;
             heldBall.transform.position = thisHand.transform.position + thisHand.transform.up * 3 + thisHand.transform.forward * 3;
             heldBall.transform.rotation = thisHand.transform.rotation;
             heldBall.GetComponent<Rigidbody>().isKinematic = true;
+            balls.Add(heldBall);
 
         }
 

@@ -22,6 +22,7 @@ public class TablePositioner : MonoBehaviour {
 
             GameObject spawnedTable = MinigameServer.Instance.NetworkInstantiate(table);
             spawnedTable.transform.position = area.vertices[0] + Vector3.forward * offset;
+            spawnedTable.transform.position = new Vector3(spawnedTable.transform.position.x, spawnedTable.transform.position.y, -0.8f);
 
         }
 
