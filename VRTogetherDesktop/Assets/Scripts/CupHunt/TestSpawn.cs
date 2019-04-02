@@ -2,21 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using VRTogether.Net;
+
 public class TestSpawn : MonoBehaviour {
-    public Transform[] transforms;
-    public GameObject cup;
-
-	// Use this for initialization
-	public void Spawn () {
-		foreach (Transform t in transforms)
-        {
-            Instantiate(cup, t.position, t.rotation);
-
-        }
-	}
+    public Transform target;
+    public GameObject ball;
+    public float heightOffset = 5f;
 	
 	// Update is called once per frame
 	void Update () {
+        if (target)
+        {
+            transform.position = new Vector3(target.position.x, target.position.y + heightOffset, target.position.z);
+
+        }
+
+        
+        if (Input.GetKeyDown(KeyCode.X) && target)
+        {
+            GameObject newBall = MinigameServer.Instance.NetworkInstantiate(ball);
+
+            newBall.transform.position = transform.position;
+
+        }
 		
 	}
 }
