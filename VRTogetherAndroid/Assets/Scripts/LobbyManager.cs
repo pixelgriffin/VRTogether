@@ -33,9 +33,15 @@ public class LobbyManager : MonoBehaviour
 
         if(MacrogameClient.Instance.IsConnected())
         {
+            MacrogameClient.Instance.RequestScoreUpdate();
             MacrogameClient.Instance.RequestNameList();
             SwitchToLobby();
         }
+    }
+
+    private void Update()
+    {
+        roomCodeText.text = "VR Player Score: " + MacrogameClient.Instance.GetVRScore();
     }
 
     private void OnDestroy()
@@ -80,7 +86,7 @@ public class LobbyManager : MonoBehaviour
         {
             Debug.Log("Recieved code: " + code);
 
-            roomCodeText.text = "Room Code: " + code;
+            //roomCodeText.text = "Room Code: " + code;
             string failReason = "";
 
             string testip = "111.111.111.111";
@@ -199,7 +205,6 @@ public class LobbyManager : MonoBehaviour
     {
         lobbyPanel.SetActive(true);
         codePanel.SetActive(false);
-
     }
 
     public void AddPlayerNameToPlayerList(string name)
@@ -208,17 +213,16 @@ public class LobbyManager : MonoBehaviour
 
         if (name == MacrogameClient.Instance.playerName)
         {
-            nameList += "\n<color=#ff00ffff>" + name + "</color>";
+            nameList += "\n<color=#ff00ffff>" + name + "</color> - " + MacrogameClient.Instance.GetPlayerScore(name);
 
         }
         else
         {
-            nameList += "\n" + name;
+            nameList += "\n" + name + " - " + MacrogameClient.Instance.GetPlayerScore(name);
 
         }
 
         playerListText.text = nameList;
-
     }
 
     public void LeaveServer()

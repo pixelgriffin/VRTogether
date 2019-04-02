@@ -23,10 +23,12 @@ namespace VRTogether.Net
         public static short ObjectInstantiate = MsgType.Highest + 12;
         public static short ObjectDestroy = MsgType.Highest + 13;
 
-        public const short Highest = MsgType.Highest + 16;
+        public const short Highest = MsgType.Highest + 18;
 
         public static short MacroServerSendPlayerName = MsgType.Highest + 15;
         public static short MacroClientRequestNameList = MsgType.Highest + 16;
+        public static short MacroClientRequestScore = MsgType.Highest + 17;
+        public static short MacroServerSendScore = MsgType.Highest + 18;
     }
 
     public class MiniMsgType
@@ -102,5 +104,12 @@ namespace VRTogether.Net
         public string networkID;
         public string varName;
         public string value;
+    }
+
+    public class ScoreMessage : MessageBase
+    {
+        public string name;
+        public bool isVrScore;
+        public int score;
     }
 }
