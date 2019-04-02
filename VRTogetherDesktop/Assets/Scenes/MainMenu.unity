@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571334, b: 0.3069219, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1944,6 +1944,8 @@ GameObject:
   - component: {fileID: 1904779487}
   - component: {fileID: 1904779486}
   - component: {fileID: 1904779488}
+  - component: {fileID: 1904779490}
+  - component: {fileID: 1904779489}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: UI
@@ -2071,6 +2073,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clickOnPointerCollision: 0
   autoActivateWithinDistance: 0
+--- !u!114 &1904779489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1904779481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edcfcffb9588945bf925decd3044fed6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1904779490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1904779481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a9817d4215b2ce429fa447b1d8f4cc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1953962968
 GameObject:
   m_ObjectHideFlags: 0
