@@ -353,7 +353,7 @@ MonoBehaviour:
   directorSprite: {fileID: 212652336847736592}
   directorRotateSpeed: 180
   directorChargeTime: 3
-  moveForceMax: 250
+  moveForceMax: 750
   correctedForceDistanceOffset: 0.5
   directorChargeScale: {x: 6, y: 4, z: 1}
   powerColors:
