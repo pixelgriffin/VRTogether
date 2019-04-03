@@ -8,34 +8,27 @@ public class ChickenOnDestroy : MonoBehaviour {
     private NetworkID id;
 
     private Vector3 oldPos;
+    private Vector3 posOffset;
 
     private void Start()
     {
-        oldPos = this.transform.position;
-
-        // check this id
         id = GetComponent<NetworkID>();
-        if (!MinigameClient.Instance.networkedPrefabs.IsSlave(id.netID))
-        {
-            Debug.Log("Me: " + id.netID);
-        }
-        else
-        {
-            Debug.Log(id.netID);
-        }
+
+        oldPos = this.transform.position;
+        posOffset = Vector3.up * 0.5f;
     }
 
     private void Update()
     {
-        if (MinigameClient.Instance.networkedPrefabs.IsSlave(id.netID))
+        if (!MinigameClient.Instance.networkedPrefabs.IsSlave(id.netID))
         {
             if (this.transform.position != oldPos)
             {
-                this.transform.GetChild(0).localPosition = Vector3.up * Mathf.Abs(Mathf.Sin(Time.timeSinceLevelLoad * 10f)) * 0.2f;
+                this.transform.GetChild(0).localPosition = (Vector3.up * Mathf.Abs(Mathf.Sin(Time.timeSinceLevelLoad * 10f)) * 0.2f) - posOffset;
             }
             else
             {
-                this.transform.GetChild(0).localPosition = Vector3.MoveTowards(this.transform.GetChild(0).localPosition, Vector3.zero, Time.deltaTime * 5f);
+                this.transform.GetChild(0).localPosition = Vector3.MoveTowards(this.transform.GetChild(0).localPosition, -posOffset, Time.deltaTime * 5f);
             }
 
             oldPos = this.transform.position;
@@ -77,7 +70,7 @@ public class ChickenOnDestroy : MonoBehaviour {
             Debug.Log(chickens.Length);
 
             // disable current camera
-            transform.GetChild(0).gameObject.GetComponent<Camera>().enabled = false;
+            transform.GetChild(1).gameObject.GetComponent<Camera>().enabled = false;
 
             if (chickens.Length == 0)
             {
