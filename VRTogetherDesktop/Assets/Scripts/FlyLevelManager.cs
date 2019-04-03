@@ -30,14 +30,14 @@ public class FlyLevelManager : MonoBehaviour {
         if (scoreCounter.forwardScore >= scoreCounter.goalScore)
         {
             Debug.Log("GAME OVER - FLIES WIN");
-            MinigameServer.Instance.EndGame("Scenes/MainMenu");
+            MinigameServer.Instance.EndGame("Scenes/MainMenu", false, 1);
         }
 
         // check if all flies swatted
         if (playersAliveCount <= 0)
         {
             Debug.Log("GAME OVER - FLY SWATTER WINS");
-            MinigameServer.Instance.EndGame("Scenes/MainMenu");
+            MinigameServer.Instance.EndGame("Scenes/MainMenu", true, 1);
         }
 
     }

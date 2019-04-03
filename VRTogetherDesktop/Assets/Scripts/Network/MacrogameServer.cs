@@ -19,6 +19,8 @@ namespace VRTogether.Net
 
         private List<MacrogamePlayer> macroPlayerList = new List<MacrogamePlayer>();
 
+        private int vrScore = 0;
+
         private string minigameToLoad = "";
         private string currentMinigameScene = "";
 
@@ -58,6 +60,7 @@ namespace VRTogether.Net
                 NetworkServer.RegisterHandler(MsgType.Disconnect, OnPlayerDisconnected);
                 NetworkServer.RegisterHandler(MacroMsgType.MacroClientSendPlayerName, OnReceivedPlayerName);
                 NetworkServer.RegisterHandler(MacroMsgType.MacroClientRequestNameList, OnRequestedNameList);
+                NetworkServer.RegisterHandler(MacroMsgType.MacroClientRequestScore, OnRequestedScore);
 
                 if (isListening)
                     Debug.Log("Started server");
@@ -113,6 +116,50 @@ namespace VRTogether.Net
         public List<MacrogamePlayer> GetMacroPlayers()
         {
             return macroPlayerList;
+        }
+
+        public void AddScore(bool vr, int score)
+        {
+            if (vr)
+            {
+                vrScore += score;
+            }
+            else
+            {
+                foreach (MacrogamePlayer p in macroPlayerList)
+                {
+                    p.score += score;
+                }
+                /*foreach (string n in names)
+                {
+                    foreach (MacrogamePlayer p in macroPlayerList)
+                    {
+                        if (p.name == n)
+                        {
+                            p.score += score;
+                            break;
+                        }
+                    }
+                }*/
+            }
+        }
+
+        public int GetVRScore()
+        {
+            return vrScore;
+        }
+
+        public int GetPlayerScore(string name)
+        {
+            foreach (MacrogamePlayer p in macroPlayerList)
+            {
+                if (p.name == name)
+                {
+                    return p.score;
+                }
+            }
+
+            return 0;
         }
 
         #endregion
@@ -188,6 +235,25 @@ namespace VRTogether.Net
             NetworkServer.SendToAll(MacroMsgType.MacroServerPlayerJoined, acceptedMsg);
 
 
+        }
+
+        private void OnRequestedScore(NetworkMessage netMsg)
+        {
+            foreach (MacrogamePlayer mp in macroPlayerList)
+            {
+                ScoreMessage msg = new ScoreMessage();
+                msg.isVrScore = false;
+                msg.score = mp.score;
+                msg.name = mp.name;
+
+                NetworkServer.SendToClient(netMsg.conn.connectionId, MacroMsgType.MacroServerSendScore, msg);
+            }
+
+            ScoreMessage vrMsg = new ScoreMessage();
+            vrMsg.isVrScore = true;
+            vrMsg.score = vrScore;
+
+            NetworkServer.SendToClient(netMsg.conn.connectionId, MacroMsgType.MacroServerSendScore, vrMsg);
         }
 
         private void SendToAllBut(int connectionID, short msgType, MessageBase msg)
