@@ -31,6 +31,8 @@ public class ChickenDestroy : MonoBehaviour {
 
     public void OnDestroy()
     {
+        GetComponent<ParticleSystem>().Play();
+
         levelManager.GetComponent<LevelManager>().DecrPlayersAliveCount();
     }
 }
