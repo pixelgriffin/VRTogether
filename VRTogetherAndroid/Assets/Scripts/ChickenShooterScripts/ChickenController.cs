@@ -109,6 +109,7 @@ public class ChickenController : MonoBehaviour {
             && grounded && jumpTimer >= jumpTime;
 
         //Hop animation
+        /*
         if(movingUp || movingDown || movingLeft || movingRight)
         {
             chicken.transform.GetChild(0).localPosition = Vector3.up * Mathf.Abs(Mathf.Sin(Time.timeSinceLevelLoad * 10f)) * 0.2f;
@@ -116,7 +117,7 @@ public class ChickenController : MonoBehaviour {
         else
         {
             chicken.transform.GetChild(0).localPosition = Vector3.MoveTowards(chicken.transform.GetChild(0).localPosition, Vector3.zero, Time.deltaTime * 5f);//orgChickenMeshPos;
-        }
+        }*/
 
         if (movingUp && !frontCollisionWall)
         {
