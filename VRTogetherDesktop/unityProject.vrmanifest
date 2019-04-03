@@ -2,12 +2,12 @@
   "source": "Unity",
   "applications": [
     {
-      "app_key": "application.generated.unity.vrtogetherdesktop.exe",
+      "app_key": "application.generated.unity.vrtogether.exe",
       "launch_type": "url",
       "url": "steam://launch/",
       "strings": {
         "en_us": {
-          "name": "VRTogetherDesktop [Testing]"
+          "name": "VR Together [Testing]"
         }
       }
     }

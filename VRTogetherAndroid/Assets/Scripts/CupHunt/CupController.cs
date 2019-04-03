@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 using VRTogether.Net;
 
 public class CupController : MonoBehaviour {
@@ -23,9 +25,15 @@ public class CupController : MonoBehaviour {
 
     private bool isCharging = false;
     private bool canCharge = false;  // Is this cup allowed to charge? (Player touching cup)
+    private GameObject myCam;
+
+    private Text helpText;
 
 	void Start ()
     {
+        helpText = FindObjectOfType<Text>();
+        helpText.text = "Press and hold the cup to being charging your movement in the arrow's direction!";
+
         inControl = !MinigameClient.Instance.networkedPrefabs.IsSlave(GetComponent<NetworkID>().netID);
 
 		directorStartScale = director.transform.localScale;
@@ -36,6 +44,8 @@ public class CupController : MonoBehaviour {
 	
 	void Update () 
     {
+        
+
         /*
 			When the mouse is first held down, store the time
 
@@ -43,9 +53,10 @@ public class CupController : MonoBehaviour {
 		 */
         if (Input.GetMouseButtonDown(0) && !isCharging && canCharge)
 		{
-			
+            
 
-		} else if (Input.GetMouseButtonUp(0) && isCharging)
+        }
+        else if (Input.GetMouseButtonUp(0) && isCharging)
 		{
             RaycastHit hit;
             float correctedForce = timeHeldRatio * moveForceMax;
@@ -63,16 +74,18 @@ public class CupController : MonoBehaviour {
 
             canCharge = false;
 
-		}
+            helpText.text = "Press and hold the cup to being charging your movement in the arrow's direction!";
 
-		/*
+        }
+
+        /*
 			While the mouse is held, find how long it has been held in terms of a ratio of 0 to 1 where 0 is the start time
 			and 1 is the end time, and use that ratio to scale the director and set its color
 
 			Else reset the color and scale of the director (this doesn't need to be done every frame) and rotate it
 
 		 */
-		if (Input.GetMouseButton(0) && isCharging)
+        if (Input.GetMouseButton(0) && isCharging)
 		{
 			timeHeldRatio = 1 - (-(Time.time - (directorChargeTime + directorHoldStartTime)) / directorChargeTime);
 			timeHeldRatio = Mathf.Clamp(timeHeldRatio, 0f, 1f);
@@ -80,8 +93,10 @@ public class CupController : MonoBehaviour {
 			directorSprite.color = powerColors.Evaluate(timeHeldRatio);
 			director.transform.localScale = Vector3.Lerp(directorStartScale, directorChargeScale, timeHeldRatio);
 
+            helpText.text = "Release to move, or hold longer to move farther!";
 
-		} else
+
+        } else
 		{
 			directorSprite.color = Color.white;
 			director.transform.localScale = directorStartScale;
@@ -100,6 +115,10 @@ public class CupController : MonoBehaviour {
             col.GetComponent<Rigidbody>().isKinematic = true;
             col.transform.SetParent(transform);
 
+            GameObject.Destroy(myCam);
+            MinigameClient.Instance.NetworkDestroy(col.gameObject);
+            MinigameClient.Instance.NetworkDestroy(gameObject);
+
 		}
 
 	}
@@ -111,8 +130,8 @@ public class CupController : MonoBehaviour {
 
         if (state)
         {
-            GameObject newCam = Instantiate(cameraOject);
-            newCam.GetComponent<SimpleTouchLook>().target = transform;
+            myCam = Instantiate(cameraOject);
+            myCam.GetComponent<SimpleTouchLook>().target = transform;
 
         }
 
