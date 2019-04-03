@@ -12,6 +12,8 @@ public class ChickenOnDestroy : MonoBehaviour {
 
     private void Start()
     {
+        id = GetComponent<NetworkID>();
+
         oldPos = this.transform.position;
         posOffset = Vector3.up * 0.5f;
     }

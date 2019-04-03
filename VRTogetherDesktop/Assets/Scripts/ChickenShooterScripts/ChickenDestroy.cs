@@ -7,10 +7,12 @@ public class ChickenDestroy : MonoBehaviour {
     private GameObject levelManager;
 
     private Vector3 oldPos;
+    private Vector3 posOffset;
 
     void Start()
     {
         oldPos = this.transform.position;
+        posOffset = Vector3.up * 0.5f;
 
         levelManager = GameObject.Find("LevelManager");
     }
@@ -19,11 +21,11 @@ public class ChickenDestroy : MonoBehaviour {
     {
         if (this.transform.position != oldPos)
         {
-            this.transform.GetChild(0).localPosition = Vector3.up * Mathf.Abs(Mathf.Sin(Time.timeSinceLevelLoad * 10f)) * 0.2f;
+            this.transform.GetChild(0).localPosition = (Vector3.up * Mathf.Abs(Mathf.Sin(Time.timeSinceLevelLoad * 10f)) * 0.2f) - posOffset;
         }
         else
         {
-            this.transform.GetChild(0).localPosition = Vector3.MoveTowards(this.transform.GetChild(0).localPosition, Vector3.zero, Time.deltaTime * 5f);
+            this.transform.GetChild(0).localPosition = Vector3.MoveTowards(this.transform.GetChild(0).localPosition, -posOffset, Time.deltaTime * 5f);
         }
 
         oldPos = this.transform.position;
