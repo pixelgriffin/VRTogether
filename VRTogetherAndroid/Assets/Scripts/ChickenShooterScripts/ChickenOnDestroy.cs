@@ -7,8 +7,12 @@ public class ChickenOnDestroy : MonoBehaviour {
 
     private NetworkID id;
 
+    private Vector3 oldPos;
+
     private void Start()
     {
+        oldPos = this.transform.position;
+
         // check this id
         id = GetComponent<NetworkID>();
         if (!MinigameClient.Instance.networkedPrefabs.IsSlave(id.netID))
@@ -21,10 +25,31 @@ public class ChickenOnDestroy : MonoBehaviour {
         }
     }
 
+    private void Update()
+    {
+        if (MinigameClient.Instance.networkedPrefabs.IsSlave(id.netID))
+        {
+            if (this.transform.position != oldPos)
+            {
+                this.transform.GetChild(0).localPosition = Vector3.up * Mathf.Abs(Mathf.Sin(Time.timeSinceLevelLoad * 10f)) * 0.2f;
+            }
+            else
+            {
+                this.transform.GetChild(0).localPosition = Vector3.MoveTowards(this.transform.GetChild(0).localPosition, Vector3.zero, Time.deltaTime * 5f);
+            }
+
+            oldPos = this.transform.position;
+        }
+    }
+
     public void OnDestroy()
     {
         Debug.Log(id.netID + " being destroyed");
 
+        // feathers
+        GetComponent<ParticleSystem>().Play();
+
+        // change the canvas
         if (!MinigameClient.Instance.networkedPrefabs.IsSlave(id.netID))
         {
             GameObject canvas;
@@ -39,6 +64,8 @@ public class ChickenOnDestroy : MonoBehaviour {
             canvas = GameObject.Find("Canvas");
             canvas.GetComponent<Canvas>().enabled = false;
         }
+
+        // spectator cam
 
         // if this slave/auth has more than one child (these children are always cameras)
         if (transform.childCount > 0)

@@ -2067,7 +2067,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1a8db4e33d234fee8fb93bb3cbb4260, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chicken: {fileID: 1086002431604188, guid: 2cecfd29655534bd7a0a4e9d2833ae9d, type: 2}
+  chicken: {fileID: 1726682675441442, guid: 2cecfd29655534bd7a0a4e9d2833ae9d, type: 2}
   parent: {fileID: 1767899758738708, guid: 9d99211991c3142049e09cb059b74c31, type: 2}
 --- !u!4 &2061299898
 Transform:

@@ -63,6 +63,8 @@ namespace Valve.VR.InteractionSystem
         public LayerMask hoverLayerMask = -1;
         public float hoverUpdateInterval = 0.1f;
 
+        public bool hoveringGUI = false;
+
         public bool useControllerHoverComponent = true;
         public string controllerHoverComponent = "tip";
         public float controllerHoverRadius = 0.075f;

@@ -28,13 +28,13 @@ public class LevelManager : MonoBehaviour {
         if (chickenFinished.value)
         {
             Debug.Log("GAME OVER - CHICKEN WINS");
-            MinigameServer.Instance.EndGame("Scenes/MainMenu");
+            MinigameServer.Instance.EndGame("Scenes/MainMenu", false, 1);
         }
 
         if (playersAliveCount <= 0)
         {
             Debug.Log("GAME OVER - CHICKEN FEEDER WINS");
-            MinigameServer.Instance.EndGame("Scenes/MainMenu");
+            MinigameServer.Instance.EndGame("Scenes/MainMenu", true, 1);
         }
 
     }

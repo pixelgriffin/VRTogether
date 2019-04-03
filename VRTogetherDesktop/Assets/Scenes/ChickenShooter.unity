@@ -141,6 +141,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   networkedPrefabs: {fileID: 11400000, guid: 02c4797acd67746d893b937badc606a8, type: 2}
+  OnAllClientsReady:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!4 &38555780
 Transform:
   m_ObjectHideFlags: 0

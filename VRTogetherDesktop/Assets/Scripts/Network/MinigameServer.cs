@@ -171,7 +171,7 @@ namespace VRTogether.Net
             }
         }
 
-        public void EndGame(string returnScene)  // We're in the endgame now
+        public void EndGame(string returnScene, bool vrWon, int score)
         {
             if(AllPlayersReady())
             {
@@ -180,6 +180,9 @@ namespace VRTogether.Net
 
                 networkedPrefabs.Shutdown();
                 NetworkServer.SendToAll(MiniMsgType.MiniEndGame, msg);
+
+                MacrogameServer.Instance.AddScore(vrWon, score);
+
                 SceneManager.LoadScene(returnScene);
             }
 

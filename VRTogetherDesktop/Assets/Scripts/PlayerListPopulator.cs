@@ -12,7 +12,7 @@ public class PlayerListPopulator : MonoBehaviour {
         playerListText.text = "Players:\n";
         foreach(MacrogamePlayer p in MacrogameServer.Instance.GetMacroPlayers())
         {
-            playerListText.text += p.name + "\n";
+            playerListText.text += p.name + " - " + MacrogameServer.Instance.GetPlayerScore(p.name) + "\n";
         }
 	}
 }

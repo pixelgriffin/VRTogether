@@ -27,6 +27,10 @@ namespace VRTogether.Net
         [HideInInspector]
         public StringEvent OnPlayerLeftServer = new StringEvent();
 
+
+        private Dictionary<string, int> playerScores = new Dictionary<string, int>();
+        private int vrScore = 0;
+
         private bool isListening = false;
 
         private NetworkClient client;
@@ -68,6 +72,7 @@ namespace VRTogether.Net
                 client.RegisterHandler(MacroMsgType.MacroServerLoadMinigame, OnServerLoadMinigame);
                 client.RegisterHandler(MacroMsgType.MacroServerStartMinigame, OnMinigameStarted);
                 client.RegisterHandler(MacroMsgType.MacroServerSendPlayerName, OnReceivedPlayerName);
+                client.RegisterHandler(MacroMsgType.MacroServerSendScore, OnReceivedScore);
 
                 client.Connect(ip, 4444);
                 isListening = true;
@@ -86,9 +91,53 @@ namespace VRTogether.Net
             client.Send(MacroMsgType.MacroClientRequestNameList, new EmptyMessage());
         }
 
+        public void RequestScoreUpdate()
+        {
+            client.Send(MacroMsgType.MacroClientRequestScore, new EmptyMessage());
+        }
+
+        public int GetVRScore()
+        {
+            return vrScore;
+        }
+
+        public int GetPlayerScore(string name)
+        {
+            int val = 0;
+            if(playerScores.TryGetValue(name, out val))
+            {
+                return val;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
         public NetworkClient GetClient()
         {
             return client;
+        }
+
+        private void OnReceivedScore(NetworkMessage msg)
+        {
+            ScoreMessage scoreMsg = msg.ReadMessage<ScoreMessage>();
+
+            if (scoreMsg.isVrScore)
+            {
+                vrScore = scoreMsg.score;
+            }
+            else
+            {
+                if (playerScores.ContainsKey(scoreMsg.name))
+                {
+                    playerScores[scoreMsg.name] = scoreMsg.score;
+                }
+                else
+                {
+                    playerScores.Add(scoreMsg.name, scoreMsg.score);
+                }
+            }
         }
 
         private void OnServerRequestsName(NetworkMessage msg)
