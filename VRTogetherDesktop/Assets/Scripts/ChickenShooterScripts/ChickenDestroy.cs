@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ChickenDestroy : MonoBehaviour {
 
+    public GameObject featherSpawner;
+
     private GameObject levelManager;
 
     private Vector3 oldPos;
@@ -33,7 +35,8 @@ public class ChickenDestroy : MonoBehaviour {
 
     public void OnDestroy()
     {
-        GetComponent<ParticleSystem>().Play();
+        //GetComponent<ParticleSystem>().Play();
+        Instantiate(featherSpawner);
 
         levelManager.GetComponent<LevelManager>().DecrPlayersAliveCount();
     }

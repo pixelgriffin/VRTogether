@@ -5,6 +5,8 @@ using VRTogether.Net;
 
 public class ChickenOnDestroy : MonoBehaviour {
 
+    public GameObject featherSpawner;
+
     private NetworkID id;
 
     private Vector3 oldPos;
@@ -40,7 +42,8 @@ public class ChickenOnDestroy : MonoBehaviour {
         Debug.Log(id.netID + " being destroyed");
 
         // feathers
-        GetComponent<ParticleSystem>().Play();
+        //GetComponent<ParticleSystem>().Play();
+        Instantiate(featherSpawner);
 
         // change the canvas
         if (!MinigameClient.Instance.networkedPrefabs.IsSlave(id.netID))
