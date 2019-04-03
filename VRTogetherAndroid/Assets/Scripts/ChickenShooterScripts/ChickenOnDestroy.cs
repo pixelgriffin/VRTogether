@@ -46,6 +46,10 @@ public class ChickenOnDestroy : MonoBehaviour {
     {
         Debug.Log(id.netID + " being destroyed");
 
+        // feathers
+        GetComponent<ParticleSystem>().Play();
+
+        // change the canvas
         if (!MinigameClient.Instance.networkedPrefabs.IsSlave(id.netID))
         {
             GameObject canvas;
@@ -60,6 +64,8 @@ public class ChickenOnDestroy : MonoBehaviour {
             canvas = GameObject.Find("Canvas");
             canvas.GetComponent<Canvas>().enabled = false;
         }
+
+        // spectator cam
 
         // if this slave/auth has more than one child (these children are always cameras)
         if (transform.childCount > 0)
