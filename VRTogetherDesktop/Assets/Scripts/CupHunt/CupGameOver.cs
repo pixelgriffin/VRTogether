@@ -25,7 +25,7 @@ public class CupGameOver : MonoBehaviour {
         if (cups.Length == 0 && atLeastOne)
         {
             //TODO update this to proper values, just added this so the script doesn't break
-            MinigameServer.Instance.EndGame("Scenes/MainMenu", true, 100);
+            MinigameServer.Instance.EndGame("Scenes/MainMenu", true, 1);
 
         }
 		
