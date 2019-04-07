@@ -31,7 +31,20 @@ public class CupController : MonoBehaviour {
 
 	void Start ()
     {
-        helpText = FindObjectOfType<Text>();
+        Text[] texts = FindObjectsOfType<Text>();
+
+        foreach (Text text in texts)
+        {
+            if (text.gameObject.name == "HelpText")
+            {
+                helpText = text;
+
+                break;
+
+            }
+
+        }
+        
         helpText.text = "Press and hold the cup to being charging your movement in the arrow's direction!";
 
         inControl = !MinigameClient.Instance.networkedPrefabs.IsSlave(GetComponent<NetworkID>().netID);
