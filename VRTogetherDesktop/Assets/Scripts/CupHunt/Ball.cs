@@ -29,6 +29,15 @@ public class Ball : MonoBehaviour {
 
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.CompareTag("Table"))
+        {
+            MinigameServer.Instance.NetworkDestroy(gameObject);
+
+        }
+    }
+
     IEnumerator DestroyTimer ()
     {
         yield return new WaitForSeconds(5f);
