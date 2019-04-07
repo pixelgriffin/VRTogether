@@ -62,9 +62,9 @@ public class CupController : MonoBehaviour {
             float correctedForce = timeHeldRatio * moveForceMax;
 
             // If that path would make us collide with another cup, damp the force.
-            if (Physics.SphereCast(transform.position, 5f, director.transform.up, out hit, 10 * timeHeldRatio, LayerMask.GetMask("Cup")))
+            if (Physics.SphereCast(transform.position, 1f, director.transform.up, out hit, 2f * timeHeldRatio, LayerMask.GetMask("Cup")))
             {
-                correctedForce = Mathf.Clamp(hit.distance - correctedForceDistanceOffset, 0, 10) / 10 * moveForceMax;
+                correctedForce = Mathf.Clamp(hit.distance - correctedForceDistanceOffset, 0, 10f) / 10 * moveForceMax;
 
             }
 

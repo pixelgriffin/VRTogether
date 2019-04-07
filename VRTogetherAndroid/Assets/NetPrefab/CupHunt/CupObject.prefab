@@ -354,7 +354,7 @@ MonoBehaviour:
   directorRotateSpeed: 180
   directorChargeTime: 3
   moveForceMax: 750
-  correctedForceDistanceOffset: 0.5
+  correctedForceDistanceOffset: 2
   directorChargeScale: {x: 6, y: 4, z: 1}
   powerColors:
     serializedVersion: 2
