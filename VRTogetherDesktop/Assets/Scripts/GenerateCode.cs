@@ -38,7 +38,7 @@ public class GenerateCode : MonoBehaviour {
         else
         {
             GENERATED_CODE = true;
-            CODE = ("ENTER CODE:\n" + code.data).Replace("\\n", "\n");
+            CODE = ("Room Code: " + code.data).Replace("\\n", "\n");
             codeText.text = CODE;
         }
     }
