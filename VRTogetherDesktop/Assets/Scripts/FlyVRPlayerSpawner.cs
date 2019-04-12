@@ -16,8 +16,6 @@ public class FlyVRPlayerSpawner : MonoBehaviour {
         {
             if (MinigameServer.Instance.AllPlayersReady())
             {
-                Debug.Log("Net create cube");
-
                 // spawn vr player's right hand transform
                 GameObject inst1 = MinigameServer.Instance.NetworkInstantiate(rightHand);
                 inst1.transform.position = parentRightHand.transform.position;

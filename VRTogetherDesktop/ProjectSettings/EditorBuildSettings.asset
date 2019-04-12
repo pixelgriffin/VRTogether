@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CupHunt.unity
     guid: 9263e4ba3e2504a24bbf05a43c421107
+  - enabled: 1
+    path: Assets/Scenes/BeatBoxer.unity
+    guid: dce1a36f6cabdca41906fa975604c68c
   m_configObjects: {}

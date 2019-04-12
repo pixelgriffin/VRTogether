@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00a1827f593babb48a27328361db6583, type: 3}
+  m_Name: BeatBoxerNetPrefabList
+  m_EditorClassIdentifier: 
+  prefabs:
+  - {fileID: 1310310712367994, guid: 7550e59267f6a5d41a8a0a34db0386a3, type: 2}
+  - {fileID: 1697818443337168, guid: 53bfb1862ba9b674bac178d1f4aa0577, type: 2}
+  - {fileID: 1431006551072866, guid: 62189ee8e60a7d64cb70e447ad9124bc, type: 2}
+  - {fileID: 1029117216025378, guid: b4fe1b42a8371ed4385b1535d6fd7281, type: 2}

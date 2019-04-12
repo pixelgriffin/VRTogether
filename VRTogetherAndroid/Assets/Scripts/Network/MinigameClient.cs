@@ -108,6 +108,23 @@ namespace VRTogether.Net
             return allPlayersReady;
         }
 
+        public void NetworkRequestServerInstantiate(GameObject prefab, Vector3 pos, Quaternion rot)
+        {
+            if (networkedPrefabs.prefabs.Contains(prefab))
+            {
+                ObjectInstantiateMessage newObjectMsg = new ObjectInstantiateMessage();
+                newObjectMsg.objectName = prefab.name;
+                newObjectMsg.pos = pos;
+                newObjectMsg.rot = rot;
+
+                client.Send(MiniMsgType.MiniRequestInstantiateObject, newObjectMsg);
+            }
+            else
+            {
+                Debug.Log("networked prefabs does not contain " + prefab.name);
+            }
+        }
+
         public GameObject NetworkInstantiate(GameObject prefab)
         {
             if (networkedPrefabs.prefabs.Contains(prefab))
