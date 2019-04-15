@@ -711,6 +711,18 @@ MonoBehaviour:
   projectileForce: 4000
   shootTimer: 1
   aimAssistDistance: 10
+--- !u!114 &1505248480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1505248477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd35eddd9d0e3c544aded1c319894980, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  netID: 
 --- !u!1 &1890833179
 GameObject:
   m_ObjectHideFlags: 0
