@@ -314,6 +314,8 @@ namespace VRTogether.Net
 
             BooleanVarMessage boolMsg = msg.ReadMessage<BooleanVarMessage>();
 
+            Debug.Log(boolMsg.varName + ": " + boolMsg.value);
+
             //Process the information for us
             NetworkVariable netBool;
             if(vars.TryGetValue(boolMsg.networkID + "-" + boolMsg.varName, out netBool))

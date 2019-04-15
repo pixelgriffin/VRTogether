@@ -4,7 +4,7 @@ using UnityEngine;
 using VRTogether.Net;
 using Valve.VR;
 
-public class ChickenFeeder : MonoBehaviour
+public class VRShooterController : MonoBehaviour
 {
 
     public GameObject projectile;

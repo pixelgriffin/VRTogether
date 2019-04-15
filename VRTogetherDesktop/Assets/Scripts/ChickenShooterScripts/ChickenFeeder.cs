@@ -4,7 +4,7 @@ using UnityEngine;
 using VRTogether.Net;
 using Valve.VR;
 
-public class VRShooterController : MonoBehaviour
+public class ChickenFeeder : MonoBehaviour
 {
 
     public GameObject projectile;
@@ -51,10 +51,11 @@ public class VRShooterController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if (!networkReady && MinigameServer.Instance.AllPlayersReady())
+        Debug.Log("chicken feeder script is running");
+        if (MinigameServer.Instance.AllPlayersReady())
         {
             networkReady = true;
+            Debug.Log("network ready");
         }
 
         RaycastHit hitInfo;
@@ -94,6 +95,7 @@ public class VRShooterController : MonoBehaviour
             for (int i = 0; i < 6; i++)
             {
                 MinigameServer.Instance.SendFloatToAll(networkedAimAssist[i]);
+                Debug.Log("Aim stats " + i + " sent");
             }
         }
 

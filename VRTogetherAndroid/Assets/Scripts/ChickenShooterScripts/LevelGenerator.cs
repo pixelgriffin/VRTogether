@@ -68,6 +68,7 @@ public class LevelGenerator : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+        /*
         if (!networkSendReady.value)
         {
             // send ready confirmation
@@ -75,6 +76,7 @@ public class LevelGenerator : MonoBehaviour {
             MinigameClient.Instance.SendBooleanToAll(networkSendReady);
             Debug.Log("Ready confirmation sent");
         }
+        */
 
         if (spaceStatsSent.value && !levelSpawned)
         {

@@ -243,9 +243,8 @@ GameObject:
   - component: {fileID: 485514}
   - component: {fileID: 11401046}
   - component: {fileID: 114000011957598740}
-  - component: {fileID: 120782127973951326}
-  - component: {fileID: 114180022706916986}
   - component: {fileID: 114096401364304994}
+  - component: {fileID: 120782127973951326}
   - component: {fileID: 114299298397657082}
   m_Layer: 26
   m_Name: RightHand
@@ -1497,21 +1496,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6273a787f359847c0b67b9e7c15b75e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectile: {fileID: 1631852410736416, guid: c4562293ba6a94a5a8e09a7d90926a45, type: 2}
-  projectileForce: 4000
-  shootTimer: 1
-  aimAssistDistance: 10
---- !u!114 &114180022706916986
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 160596}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7984206d5f91d42e3af3924b92b0d06a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   projectile: {fileID: 1631852410736416, guid: c4562293ba6a94a5a8e09a7d90926a45, type: 2}
