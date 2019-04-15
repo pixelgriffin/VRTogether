@@ -4,7 +4,7 @@ using UnityEngine;
 using VRTogether.Net;
 using Valve.VR;
 
-public class ChickenFeeder : MonoBehaviour
+public class VRShooterController : MonoBehaviour
 {
 
     public GameObject projectile;
@@ -19,6 +19,11 @@ public class ChickenFeeder : MonoBehaviour
 
     private float timeSinceLastShot;
 
+    private bool networkReady;
+
+    private NetworkID id;
+    private NetworkFloat[] networkedAimAssist = new NetworkFloat[6];
+
     // Use this for initialization
     void Start()
     {
@@ -27,11 +32,30 @@ public class ChickenFeeder : MonoBehaviour
         aimAssist.enabled = true;
         timeSinceLastShot = shootTimer;
 
+        networkReady = false;
+
+        id = GetComponent<NetworkID>();
+        for (int i = 0; i < 6; i++)
+        {
+            networkedAimAssist[i] = new NetworkFloat(
+                "networkedAimAssist" + i,
+                0.0f);
+
+            MinigameServer.Instance.RegisterVariable(
+                id.netID,
+                networkedAimAssist[i]);
+        }
+
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        if (!networkReady && MinigameServer.Instance.AllPlayersReady())
+        {
+            networkReady = true;
+        }
 
         RaycastHit hitInfo;
         bool hit = Physics.Raycast(transform.position, transform.forward, out hitInfo, aimAssistDistance);
@@ -56,6 +80,23 @@ public class ChickenFeeder : MonoBehaviour
         Vector3[] positions = { aimStartPos, aimEndPos };
         aimAssist.SetPositions(positions);
 
+        // set the networked aim assist values
+        networkedAimAssist[0].value = aimStartPos.x;
+        networkedAimAssist[1].value = aimStartPos.y;
+        networkedAimAssist[2].value = aimStartPos.z;
+        networkedAimAssist[3].value = aimEndPos.x;
+        networkedAimAssist[4].value = aimEndPos.y;
+        networkedAimAssist[5].value = aimEndPos.z;
+
+        // send the line over the network
+        if (networkReady)
+        {
+            for (int i = 0; i < 6; i++)
+            {
+                MinigameServer.Instance.SendFloatToAll(networkedAimAssist[i]);
+            }
+        }
+
         // accumulate timer
         timeSinceLastShot += Time.deltaTime;
 
@@ -65,7 +106,7 @@ public class ChickenFeeder : MonoBehaviour
             timeSinceLastShot >= shootTimer)
         {
             // spawn bullet over network (make sure bullet is a networked prefab)
-            if (MinigameServer.Instance.AllPlayersReady())
+            if (networkReady)
             {
                 GameObject feedInstance = MinigameServer.Instance.NetworkInstantiate(projectile);
                 feedInstance.transform.position = this.transform.position;
