@@ -22,6 +22,7 @@ public class ChickenOnDestroy : MonoBehaviour {
 
     private void Update()
     {
+        /*
         if (!MinigameClient.Instance.networkedPrefabs.IsSlave(id.netID))
         {
             if (this.transform.position != oldPos)
@@ -35,6 +36,7 @@ public class ChickenOnDestroy : MonoBehaviour {
 
             oldPos = this.transform.position;
         }
+        */
     }
 
     public void OnDestroy()
