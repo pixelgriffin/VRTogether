@@ -38,7 +38,7 @@ public class ChickenDestroy : MonoBehaviour {
     public void OnDestroy()
     {
         //GetComponent<ParticleSystem>().Play();
-        Instantiate(featherSpawner);
+        Instantiate(featherSpawner, transform.position, Quaternion.identity);
 
         levelManager.GetComponent<LevelManager>().DecrPlayersAliveCount();
     }
