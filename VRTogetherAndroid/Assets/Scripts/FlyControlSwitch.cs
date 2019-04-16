@@ -6,12 +6,12 @@ public class FlyControlSwitch : MonoBehaviour {
 
     public bool useGyroControls;
 
-    private GameObject joystickImage;
+    private Canvas joystickCanvas;
     private RightJoystickTouchContoller joystickControl;
 
 	void Awake () {
 
-        joystickImage = GameObject.Find("FlyCanvas").transform.GetChild(0).gameObject;
+        joystickCanvas = GameObject.Find("JoystickCanvas").GetComponent<Canvas>();
         joystickControl = GameObject.Find("RightJoystickTouchController").GetComponent<RightJoystickTouchContoller>();
        
     }
@@ -25,7 +25,7 @@ public class FlyControlSwitch : MonoBehaviour {
             GetComponent<JoystickController>().enabled = false;
 
             // disable the joystick canvas and associated scripts
-            joystickImage.SetActive(false);
+            joystickCanvas.enabled = false;
             joystickControl.enabled = false;
 
         }
@@ -36,7 +36,7 @@ public class FlyControlSwitch : MonoBehaviour {
             GetComponent<JoystickController>().enabled = true;
 
             // disable the joystick canvas and associated scripts
-            joystickImage.SetActive(true);
+            joystickCanvas.enabled = true;
             joystickControl.enabled = true;
         }
 
