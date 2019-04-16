@@ -45,7 +45,7 @@ public class ChickenOnDestroy : MonoBehaviour {
 
         // feathers
         //GetComponent<ParticleSystem>().Play();
-        Instantiate(featherSpawner);
+        GameObject feathers = Instantiate(featherSpawner);
 
         // change the canvas
         if (!MinigameClient.Instance.networkedPrefabs.IsSlave(id.netID))
