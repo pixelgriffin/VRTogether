@@ -21,6 +21,7 @@ public class ChickenDestroy : MonoBehaviour {
 
     private void Update()
     {
+        /*
         if (this.transform.position != oldPos)
         {
             this.transform.GetChild(0).localPosition = (Vector3.up * Mathf.Abs(Mathf.Sin(Time.timeSinceLevelLoad * 10f)) * 0.2f) - posOffset;
@@ -31,12 +32,13 @@ public class ChickenDestroy : MonoBehaviour {
         }
 
         oldPos = this.transform.position;
+        */       
     }
 
     public void OnDestroy()
     {
         //GetComponent<ParticleSystem>().Play();
-        Instantiate(featherSpawner);
+        Instantiate(featherSpawner, transform.position, Quaternion.identity);
 
         levelManager.GetComponent<LevelManager>().DecrPlayersAliveCount();
     }

@@ -34,6 +34,7 @@ namespace VRTogether.Net
             NetworkServer.RegisterHandler(MiniMsgType.MiniDestroyObject, OnSlaveDestroyRequested);
             NetworkServer.RegisterHandler(MiniMsgType.MiniSyncOrientation, OnSlaveOrient);
             NetworkServer.RegisterHandler(MiniMsgType.MiniRequestDestroySlave, OnNetDestroyRequested);
+            NetworkServer.RegisterHandler(MiniMsgType.MiniRequestInstantiateObject, OnInstantiateRequested);
 
             NetworkServer.RegisterHandler(MiniMsgType.MiniBoolVar, OnBooleanVariableReceived);
             NetworkServer.RegisterHandler(MiniMsgType.MiniIntVar, OnIntegerVariableReceived);
@@ -227,6 +228,32 @@ namespace VRTogether.Net
             }
         }
 
+        private void OnInstantiateRequested(NetworkMessage msg)
+        {
+            ObjectInstantiateMessage newObjMsg = msg.ReadMessage<ObjectInstantiateMessage>();
+
+            Debug.Log("requested to spawn " + newObjMsg.objectName);
+
+            GameObject objPrefab = null;
+            foreach (GameObject obj in networkedPrefabs.prefabs)
+            {
+                if (obj.name == newObjMsg.objectName)
+                {
+                    objPrefab = obj;
+                    break;
+                }
+            }
+
+
+            if (objPrefab != null)
+            {
+                Debug.Log("spawning");
+                GameObject spawn = NetworkInstantiate(objPrefab);
+                spawn.transform.position = newObjMsg.pos;
+                spawn.transform.rotation = newObjMsg.rot;
+            }
+        }
+
         private void OnSlaveInstantiateRequested(NetworkMessage msg)
         {
             SlaveInstantiateMessage newSlaveMsg = msg.ReadMessage<SlaveInstantiateMessage>();
@@ -286,6 +313,8 @@ namespace VRTogether.Net
             Debug.Log("Boolean variable received");
 
             BooleanVarMessage boolMsg = msg.ReadMessage<BooleanVarMessage>();
+
+            Debug.Log(boolMsg.varName + ": " + boolMsg.value);
 
             //Process the information for us
             NetworkVariable netBool;

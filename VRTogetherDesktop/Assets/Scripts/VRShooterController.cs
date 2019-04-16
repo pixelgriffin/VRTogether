@@ -4,7 +4,8 @@ using UnityEngine;
 using VRTogether.Net;
 using Valve.VR;
 
-public class VRShooterController : MonoBehaviour {
+public class VRShooterController : MonoBehaviour
+{
 
     public GameObject projectile;
     public float projectileForce;
@@ -18,17 +19,19 @@ public class VRShooterController : MonoBehaviour {
 
     private float timeSinceLastShot;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
 
         aimAssist = GetComponent<LineRenderer>();
         aimAssist.enabled = true;
         timeSinceLastShot = shootTimer;
 
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
 
         RaycastHit hitInfo;
         bool hit = Physics.Raycast(transform.position, transform.forward, out hitInfo, aimAssistDistance);

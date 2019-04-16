@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18068156, g: 0.2261892, b: 0.30713528, a: 1}
+  m_IndirectSpecularColor: {r: 0.18068196, g: 0.22618999, b: 0.30713663, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -206,7 +206,7 @@ Prefab:
     - target: {fileID: 114292162099901582, guid: 8701170c845d67c49a74c6f1776ec58f,
         type: 2}
       propertyPath: goalScore
-      value: 2
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8701170c845d67c49a74c6f1776ec58f, type: 2}
@@ -1173,6 +1173,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   networkedPrefabs: {fileID: 11400000, guid: f9107f92f4b2fc94488ea8ca012eac61, type: 2}
+  OnAllClientsReady:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!4 &1176983266
 Transform:
   m_ObjectHideFlags: 0
