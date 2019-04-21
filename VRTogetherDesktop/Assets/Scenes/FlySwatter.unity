@@ -388,7 +388,8 @@ Prefab:
       propertyPath: m_Name
       value: VRCamera
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114096401364304994, guid: dc06161b6d97feb419f45f03b62e14b9, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: dc06161b6d97feb419f45f03b62e14b9, type: 2}
   m_IsPrefabAsset: 0
 --- !u!4 &237166446 stripped
@@ -1478,6 +1479,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   netID: 
+  owner: 0
 --- !u!114 &1944018686
 MonoBehaviour:
   m_ObjectHideFlags: 0
