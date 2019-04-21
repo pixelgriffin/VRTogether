@@ -1,64 +1,31 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 using VRTogether.Net;
 
 public class CupGameOver : MonoBehaviour {
-    public Cup[] cups;
-
-    public float timePerCup = 20f;
-    private float timeAllowed = 15f;
-    private float startTime = -1f;
 
     private NetworkFloat timeRemaining = new NetworkFloat("timeRemaining", -1f);
-
-    public bool atLeastOne = false;
-
-    public TextMesh timerText;
+    private Text myText;
 
 	// Use this for initialization
-	void Start ()
-    {
+	void Start () {
+        myText = GetComponent<Text>();
+
         NetworkID id = GetComponent<NetworkID>();
 
-        MinigameServer.Instance.RegisterVariable(
+        MinigameClient.Instance.RegisterVariable(
             id.netID,
             timeRemaining);
 
-        startTime = Time.time;
-        timeAllowed = MacrogameServer.Instance.GetMacroPlayers().Count * timePerCup;  // The game will last as long as timePerCup * number of mobile players seconds
-	}
-	
-	void FixedUpdate () {
-        cups = FindObjectsOfType<Cup>();
 
-        if (!atLeastOne && cups.Length > 0)
-        {
-            atLeastOne = true;
+    }
 
-        }
-
-        if (cups.Length == 0 && atLeastOne)
-        {
-            MinigameServer.Instance.EndGame("Scenes/MainMenu", true, 1);
-
-        }
-
-        if (Time.time >= startTime + timeAllowed)
-        {
-            MinigameServer.Instance.EndGame("Scenes/MainMenu", false, 1);
-
-        } else
-        {
-            timeRemaining.value = timeAllowed - (Time.time - startTime);
-
-            timerText.text = "Time Remaining:\n" + GetTimeFormattedAsTimer(timeRemaining.value);
-
-            MinigameServer.Instance.SendFloatToAll(timeRemaining);
-
-        }
-		
+    // Update is called once per frame
+    void FixedUpdate () {
+        myText.text = "Time Remaining: " + GetTimeFormattedAsTimer(timeRemaining.value);
 	}
 
     string GetTimeFormattedAsTimer(float sentTime)

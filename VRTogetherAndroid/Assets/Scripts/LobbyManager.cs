@@ -25,6 +25,8 @@ public class LobbyManager : MonoBehaviour
 
     public InputField userNameInput;
 
+    public Toggle motionToggle;
+
     private string ip = string.Empty;
     private ServerRoomCode thisCode;
 
@@ -37,6 +39,8 @@ public class LobbyManager : MonoBehaviour
         SetUsername(PlayerPrefs.GetString("Username", "Player"));
 
         userNameInput.text = username;
+
+        motionToggle.isOn = (PlayerPrefs.GetInt("Gyro", 0) == 1) ? true : false;
 
         thisCode = GetComponent<ServerRoomCode>();
 
@@ -265,5 +269,15 @@ public class LobbyManager : MonoBehaviour
         {
             AddPlayerNameToPlayerList(n);
         }
+    }
+
+    public void UpdateMotionControlsPref (bool state)
+    {
+        //Note: state does not actually get passed, so we need to grab it
+
+        state = motionToggle.isOn;
+
+        PlayerPrefs.SetInt("Gyro", (state ? 1 : 0));
+
     }
 }
