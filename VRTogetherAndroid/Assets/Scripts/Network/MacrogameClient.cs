@@ -101,6 +101,11 @@ namespace VRTogether.Net
             return vrScore;
         }
 
+        public List<string> GetPlayerNames()
+        {
+            return new List<string>(playerScores.Keys);
+        }
+         
         public int GetPlayerScore(string name)
         {
             int val = 0;
@@ -171,6 +176,8 @@ namespace VRTogether.Net
         {
             //lobbyManager.ClearPlayerList();
             StringMessage nameMsg = msg.ReadMessage<StringMessage>();
+
+            playerScores.Remove(nameMsg.str);
 
             OnPlayerLeftServer.Invoke(nameMsg.str);
         }

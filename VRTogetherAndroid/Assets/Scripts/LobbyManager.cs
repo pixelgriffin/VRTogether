@@ -6,6 +6,11 @@ using VRTogether.Net;
 
 public class LobbyManager : MonoBehaviour
 {
+    struct PlayerListEntry
+    {
+        string name;
+        int score;
+    }
 
     public string code = string.Empty; //The code or IP to connect with
     public string username;
@@ -23,8 +28,12 @@ public class LobbyManager : MonoBehaviour
     private string ip = string.Empty;
     private ServerRoomCode thisCode;
 
+    private List<PlayerListEntry> players;
+
     void Start()
     {
+        players = new List<PlayerListEntry>();
+
         SetUsername(PlayerPrefs.GetString("Username", "Player"));
 
         userNameInput.text = username;
@@ -39,6 +48,7 @@ public class LobbyManager : MonoBehaviour
 
         if(MacrogameClient.Instance.IsConnected())
         {
+            ClearPlayerList();
             MacrogameClient.Instance.RequestScoreUpdate();
             MacrogameClient.Instance.RequestNameList();
             SwitchToLobby();
@@ -72,8 +82,11 @@ public class LobbyManager : MonoBehaviour
 
     private void OnWeJoinedServer(string name)
     {
+        ClearPlayerList();
+        MacrogameClient.Instance.RequestScoreUpdate();
+        MacrogameClient.Instance.RequestNameList();
         SwitchToLobby();
-        AddPlayerNameToPlayerList(name);
+        //AddPlayerNameToPlayerList(name);
     }
 
     private void OnOtherPlayerJoinedServer(string name)
@@ -246,9 +259,11 @@ public class LobbyManager : MonoBehaviour
 
     public void RemovePlayerFromPlayerList(string name)
     {
-        Debug.Log("removing " + name);
+        ClearPlayerList();
 
-        playerListText.text = playerListText.text.Replace("\n" + name, "");
-
+        foreach(string n in MacrogameClient.Instance.GetPlayerNames())
+        {
+            AddPlayerNameToPlayerList(n);
+        }
     }
 }
