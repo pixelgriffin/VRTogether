@@ -206,6 +206,11 @@ namespace VRTogether.Net
                 StringMessage strMsg = new StringMessage();
                 strMsg.str = left.name;
                 NetworkServer.SendToAll(MacroMsgType.MacroServerPlayerLeft, strMsg);
+
+                if(MinigameServer.Instance != null)
+                {
+                    MinigameServer.Instance.OnPlayerLeftMinigame(netMsg.conn.connectionId);
+                }
             }
         }
 

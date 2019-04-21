@@ -76,6 +76,8 @@ namespace VRTogether.Net
 
                 client.Connect(ip, 4444);
                 isListening = true;
+
+                Debug.Log("connected with id: " + client.connection.connectionId);
             }
         }
 
@@ -178,6 +180,11 @@ namespace VRTogether.Net
             StringMessage nameMsg = msg.ReadMessage<StringMessage>();
 
             playerScores.Remove(nameMsg.str);
+
+            if(MinigameClient.Instance != null)
+            {
+                MinigameClient.Instance.OnPlayerLeftMinigame(msg.conn.connectionId);
+            }
 
             OnPlayerLeftServer.Invoke(nameMsg.str);
         }

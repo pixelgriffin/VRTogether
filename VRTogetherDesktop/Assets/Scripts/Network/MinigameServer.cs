@@ -103,6 +103,7 @@ namespace VRTogether.Net
                 SlaveInstantiateMessage newSlaveMsg = new SlaveInstantiateMessage();
                 newSlaveMsg.networkID = obj.GetComponent<NetworkID>().netID;
                 newSlaveMsg.objectName = prefab.name;
+                newSlaveMsg.owner = -1;//-1 for server (no connection id)
 
                 NetworkServer.SendToAll(MiniMsgType.MiniInstantiateObject, newSlaveMsg);
 
@@ -257,7 +258,7 @@ namespace VRTogether.Net
         private void OnSlaveInstantiateRequested(NetworkMessage msg)
         {
             SlaveInstantiateMessage newSlaveMsg = msg.ReadMessage<SlaveInstantiateMessage>();
-            networkedPrefabs.NetworkSlave(newSlaveMsg.objectName, newSlaveMsg.networkID);
+            networkedPrefabs.NetworkSlave(newSlaveMsg.objectName, newSlaveMsg.networkID, msg.conn.connectionId);
 
             //Forward the update message to all other clients
             SendToAllBut(msg.conn.connectionId, MiniMsgType.MiniInstantiateObject, newSlaveMsg);
@@ -355,6 +356,17 @@ namespace VRTogether.Net
 
             //Forward the information to the other clients
             SendToAllBut(msg.conn.connectionId, MiniMsgType.MiniFloatVar, floatMsg);
+        }
+
+        public void OnPlayerLeftMinigame(int connectionID)
+        {
+            Debug.Log("checking id: " + connectionID);
+            Debug.Log("removing objects #: " + networkedPrefabs.GetNetworkedIDsOwnedBy(connectionID).Count);
+            foreach(NetworkID obj in networkedPrefabs.GetNetworkedIDsOwnedBy(connectionID))
+            {
+                Debug.Log("unslaving " + obj.gameObject.name);
+                networkedPrefabs.NetworkUnslave(obj);
+            }
         }
 
         private void SendToAllBut(int connectionID, short msgType, MessageBase msg)

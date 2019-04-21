@@ -61,6 +61,7 @@ namespace VRTogether.Net
     {
         public string objectName;
         public string networkID;
+        public int owner;
     }
 
     public class ObjectInstantiateMessage : MessageBase
