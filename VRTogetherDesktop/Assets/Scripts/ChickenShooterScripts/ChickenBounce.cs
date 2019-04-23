@@ -37,10 +37,12 @@ public class ChickenBounce : MonoBehaviour {
         {
             if (this.transform.position != oldPos)
             {
+                Debug.Log("Bouncing 1");
                 this.transform.GetChild(0).localPosition = (Vector3.up * Mathf.Abs(Mathf.Sin(Time.timeSinceLevelLoad * 10f)) * 0.2f) - posOffset;
             }
             else
             {
+                Debug.Log("Bouncing 2");
                 this.transform.GetChild(0).localPosition = Vector3.MoveTowards(this.transform.GetChild(0).localPosition, -posOffset, Time.deltaTime * 5f);
             }
 
