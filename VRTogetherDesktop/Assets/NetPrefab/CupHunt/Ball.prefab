@@ -27,7 +27,7 @@ GameObject:
   - component: {fileID: 114055581161829346}
   m_Layer: 0
   m_Name: Ball
-  m_TagString: Untagged
+  m_TagString: Ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -115,6 +115,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   force: 25
   particles: {fileID: 1168577088143514, guid: 802db274fecb9de4581ff4cff7d9c04c, type: 2}
+  thrower: {fileID: 0}
 --- !u!114 &114120193388544080
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -13,6 +13,7 @@ TagManager:
   - FxTemporaire
   - UI
   - Table
+  - Ball
   layers:
   - Default
   - TransparentFX
