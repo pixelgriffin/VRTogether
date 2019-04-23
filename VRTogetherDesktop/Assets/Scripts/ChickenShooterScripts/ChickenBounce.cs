@@ -10,6 +10,9 @@ public class ChickenBounce : MonoBehaviour {
     private Vector3 posOffset;
 
     private bool grounded;
+    private bool justBounced;
+
+    private ChickenSounds sound;
 
     // Use this for initialization
     void Start () {
@@ -18,6 +21,9 @@ public class ChickenBounce : MonoBehaviour {
         posOffset = Vector3.up * 0.5f;
 
         grounded = true;
+        justBounced = false;
+
+        sound = GetComponent<ChickenSounds>();
 
     }
 	
@@ -37,12 +43,16 @@ public class ChickenBounce : MonoBehaviour {
         {
             if (this.transform.position != oldPos)
             {
-                Debug.Log("Bouncing 1");
+                if (justBounced)
+                {
+                    justBounced = false;
+                    sound.PlayRunSound();
+                }
                 this.transform.GetChild(0).localPosition = (Vector3.up * Mathf.Abs(Mathf.Sin(Time.timeSinceLevelLoad * 10f)) * 0.2f) - posOffset;
             }
             else
             {
-                Debug.Log("Bouncing 2");
+                justBounced = true;
                 this.transform.GetChild(0).localPosition = Vector3.MoveTowards(this.transform.GetChild(0).localPosition, -posOffset, Time.deltaTime * 5f);
             }
 
