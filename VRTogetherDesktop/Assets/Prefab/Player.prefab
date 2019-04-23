@@ -1682,6 +1682,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   hoverUpdateInterval: 0.1
+  hoveringGUI: 0
   useControllerHoverComponent: 1
   controllerHoverComponent: tip
   controllerHoverRadius: 0.15
@@ -1883,6 +1884,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   hoverUpdateInterval: 0.1
+  hoveringGUI: 0
   useControllerHoverComponent: 1
   controllerHoverComponent: tip
   controllerHoverRadius: 0.05
@@ -2098,6 +2100,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   hoverUpdateInterval: 0.1
+  hoveringGUI: 0
   useControllerHoverComponent: 1
   controllerHoverComponent: tip
   controllerHoverRadius: 0.15

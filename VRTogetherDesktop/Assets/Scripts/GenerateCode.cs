@@ -34,11 +34,14 @@ public class GenerateCode : MonoBehaviour {
         if (code.isError)
         {
             Debug.Log(code.errorMessage);
+            CODE = "FAILED";
+            codeText.text = "IP: " + GetLocalIPAddress() + "\n<size=100>(There was an issue retrieving a room code, use this IP instead)</size>";
         }
         else
         {
             GENERATED_CODE = true;
             CODE = ("Room Code: " + code.data).Replace("\\n", "\n");
+            Debug.Log("IP:" + GetLocalIPAddress());
             codeText.text = CODE;
         }
     }
