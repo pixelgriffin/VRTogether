@@ -1025,6 +1025,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 330e5ddb489324bc187b433dad26f657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  runGroup: {fileID: 243753068705922310, guid: ec12f7772c03e4c4c9e4c2f1643595ad, type: 2}
 --- !u!114 &114487597434905766
 MonoBehaviour:
   m_ObjectHideFlags: 1
