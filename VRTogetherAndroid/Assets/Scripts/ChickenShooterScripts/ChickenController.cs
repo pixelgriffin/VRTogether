@@ -12,6 +12,7 @@ public class ChickenController : MonoBehaviour {
     public float mass = 0.1f;
     public float gravity = -5.0f;
     public float jumpTime = 0.5f;
+    public float soundInterval;
 
     private GameObject chicken;
     //private Vector3 orgChickenMeshPos;
@@ -33,6 +34,11 @@ public class ChickenController : MonoBehaviour {
     private bool rightCollisionWall = false;
     private bool collidingWithWall = false;
     private bool movingUp, movingDown, movingLeft, movingRight, jumping;
+    private bool justBounced = false;
+    private bool justJumped = false;
+
+    private ChickenSounds sound;
+    private float timeSinceLastSound;
 
 	// Use this for initialization
 	void Start () {
@@ -55,11 +61,15 @@ public class ChickenController : MonoBehaviour {
             GetComponent<ChickenUIControls>();
 
         Gizmos.color = Color.green;
-		
-	}
+
+        sound = chicken.GetComponent<ChickenSounds>();
+        timeSinceLastSound = soundInterval;
+    }
 	
 	// Update is called once per frame
 	void Update () {
+
+        justJumped = grounded;
 
         grounded = Physics.CheckBox(
             chicken.transform.position - chicken.transform.up * 0.35f, 
@@ -67,6 +77,12 @@ public class ChickenController : MonoBehaviour {
             Quaternion.identity,
             1 << 12
             );
+
+        if (justJumped && !grounded)
+        {
+            sound.PlayJumpSound();
+            justJumped = false;
+        }
 
         //DrawBox(chicken.transform.position - chicken.transform.up * 0.3f, new Vector3(0.1f, 0.4f, 0.1f));
 
@@ -106,6 +122,7 @@ public class ChickenController : MonoBehaviour {
         }
 
         jumpTimer += Time.deltaTime;
+        timeSinceLastSound += Time.deltaTime;
 
         movingUp = controls.IsUpPressed() || Input.GetKey(KeyCode.W);
         movingDown = controls.IsDownPressed() || Input.GetKey(KeyCode.S);
@@ -119,10 +136,22 @@ public class ChickenController : MonoBehaviour {
         {
             if (chicken.transform.position != oldPos)
             {
+                // if the chicken has just bounced, enough time has elapsed,
+                // and the chicken did not just jump
+                if (timeSinceLastSound >= soundInterval * Random.Range(0.8f, 1.2f))
+                {
+                    // play the run sound
+                    sound.PlayRunSound();
+                    timeSinceLastSound = 0f;
+                }
+                justBounced = false;
+
                 chicken.transform.GetChild(0).localPosition = (Vector3.up * Mathf.Abs(Mathf.Sin(Time.timeSinceLevelLoad * 10f)) * 0.2f) - posOffset;
             }
             else
             {
+                justBounced = true;
+
                 chicken.transform.GetChild(0).localPosition = Vector3.MoveTowards(chicken.transform.GetChild(0).localPosition, -posOffset, Time.deltaTime * 5f);
             }
 

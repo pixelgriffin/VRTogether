@@ -58,3 +58,4 @@ MonoBehaviour:
   mass: 0.075
   gravity: -9.81
   jumpTime: 0.75
+  soundInterval: 0.5

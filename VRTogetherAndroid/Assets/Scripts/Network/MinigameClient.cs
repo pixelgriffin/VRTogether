@@ -134,6 +134,7 @@ namespace VRTogether.Net
                 SlaveInstantiateMessage newSlaveMsg = new SlaveInstantiateMessage();
                 newSlaveMsg.networkID = obj.GetComponent<NetworkID>().netID;
                 newSlaveMsg.objectName = prefab.name;
+                newSlaveMsg.owner = MacrogameClient.Instance.GetClient().connection.connectionId;
 
                 client.Send(MiniMsgType.MiniInstantiateObject, newSlaveMsg);
                 
@@ -142,6 +143,14 @@ namespace VRTogether.Net
             }
 
             return null;
+        }
+
+        public void OnPlayerLeftMinigame(int connectionID)
+        {
+            foreach (NetworkID obj in networkedPrefabs.GetNetworkedIDsOwnedBy(connectionID))
+            {
+                networkedPrefabs.NetworkUnslave(obj);
+            }
         }
 
         private void OnRequestedInstantiateObject(NetworkMessage msg)
@@ -213,7 +222,7 @@ namespace VRTogether.Net
         private void OnSlaveInstantiateRequested(NetworkMessage msg)
         {
             SlaveInstantiateMessage newSlaveMsg = msg.ReadMessage<SlaveInstantiateMessage>();
-            networkedPrefabs.NetworkSlave(newSlaveMsg.objectName, newSlaveMsg.networkID);
+            networkedPrefabs.NetworkSlave(newSlaveMsg.objectName, newSlaveMsg.networkID, newSlaveMsg.owner);
         }
 
         private void OnSlaveDestroyRequested(NetworkMessage msg)

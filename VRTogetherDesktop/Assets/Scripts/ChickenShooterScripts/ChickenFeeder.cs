@@ -12,12 +12,15 @@ public class ChickenFeeder : MonoBehaviour
     public float shootTimer = 1.0f;
 
     public float aimAssistDistance = 10.0f;
+
     private LineRenderer aimAssist;
 
     private Vector3 aimStartPos;
     private Vector3 aimEndPos;
 
     private float timeSinceLastShot;
+
+    private AudioSource shotSound;
 
     private bool networkReady;
 
@@ -31,6 +34,8 @@ public class ChickenFeeder : MonoBehaviour
         aimAssist = GetComponent<LineRenderer>();
         aimAssist.enabled = true;
         timeSinceLastShot = shootTimer;
+
+        shotSound = GetComponent<AudioSource>();
 
         networkReady = false;
 
@@ -51,7 +56,7 @@ public class ChickenFeeder : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("chicken feeder script is running");
+        //Debug.Log("chicken feeder script is running");
         if (MinigameServer.Instance.AllPlayersReady())
         {
             networkReady = true;
@@ -113,6 +118,8 @@ public class ChickenFeeder : MonoBehaviour
                 GameObject feedInstance = MinigameServer.Instance.NetworkInstantiate(projectile);
                 feedInstance.transform.position = this.transform.position;
                 feedInstance.GetComponent<Rigidbody>().AddForce(transform.forward * projectileForce);
+
+                shotSound.Play();
             }
 
             // reset timer

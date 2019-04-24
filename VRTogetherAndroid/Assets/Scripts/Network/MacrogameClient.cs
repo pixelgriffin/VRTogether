@@ -76,6 +76,8 @@ namespace VRTogether.Net
 
                 client.Connect(ip, 4444);
                 isListening = true;
+
+                Debug.Log("connected with id: " + client.connection.connectionId);
             }
         }
 
@@ -101,6 +103,11 @@ namespace VRTogether.Net
             return vrScore;
         }
 
+        public List<string> GetPlayerNames()
+        {
+            return new List<string>(playerScores.Keys);
+        }
+         
         public int GetPlayerScore(string name)
         {
             int val = 0;
@@ -171,6 +178,13 @@ namespace VRTogether.Net
         {
             //lobbyManager.ClearPlayerList();
             StringMessage nameMsg = msg.ReadMessage<StringMessage>();
+
+            playerScores.Remove(nameMsg.str);
+
+            if(MinigameClient.Instance != null)
+            {
+                MinigameClient.Instance.OnPlayerLeftMinigame(msg.conn.connectionId);
+            }
 
             OnPlayerLeftServer.Invoke(nameMsg.str);
         }

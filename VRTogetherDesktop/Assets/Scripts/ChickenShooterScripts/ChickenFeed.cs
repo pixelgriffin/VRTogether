@@ -8,10 +8,14 @@ public class ChickenFeed : MonoBehaviour {
     public float secondsToDestroy = 1.0f;
     private float destroyTimer;
 
+    private AudioSource wallCollisionSound;
+
 	// Use this for initialization
 	void Start () {
 
         destroyTimer = 0.0f;
+
+        wallCollisionSound = GetComponent<AudioSource>();
 		
 	}
 	
@@ -33,6 +37,11 @@ public class ChickenFeed : MonoBehaviour {
         {
             // destroy game object
             MinigameServer.Instance.NetworkDestroy(collision.gameObject);
+        }
+        else
+        {
+            // play the wall collision sound effect
+            wallCollisionSound.Play();
         }
     }
 }

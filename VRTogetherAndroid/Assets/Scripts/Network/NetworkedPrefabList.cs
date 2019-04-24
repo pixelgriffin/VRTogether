@@ -29,6 +29,7 @@ namespace VRTogether.Net
             //Gather or create a network ID for the system and save them for us to be authoritative over
             NetworkID id = obj.GetComponent<NetworkID>();
             id.netID = System.Guid.NewGuid().ToString();
+            id.owner = MacrogameClient.Instance.GetClient().connection.connectionId;
             if (id != null)
             {
                 instantiatedNetObjs.Add(id);
@@ -46,7 +47,7 @@ namespace VRTogether.Net
         /// </summary>
         /// <param name="objectName"></param>
         /// <param name="id"></param>
-        public GameObject NetworkSlave(string objectName, string id)
+        public GameObject NetworkSlave(string objectName, string id, int ownerConnectionID)
         {
             GameObject prefab = null;
             foreach (GameObject p in prefabs)
@@ -65,6 +66,7 @@ namespace VRTogether.Net
                 netID = obj.AddComponent<NetworkID>();
 
             netID.netID = id;
+            netID.owner = ownerConnectionID;
 
             slaveNetObjs.Add(netID);
 
@@ -102,7 +104,16 @@ namespace VRTogether.Net
             if (removeID != null)
             {
                 Destroy(removeID.gameObject);
-                //slaveNetObjs.Remove(removeID);
+                slaveNetObjs.Remove(removeID);//this was commented out???
+            }
+        }
+
+        public void NetworkUnslave(NetworkID id)
+        {
+            if (id != null)
+            {
+                Destroy(id.gameObject);
+                slaveNetObjs.Remove(id);
             }
         }
 
@@ -138,6 +149,21 @@ namespace VRTogether.Net
             }
 
             return null;
+        }
+
+        public List<NetworkID> GetNetworkedIDsOwnedBy(int ownerConnectionID)
+        {
+            List<NetworkID> objs = new List<NetworkID>();
+
+            foreach (NetworkID netID in slaveNetObjs)
+            {
+                if (netID.owner == ownerConnectionID)
+                {
+                    objs.Add(netID);
+                }
+            }
+
+            return objs;
         }
 
         public GameObject GetSlaveObject(string id)
