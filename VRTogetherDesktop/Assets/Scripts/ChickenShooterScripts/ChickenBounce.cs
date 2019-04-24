@@ -60,7 +60,7 @@ public class ChickenBounce : MonoBehaviour {
             {
                 // if the chicken has just bounced, enough time has elapsed,
                 // and the chicken did not just jump
-                if (justBounced && timeSinceLastSound >= soundInterval 
+                if (timeSinceLastSound >= soundInterval * Random.Range(0.8f, 1.2f)
                     && System.Math.Abs(this.transform.position.y - oldPos.y) < 0.001f)
                 {
                     // play the run sound

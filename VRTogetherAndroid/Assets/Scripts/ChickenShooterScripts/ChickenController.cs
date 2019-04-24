@@ -138,8 +138,7 @@ public class ChickenController : MonoBehaviour {
             {
                 // if the chicken has just bounced, enough time has elapsed,
                 // and the chicken did not just jump
-                if (justBounced && timeSinceLastSound >= soundInterval
-                    && System.Math.Abs(this.transform.position.y - oldPos.y) < 0.001f)
+                if (timeSinceLastSound >= soundInterval * Random.Range(0.8f, 1.2f))
                 {
                     // play the run sound
                     sound.PlayRunSound();
