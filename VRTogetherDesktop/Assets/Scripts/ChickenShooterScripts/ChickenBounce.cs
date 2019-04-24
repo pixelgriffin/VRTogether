@@ -11,7 +11,7 @@ public class ChickenBounce : MonoBehaviour {
     private Vector3 posOffset;
 
     private bool grounded;
-    private bool justBounced;
+    private bool justBounced, justJumped;
 
     private ChickenSounds sound;
     private float timeSinceLastSound;
@@ -24,6 +24,7 @@ public class ChickenBounce : MonoBehaviour {
 
         grounded = true;
         justBounced = false;
+        justJumped = false;
 
         sound = GetComponent<ChickenSounds>();
         timeSinceLastSound = soundInterval;
@@ -38,10 +39,18 @@ public class ChickenBounce : MonoBehaviour {
         if (grounded && this.transform.position.y >= jumpingThresh)
         {
             grounded = false;
+
+            if (justJumped)
+            {
+                sound.PlayJumpSound();
+            }
+            justJumped = false;
         }
         else if (!grounded && this.transform.position.y < jumpingThresh)
         {
             grounded = true;
+
+            justJumped = true;
         }
 
         // if the chicken is not jumping

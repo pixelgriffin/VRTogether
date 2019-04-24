@@ -16,6 +16,7 @@ public class ChickenSounds : MonoBehaviour {
         int sourceIndex = Random.Range(0, 5);
         Debug.Log(sourceIndex + " will be this chicken");
         runSound = soundManager.transform.GetChild(0).GetChild(sourceIndex).GetComponent<AudioSource>().clip;
+        jumpSound = soundManager.transform.GetChild(1).GetChild(sourceIndex).GetComponent<AudioSource>().clip;
 
         AudioSource[] sources = GetComponents<AudioSource>();
         runSource = sources[0];
@@ -23,6 +24,7 @@ public class ChickenSounds : MonoBehaviour {
         deathSource = sources[2];
 
         runSource.clip = runSound;
+        jumpSource.clip = jumpSound;
     }
 
     public void PlayRunSound()
@@ -34,5 +36,10 @@ public class ChickenSounds : MonoBehaviour {
         // play the sound
         runSource.Play();
         Debug.Log("Played run sound with pitch " + runSource.pitch);
+    }
+
+    public void PlayJumpSound()
+    {
+        jumpSource.Play();
     }
 }
