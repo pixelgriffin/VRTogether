@@ -1012,7 +1012,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 815acbdba470a4712ab9c60985f842c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  featherSpawner: {fileID: 1187874863359184, guid: 25dd31b7997a2451285f940fc308ab66,
+  chickenDeathEffects: {fileID: 1187874863359184, guid: 25dd31b7997a2451285f940fc308ab66,
     type: 2}
 --- !u!114 &114227637592051852
 MonoBehaviour:
@@ -1025,7 +1025,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 330e5ddb489324bc187b433dad26f657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  runGroup: {fileID: 243753068705922310, guid: ec12f7772c03e4c4c9e4c2f1643595ad, type: 2}
 --- !u!114 &114487597434905766
 MonoBehaviour:
   m_ObjectHideFlags: 1

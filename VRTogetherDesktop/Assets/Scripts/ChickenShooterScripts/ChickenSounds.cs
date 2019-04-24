@@ -24,6 +24,8 @@ public class ChickenSounds : MonoBehaviour {
         runGroup = soundManager.transform.GetChild(0).GetChild(sourceIndex).GetComponent<AudioSource>().outputAudioMixerGroup;
         jumpSound = soundManager.transform.GetChild(1).GetChild(sourceIndex).GetComponent<AudioSource>().clip;
         jumpGroup = soundManager.transform.GetChild(1).GetChild(sourceIndex).GetComponent<AudioSource>().outputAudioMixerGroup;
+        deathSound = soundManager.transform.GetChild(2).GetChild(sourceIndex).GetComponent<AudioSource>().clip;
+        deathGroup = soundManager.transform.GetChild(2).GetChild(sourceIndex).GetComponent<AudioSource>().outputAudioMixerGroup;
 
         // get this chicken's audio sources
         AudioSource[] sources = GetComponents<AudioSource>();
@@ -36,6 +38,8 @@ public class ChickenSounds : MonoBehaviour {
         runSource.outputAudioMixerGroup = runGroup;
         jumpSource.clip = jumpSound;
         jumpSource.outputAudioMixerGroup = jumpGroup;
+        deathSource.clip = deathSound;
+        deathSource.outputAudioMixerGroup = deathGroup;
     }
 
     public void PlayRunSound()
@@ -51,6 +55,32 @@ public class ChickenSounds : MonoBehaviour {
 
     public void PlayJumpSound()
     {
+        // slightly randomize the pitch
+        jumpSource.pitch = 1;
+        jumpSource.pitch += Random.Range(0.0f, 0.15f);
+
+        // play the sound
         jumpSource.Play();
+    }
+
+    public void PlayDeathSound()
+    {
+        // play the sound
+        deathSource.Play();
+    }
+
+    public AudioSource GetRunSource()
+    {
+        return runSource;
+    }
+
+    public AudioSource GetJumpSource()
+    {
+        return jumpSource;
+    }
+
+    public AudioSource GetDeathSource()
+    {
+        return deathSource;
     }
 }

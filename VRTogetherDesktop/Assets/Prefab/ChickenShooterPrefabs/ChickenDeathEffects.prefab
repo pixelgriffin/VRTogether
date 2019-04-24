@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 198908607392517254}
   - component: {fileID: 199133762334785546}
   m_Layer: 0
-  m_Name: FeatherSpawner
+  m_Name: ChickenDeathEffects
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
