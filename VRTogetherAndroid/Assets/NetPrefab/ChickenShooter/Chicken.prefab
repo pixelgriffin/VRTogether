@@ -1026,7 +1026,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d85210b7632284c68a040a2a5ab36446, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  featherSpawner: {fileID: 1223866981867796, guid: 55c88a2786f1640f68b6c2892a84cc80,
+  chickenDeathEffects: {fileID: 1223866981867796, guid: 55c88a2786f1640f68b6c2892a84cc80,
     type: 2}
 --- !u!114 &114746884856804432
 MonoBehaviour:

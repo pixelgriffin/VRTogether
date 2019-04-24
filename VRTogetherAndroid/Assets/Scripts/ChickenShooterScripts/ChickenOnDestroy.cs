@@ -5,7 +5,7 @@ using VRTogether.Net;
 
 public class ChickenOnDestroy : MonoBehaviour {
 
-    public GameObject featherSpawner;
+    public GameObject chickenDeathEffects;
 
     private NetworkID id;
 
@@ -43,9 +43,36 @@ public class ChickenOnDestroy : MonoBehaviour {
     {
         Debug.Log(id.netID + " being destroyed");
 
-        // feathers
-        //GetComponent<ParticleSystem>().Play();
-        Instantiate(featherSpawner, transform.position, Quaternion.identity);
+        // instantiate feathers and sqawking
+        GameObject chickenDeathObject = Instantiate(
+            chickenDeathEffects, 
+            transform.position, 
+            Quaternion.identity);
+
+        // get the death sound
+        AudioSource chickenDeathSound =
+            GetComponent<ChickenSounds>().GetDeathSource();
+
+        // add a audio source component to the death object
+        chickenDeathObject.AddComponent<AudioSource>();
+        AudioSource chickenDeathSoundCopy =
+            chickenDeathObject.GetComponent<AudioSource>();
+
+        // copy each field in the components
+        System.Reflection.FieldInfo[] fields =
+            chickenDeathSound.GetType().GetFields();
+        foreach (System.Reflection.FieldInfo field in fields)
+        {
+            field.SetValue(
+                chickenDeathSoundCopy,
+                field.GetValue(chickenDeathSound));
+        }
+
+        // play the sound
+        chickenDeathSoundCopy.Play();
+
+        // destroy the object after 5 seconds
+        Destroy(chickenDeathObject, 5.0f);
 
         // change the canvas
         if (!MinigameClient.Instance.networkedPrefabs.IsSlave(id.netID))
