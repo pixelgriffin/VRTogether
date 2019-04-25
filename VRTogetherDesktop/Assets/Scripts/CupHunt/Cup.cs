@@ -49,6 +49,8 @@ public class Cup : MonoBehaviour {
             soundObject.GetComponent<Sounds>().playBallSink();
             Destroy(soundObject, 5);
 
+            MinigameServer.Instance.NetworkDestroy(cupObject);
+
         }
 
     }
