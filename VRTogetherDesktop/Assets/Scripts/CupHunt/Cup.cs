@@ -6,11 +6,39 @@ using VRTogether.Net;
 
 public class Cup : MonoBehaviour {
 
+    private GameObject cupObject;
     private GameObject sounds;
+
+    private Vector3 lastPosition;
+
+    private float slideTimer;
+    private float slideInterval;
 
     private void Start()
     {
+        cupObject = transform.parent.gameObject; 
         sounds = GameObject.Find("CupHuntSounds");
+
+        lastPosition = cupObject.transform.position;
+
+        slideInterval = 1.0f;
+        slideTimer = slideInterval;
+    }
+
+    private void Update()
+    {
+        if (cupObject.transform.position != lastPosition && slideTimer >= slideInterval)
+        {
+            // reset timer
+            slideTimer = 0.0f;
+
+            // play slide sound
+            GameObject soundObject = Instantiate(sounds, Vector3.zero, Quaternion.identity);
+            soundObject.GetComponent<Sounds>().playCupSlide();
+            Destroy(soundObject, 5);
+        }
+
+        slideTimer += Time.deltaTime;
     }
 
     private void OnTriggerEnter(Collider other)
