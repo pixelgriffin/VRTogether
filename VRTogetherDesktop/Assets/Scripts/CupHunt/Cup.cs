@@ -38,6 +38,7 @@ public class Cup : MonoBehaviour {
             Destroy(soundObject, 5);
         }
 
+        lastPosition = cupObject.transform.position;
         slideTimer += Time.deltaTime;
     }
 
