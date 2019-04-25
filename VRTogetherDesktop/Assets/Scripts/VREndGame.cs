@@ -12,8 +12,9 @@ public class VREndGame : MonoBehaviour {
     public float holdDownTime = 5f;  // The amount of time the button needs to be held to end the game
 
     public Image radialIndicator;
+    public Text quitText;
 
-    private float heldTime = 0f;
+    public float heldTime = 0f;
 
     private Hand thisHand;
     private Transform point;
@@ -29,13 +30,16 @@ public class VREndGame : MonoBehaviour {
     // Update is called once per frame
     void Update () 
     {
-        if (true)
+        if (SteamVR_Input._default.inActions.Teleport.GetState(source))
         {
             heldTime += Time.deltaTime;
+            quitText.enabled = true;
+
 
         } else
         {
             heldTime = 0f;
+            quitText.enabled = false;
 
         }
 
