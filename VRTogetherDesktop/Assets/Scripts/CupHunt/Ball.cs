@@ -19,6 +19,8 @@ public class Ball : MonoBehaviour {
     {
         body = GetComponent<Rigidbody>();
         sounds = GameObject.Find("CupHuntSounds");
+        if (sounds == null)
+            Debug.Log("SOUNDS IS NULL");
 	}
 	
 	void FixedUpdate ()

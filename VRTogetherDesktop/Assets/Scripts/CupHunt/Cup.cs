@@ -18,6 +18,9 @@ public class Cup : MonoBehaviour {
     {
         cupObject = transform.parent.gameObject; 
         sounds = GameObject.Find("CupHuntSounds");
+        if (sounds == null)
+            Debug.Log("SOUNDS IS NULL");
+        else Debug.Log("SOUNDS IS OK");
 
         lastPosition = cupObject.transform.position;
 
