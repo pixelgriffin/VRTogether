@@ -25,7 +25,7 @@ public class Cup : MonoBehaviour {
         lastPosition = cupObject.transform.position;
 
         slideInterval = 1.0f;
-        slideTimer = slideInterval;
+        slideTimer = 0.0f;
     }
 
     private void Update()
