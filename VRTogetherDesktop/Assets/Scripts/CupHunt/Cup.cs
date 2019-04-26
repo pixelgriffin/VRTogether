@@ -30,7 +30,9 @@ public class Cup : MonoBehaviour {
 
     private void Update()
     {
-        if (cupObject.transform.position != lastPosition && slideTimer >= slideInterval)
+        float deltaPos = Vector3.Distance(cupObject.transform.position, lastPosition);
+
+        if (deltaPos > 0.1f && slideTimer >= slideInterval)
         {
             // reset timer
             slideTimer = 0.0f;

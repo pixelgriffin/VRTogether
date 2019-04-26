@@ -37,7 +37,9 @@ public class CupSlaveSlide : MonoBehaviour {
 
         if (MinigameClient.Instance.networkedPrefabs.IsSlave(id.netID))
         {
-            if (transform.position != lastPosition && slideTimer >= slideInterval)
+            float deltaPos = Vector3.Distance(transform.position, lastPosition);
+
+            if (deltaPos > 0.1f && slideTimer >= slideInterval)
             {
                 // reset timer
                 slideTimer = 0.0f;
@@ -48,6 +50,7 @@ public class CupSlaveSlide : MonoBehaviour {
                 Destroy(soundObject, 5);
             }
 
+            Debug.Log(transform.position);
             lastPosition = transform.position;
             slideTimer += Time.deltaTime;
         }
