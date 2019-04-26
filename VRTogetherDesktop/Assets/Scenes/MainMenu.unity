@@ -1898,7 +1898,7 @@ AudioListener:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1574271701}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &1574271703
 Camera:
   m_ObjectHideFlags: 0

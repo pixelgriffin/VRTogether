@@ -119,6 +119,7 @@ public class ChickenOnDestroy : MonoBehaviour {
                 nextCamera.transform.localPosition = GetComponent<ChickenSpawnCamera>().cameraPos;
                 nextCamera.transform.LookAt(chickens[0].transform);
                 Camera camera = nextCamera.AddComponent<Camera>();
+                nextCamera.AddComponent<AudioListener>();
                 camera.name = "camera_" + id.netID;
 
                 // spectate surviving chicken
