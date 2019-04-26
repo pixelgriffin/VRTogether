@@ -18,6 +18,7 @@ public class LobbyManager : MonoBehaviour
     public GameObject codePanel;
     public GameObject ipPanel;
     public GameObject lobbyPanel;
+    public GameObject mainPanel;
     public GameObject errorText;
 
     public Text roomCodeText;
@@ -230,6 +231,7 @@ public class LobbyManager : MonoBehaviour
     {
         lobbyPanel.SetActive(true);
         codePanel.SetActive(false);
+        mainPanel.SetActive(false);
     }
 
     public void AddPlayerNameToPlayerList(string name)
