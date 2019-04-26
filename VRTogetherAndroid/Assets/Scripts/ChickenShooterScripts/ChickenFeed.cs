@@ -15,7 +15,7 @@ public class ChickenFeed : MonoBehaviour {
         AudioSource[] sources = GetComponents<AudioSource>();
 
         shotFiredSound = sources[0];
-        wallCollisionSound = sources[0];
+        wallCollisionSound = sources[1];
 
         shotFiredSound.Play();
 
@@ -30,9 +30,12 @@ public class ChickenFeed : MonoBehaviour {
 
     private void OnTriggerEnter(Collider collider)
     {
+        Debug.Log("bullet trigger");
+
         if (collider.CompareTag("Ground") && collisionSoundTimer >= collisionSoundInterval)
         {
             wallCollisionSound.Play();
+            collisionSoundTimer = 0.0f;
         }
     }
 }

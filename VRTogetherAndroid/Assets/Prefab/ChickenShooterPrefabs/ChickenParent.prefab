@@ -54,8 +54,8 @@ MonoBehaviour:
   zMoveSpeed: 25
   xMoveSpeed: 5
   maxVelocityX: 0.3
-  jumpHeight: 0.03
-  mass: 0.075
+  jumpHeight: 0.01
+  mass: 0.025
   gravity: -9.81
   jumpTime: 0.75
   soundInterval: 0.5
