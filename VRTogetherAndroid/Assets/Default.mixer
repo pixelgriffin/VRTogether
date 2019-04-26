@@ -41,6 +41,7 @@ AudioMixerController:
     - 65dc78516093d474e9c1f9784f545885
     - 0d2af6b913b384054bca10f6c0fc74d4
     - 1eac857d18706496fbbe60de4d4419a3
+    - 648534ccadf54c9439f3c248e1a9b449
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
@@ -179,6 +180,7 @@ AudioMixerGroupController:
   - {fileID: 243239001061901432}
   - {fileID: 243016758155979230}
   - {fileID: 243306305628190352}
+  - {fileID: 243180079821591560}
   m_Volume: 37cc04b6e1db242ce8dac0c22b19263b
   m_Pitch: ea7e32026003f4d97a81cc9b26fff98b
   m_Effects:
@@ -239,6 +241,23 @@ AudioMixerGroupController:
   m_Pitch: c27dc15533f514b63b5df9022da39b77
   m_Effects:
   - {fileID: 244594528367911062}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
+--- !u!243 &243180079821591560
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: FlyBuzzing
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 648534ccadf54c9439f3c248e1a9b449
+  m_Children: []
+  m_Volume: 06f6676471375a449abd21c2bf634d9b
+  m_Pitch: 35b49e3bcd0fb5f4cbdfeebe5958fc3c
+  m_Effects:
+  - {fileID: 244929015167239962}
   m_UserColorIndex: 0
   m_Mute: 0
   m_Solo: 0
@@ -803,6 +822,19 @@ AudioMixerEffectController:
   m_EffectID: 623c9f72d5c91487096ea43c3c47bcc0
   m_EffectName: Attenuation
   m_MixLevel: 3a3c0805938f7462fb02d772a081cc8e
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!244 &244929015167239962
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_EffectID: 0877065913a09da438e8b3c9ed4e4e27
+  m_EffectName: Attenuation
+  m_MixLevel: 6ff1646486e7e454cbdc085ea5be1be1
   m_Parameters: []
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
