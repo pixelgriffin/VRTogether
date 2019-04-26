@@ -137,30 +137,25 @@ public class CupController : MonoBehaviour {
         // the server side already
 		if (col.tag == "Ball")
 		{
+            /*
 			Debug.Log("Score!");
 
             col.GetComponent<Rigidbody>().isKinematic = true;
-            col.transform.SetParent(transform);
+            col.transform.SetParent(transform);*/
 
             // play sound effect
             GameObject soundObject = Instantiate(sounds, Vector3.zero, Quaternion.identity);
-            soundObject.GetComponent<Sounds>().playCupHit();
+            soundObject.GetComponent<Sounds>().playBallSink();
             Destroy(soundObject, 5);
 
+            /*
             GameObject.Destroy(myCam);
             MinigameClient.Instance.NetworkDestroy(col.gameObject);
-            MinigameClient.Instance.NetworkDestroy(gameObject);
+            MinigameClient.Instance.NetworkDestroy(gameObject);*/
 
 		}
 
 	}
-
-    private void OnDestroy()
-    {
-        GameObject soundObject = Instantiate(sounds, Vector3.zero, Quaternion.identity);
-        soundObject.GetComponent<Sounds>().playBallSink();
-        Destroy(soundObject, 5);
-    }
 
     public void SetInControl (bool state)
 	{
