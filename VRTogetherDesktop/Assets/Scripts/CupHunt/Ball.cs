@@ -48,7 +48,7 @@ public class Ball : MonoBehaviour {
         else if (collision.collider.CompareTag("Cup"))
         {
             GameObject soundObject = Instantiate(sounds, Vector3.zero, Quaternion.identity);
-            soundObject.GetComponent<Sounds>().playBallSink();
+            soundObject.GetComponent<Sounds>().playCupHit();
             Destroy(soundObject, 5);
         }
     }
