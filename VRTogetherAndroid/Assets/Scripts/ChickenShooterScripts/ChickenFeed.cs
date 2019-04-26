@@ -6,6 +6,9 @@ public class ChickenFeed : MonoBehaviour {
 
     private AudioSource shotFiredSound, wallCollisionSound;
 
+    public float collisionSoundInterval = 0.5f;
+    private float collisionSoundTimer;
+
 	// Use this for initialization
 	void Start () {
 
@@ -15,12 +18,19 @@ public class ChickenFeed : MonoBehaviour {
         wallCollisionSound = sources[0];
 
         shotFiredSound.Play();
+
+        collisionSoundTimer = collisionSoundInterval;
 		
 	}
 
-    private void OnCollisionEnter(Collision collision)
+    private void Update()
     {
-        if (collision.gameObject.layer == 12)
+        collisionSoundTimer += Time.deltaTime;
+    }
+
+    private void OnTriggerEnter(Collider collider)
+    {
+        if (collider.CompareTag("Ground") && collisionSoundTimer >= collisionSoundInterval)
         {
             wallCollisionSound.Play();
         }
