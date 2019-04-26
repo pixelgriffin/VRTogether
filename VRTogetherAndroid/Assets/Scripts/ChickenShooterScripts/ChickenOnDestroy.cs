@@ -59,14 +59,12 @@ public class ChickenOnDestroy : MonoBehaviour {
             chickenDeathObject.GetComponent<AudioSource>();
 
         // copy each field in the components
-        System.Reflection.FieldInfo[] fields =
-            chickenDeathSound.GetType().GetFields();
-        foreach (System.Reflection.FieldInfo field in fields)
-        {
-            field.SetValue(
-                chickenDeathSoundCopy,
-                field.GetValue(chickenDeathSound));
-        }
+        chickenDeathSoundCopy.clip = chickenDeathSound.clip;
+        chickenDeathSoundCopy.outputAudioMixerGroup = chickenDeathSound.outputAudioMixerGroup;
+        chickenDeathSoundCopy.spatialBlend = chickenDeathSound.spatialBlend;
+        chickenDeathSoundCopy.rolloffMode = chickenDeathSound.rolloffMode;
+        chickenDeathSoundCopy.minDistance = chickenDeathSound.minDistance;
+        chickenDeathSoundCopy.maxDistance = chickenDeathSound.maxDistance;
 
         // play the sound
         chickenDeathSoundCopy.Play();
