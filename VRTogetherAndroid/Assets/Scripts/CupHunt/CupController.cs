@@ -27,6 +27,8 @@ public class CupController : MonoBehaviour {
     private bool canCharge = false;  // Is this cup allowed to charge? (Player touching cup)
     private GameObject myCam;
 
+    private GameObject sounds;
+
     private Text helpText;
 
 	void Start ()
@@ -52,8 +54,13 @@ public class CupController : MonoBehaviour {
 		directorStartScale = director.transform.localScale;
 
 		SetInControl (inControl);
-		
-	}
+
+        sounds = GameObject.Find("CupHuntSounds");
+        if (sounds == null)
+            Debug.Log("SOUNDS IS NULL");
+        else Debug.Log("SOUNDS IS OK");
+
+    }
 	
 	void Update () 
     {
@@ -82,6 +89,11 @@ public class CupController : MonoBehaviour {
             }
 
 			GetComponent<Rigidbody>().AddForce (director.transform.up * correctedForce);
+
+            // play sound effect
+            GameObject soundObject = Instantiate(sounds, Vector3.zero, Quaternion.identity);
+            soundObject.GetComponent<Sounds>().playCupSlide();
+            Destroy(soundObject, 5);
 
             isCharging = false;
 
@@ -121,12 +133,19 @@ public class CupController : MonoBehaviour {
 
 	void OnTriggerEnter (Collider col)
 	{
+        // this should all really be commented out since you are destroying on
+        // the server side already
 		if (col.tag == "Ball")
 		{
 			Debug.Log("Score!");
 
             col.GetComponent<Rigidbody>().isKinematic = true;
             col.transform.SetParent(transform);
+
+            // play sound effect
+            GameObject soundObject = Instantiate(sounds, Vector3.zero, Quaternion.identity);
+            soundObject.GetComponent<Sounds>().playCupHit();
+            Destroy(soundObject, 5);
 
             GameObject.Destroy(myCam);
             MinigameClient.Instance.NetworkDestroy(col.gameObject);
@@ -136,7 +155,14 @@ public class CupController : MonoBehaviour {
 
 	}
 
-	public void SetInControl (bool state)
+    private void OnDestroy()
+    {
+        GameObject soundObject = Instantiate(sounds, Vector3.zero, Quaternion.identity);
+        soundObject.GetComponent<Sounds>().playBallSink();
+        Destroy(soundObject, 5);
+    }
+
+    public void SetInControl (bool state)
 	{
 		director.SetActive (state);
 		this.enabled = state;
