@@ -106,6 +106,7 @@ GameObject:
   - component: {fileID: 23796205423159168}
   - component: {fileID: 65202578210484982}
   - component: {fileID: 143039283230849824}
+  - component: {fileID: 114742799424836082}
   - component: {fileID: 114047256385951010}
   - component: {fileID: 114746884856804432}
   - component: {fileID: 114988986683591046}
@@ -1028,6 +1029,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chickenDeathEffects: {fileID: 1223866981867796, guid: 55c88a2786f1640f68b6c2892a84cc80,
     type: 2}
+--- !u!114 &114742799424836082
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1726682675441442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eab17bc636bc864d91121a44bb64f8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpingThresh: 1
+  soundInterval: 0.5
 --- !u!114 &114746884856804432
 MonoBehaviour:
   m_ObjectHideFlags: 1

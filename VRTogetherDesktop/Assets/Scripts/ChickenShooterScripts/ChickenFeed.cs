@@ -6,7 +6,9 @@ using VRTogether.Net;
 public class ChickenFeed : MonoBehaviour {
 
     public float secondsToDestroy = 1.0f;
+    public float collisionSoundInteval = 0.5f;
     private float destroyTimer;
+    private float collisionSoundTimer;
 
     private AudioSource wallCollisionSound;
 
@@ -16,6 +18,8 @@ public class ChickenFeed : MonoBehaviour {
         destroyTimer = 0.0f;
 
         wallCollisionSound = GetComponent<AudioSource>();
+
+        collisionSoundTimer = collisionSoundInteval;
 		
 	}
 	
@@ -23,6 +27,7 @@ public class ChickenFeed : MonoBehaviour {
 	void Update () {
 
         destroyTimer += Time.deltaTime;
+        collisionSoundTimer += Time.deltaTime;
 
         if (destroyTimer >= secondsToDestroy)
         {
@@ -38,10 +43,12 @@ public class ChickenFeed : MonoBehaviour {
             // destroy game object
             MinigameServer.Instance.NetworkDestroy(collision.gameObject);
         }
-        else
+        else if (collisionSoundTimer >= collisionSoundInteval)
         {
             // play the wall collision sound effect
             wallCollisionSound.Play();
+
+            collisionSoundTimer = 0.0f;
         }
     }
 }

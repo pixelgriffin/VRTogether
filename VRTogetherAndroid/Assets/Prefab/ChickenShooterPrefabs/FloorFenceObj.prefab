@@ -209,7 +209,7 @@ GameObject:
   - component: {fileID: 64276024293296868}
   m_Layer: 12
   m_Name: FloorFenceObj
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

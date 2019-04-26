@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 64736525605621786}
   m_Layer: 13
   m_Name: Wall
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -66,8 +66,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.33, y: 4.5, z: 0.5}
-  m_Center: {x: 0, y: 2, z: -2.26}
+  m_Size: {x: 2.33, y: 1.7526422, z: 0.275558}
+  m_Center: {x: 0, y: 0.6263211, z: -2.4585125}
 --- !u!65 &65993980073740570
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -78,5 +78,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.46, y: 4.5, z: 0.5}
-  m_Center: {x: 0, y: 2, z: 2.255}
+  m_Size: {x: 1.46, y: 1.7526422, z: 0.23354077}
+  m_Center: {x: 0, y: 0.6263211, z: 2.462122}
