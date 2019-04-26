@@ -87,7 +87,7 @@ public class ChickenSlaveBounce : MonoBehaviour {
                     justBounced = true;
 
                     // move the chicken back to the ground
-                    this.transform.GetChild(0).localPosition = Vector3.MoveTowards(this.transform.GetChild(0).localPosition, -posOffset, Time.deltaTime * 5f);
+                    this.transform.GetChild(0).localPosition = Vector3.MoveTowards(this.transform.GetChild(0).localPosition, -posOffset, Time.deltaTime * 1f / 100f);
                 }
 
                 oldPos = this.transform.position;
