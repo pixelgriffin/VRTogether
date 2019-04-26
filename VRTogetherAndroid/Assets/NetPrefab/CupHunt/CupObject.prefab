@@ -38,6 +38,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4093186517478668}
   - component: {fileID: 114797758597204372}
+  - component: {fileID: 114963866029358326}
   - component: {fileID: 54022189960490184}
   - component: {fileID: 65943046438248452}
   - component: {fileID: 136796359848156358}
@@ -398,6 +399,17 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 4
     m_NumAlphaKeys: 2
+--- !u!114 &114963866029358326
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1216134835673108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2b54abd34685a94fb6c17dfa3eee6cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!136 &136796359848156358
 CapsuleCollider:
   m_ObjectHideFlags: 1
