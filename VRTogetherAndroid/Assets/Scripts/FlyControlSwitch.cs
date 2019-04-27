@@ -9,6 +9,12 @@ public class FlyControlSwitch : MonoBehaviour {
     private Canvas joystickCanvas;
     private RightJoystickTouchContoller joystickControl;
 
+    void Start ()
+    {
+        useGyroControls = (PlayerPrefs.GetInt("Gyro", 0) == 1) ? true : false;
+
+    }
+
 	void Awake () {
 
         joystickCanvas = GameObject.Find("JoystickCanvas").GetComponent<Canvas>();

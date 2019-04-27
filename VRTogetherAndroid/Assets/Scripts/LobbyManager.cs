@@ -6,6 +6,11 @@ using VRTogether.Net;
 
 public class LobbyManager : MonoBehaviour
 {
+    struct PlayerListEntry
+    {
+        string name;
+        int score;
+    }
 
     public string code = string.Empty; //The code or IP to connect with
     public string username;
@@ -13,6 +18,7 @@ public class LobbyManager : MonoBehaviour
     public GameObject codePanel;
     public GameObject ipPanel;
     public GameObject lobbyPanel;
+    public GameObject mainPanel;
     public GameObject errorText;
 
     public Text roomCodeText;
@@ -20,14 +26,22 @@ public class LobbyManager : MonoBehaviour
 
     public InputField userNameInput;
 
+    public Toggle motionToggle;
+
     private string ip = string.Empty;
     private ServerRoomCode thisCode;
 
+    private List<PlayerListEntry> players;
+
     void Start()
     {
+        players = new List<PlayerListEntry>();
+
         SetUsername(PlayerPrefs.GetString("Username", "Player"));
 
         userNameInput.text = username;
+
+        motionToggle.isOn = (PlayerPrefs.GetInt("Gyro", 0) == 1) ? true : false;
 
         thisCode = GetComponent<ServerRoomCode>();
 
@@ -39,6 +53,7 @@ public class LobbyManager : MonoBehaviour
 
         if(MacrogameClient.Instance.IsConnected())
         {
+            ClearPlayerList();
             MacrogameClient.Instance.RequestScoreUpdate();
             MacrogameClient.Instance.RequestNameList();
             SwitchToLobby();
@@ -72,8 +87,11 @@ public class LobbyManager : MonoBehaviour
 
     private void OnWeJoinedServer(string name)
     {
+        ClearPlayerList();
+        MacrogameClient.Instance.RequestScoreUpdate();
+        MacrogameClient.Instance.RequestNameList();
         SwitchToLobby();
-        AddPlayerNameToPlayerList(name);
+        //AddPlayerNameToPlayerList(name);
     }
 
     private void OnOtherPlayerJoinedServer(string name)
@@ -213,6 +231,7 @@ public class LobbyManager : MonoBehaviour
     {
         lobbyPanel.SetActive(true);
         codePanel.SetActive(false);
+        mainPanel.SetActive(false);
     }
 
     public void AddPlayerNameToPlayerList(string name)
@@ -246,9 +265,21 @@ public class LobbyManager : MonoBehaviour
 
     public void RemovePlayerFromPlayerList(string name)
     {
-        Debug.Log("removing " + name);
+        ClearPlayerList();
 
-        playerListText.text = playerListText.text.Replace("\n" + name, "");
+        foreach(string n in MacrogameClient.Instance.GetPlayerNames())
+        {
+            AddPlayerNameToPlayerList(n);
+        }
+    }
+
+    public void UpdateMotionControlsPref (bool state)
+    {
+        //Note: state does not actually get passed, so we need to grab it
+
+        state = motionToggle.isOn;
+
+        PlayerPrefs.SetInt("Gyro", (state ? 1 : 0));
 
     }
 }

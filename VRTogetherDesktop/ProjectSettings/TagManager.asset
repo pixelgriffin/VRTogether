@@ -12,6 +12,9 @@ TagManager:
   - projectile
   - FxTemporaire
   - UI
+  - Table
+  - Ball
+  - Cup
   layers:
   - Default
   - TransparentFX

@@ -27,6 +27,7 @@ public class ChickenSpawnCamera : MonoBehaviour {
             cameraObject.transform.localPosition = cameraPos;
             cameraObject.transform.LookAt(this.transform);
             camera = cameraObject.AddComponent<Camera>();
+            cameraObject.AddComponent<AudioListener>();
             camera.name = "camera_" + id.netID;
 
             GameObject.Find("ChickenOverviewCamera").GetComponent<Camera>().enabled = false;

@@ -28,7 +28,11 @@ public class ServerRoomCode : MonoBehaviour {
         {
             parsedData.data = responseData.downloadHandler.text;
             parsedData.isError = false;
-        } 
+        } else if (responseData.isNetworkError)
+        {
+            parsedData.isError = true;
+
+        }
         else 
         {
             parsedData.isError = true;
@@ -123,6 +127,7 @@ public class ServerRoomCode : MonoBehaviour {
 
         //Get Data
         UnityWebRequest rest;
+
         if (verb == "POST") {
             rest = UnityWebRequest.Post(fullURL, body);
         } else if (verb == "GET") {
@@ -132,7 +137,15 @@ public class ServerRoomCode : MonoBehaviour {
             rest = UnityWebRequest.Get(fullURL);
         }
 
+        rest.timeout = 5;
+
         yield return rest.SendWebRequest();
+
+        if (rest.isNetworkError)
+        {
+            Debug.Log("ERROR");
+
+        }
 
         //return the full response
         result(rest);

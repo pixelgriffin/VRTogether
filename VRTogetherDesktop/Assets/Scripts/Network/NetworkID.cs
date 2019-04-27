@@ -8,6 +8,9 @@ namespace VRTogether.Net
     {
         public string netID = null;
 
+        //[HideInInspector]
+        public int owner;
+
         void Start()
         {
             //netID = System.Guid.NewGuid().ToString();

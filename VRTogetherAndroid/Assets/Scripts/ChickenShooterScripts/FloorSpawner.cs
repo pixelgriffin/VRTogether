@@ -99,6 +99,10 @@ public class FloorSpawner : MonoBehaviour {
                 wall,
                 floorInstance.transform);
 
+            // ensure bullets do not make sound effect if no wall is visible
+            if (spaceStats[i] == (int)FloorSpace.NO_FLOOR || spaceStats[i] == (int)FloorSpace.OPEN)
+                wallInstance.tag = "Untagged";
+
             //this.GetComponent<turretController>().turretSet.Add(turretInstance);
         }
     }

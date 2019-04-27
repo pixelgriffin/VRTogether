@@ -7,16 +7,21 @@ public class NetworkFly : MonoBehaviour {
 
     public GameObject body;
     public GameObject grape;
+    public GameObject flyDeathObject;
 
     private NetworkID id;
     private bool isSlave = false;
     private NetworkBool holdingGrape = new NetworkBool("holdingGrape", false);
+    private bool wasHoldingGrape;
 
     //private RightJoystickTouchContoller joystick;
+    private GameObject cameraObject;
+    private GameObject overviewCameraObject;
     private Camera camera;
     private Camera overviewCamera;
     private Canvas flyCanvas, joystickCanvas;
 
+    private AudioSource pickupSound;
 
     void Start () {
 
@@ -32,18 +37,24 @@ public class NetworkFly : MonoBehaviour {
         // if this is not a slave, set camera to active and enable joystick canvas if using joystick controls
         if (!isSlave)
         {
+            holdingGrape.value = false;
+
             //joystick = GameObject.Find("RightJoystickTouchController").GetComponent<RightJoystickTouchContoller>();
 
             // create a camera with the same transform as the fly and parent it
             GameObject cameraObject = Instantiate(GameObject.Find("EmptyObject"), this.transform);
+            cameraObject.AddComponent<AudioListener>();
             camera = cameraObject.AddComponent<Camera>();
             camera.name = "camera_" + id.netID;
             camera.nearClipPlane = 0.1f;
 
-            // enable the camera
-            overviewCamera = GameObject.Find("FlyOverviewCamera").GetComponent<Camera>();
+            // enable the camera and audio listeners
+            overviewCameraObject = GameObject.Find("FlyOverviewCamera");
+            overviewCamera = overviewCameraObject.GetComponent<Camera>();
             overviewCamera.enabled = false;
+            overviewCameraObject.GetComponent<AudioListener>().enabled = false;
             camera.enabled = true;
+            cameraObject.GetComponent<AudioListener>().enabled = true;
 
             // enable the fly canvas
             flyCanvas = GameObject.Find("FlyCanvas").GetComponent<Canvas>();
@@ -56,12 +67,24 @@ public class NetworkFly : MonoBehaviour {
                 joystickCanvas.enabled = true;
             }
         }
+
+        // get the pick up sound
+        AudioSource[] sources = GetComponents<AudioSource>();
+        pickupSound = sources[1];
+
+        wasHoldingGrape = false;
     }
 	
 	void Update () {
         if (isSlave) //if this is a slave
         {
             body.SetActive(true); //show body
+
+            if (!wasHoldingGrape && holdingGrape.value)
+            {
+                // play pickup sound effect for the slave fly
+                pickupSound.Play();
+            }
         }
         else //if this is us
         {
@@ -69,6 +92,7 @@ public class NetworkFly : MonoBehaviour {
         }
 
         grape.SetActive(holdingGrape.value);//If we are holding a grape then show a grape
+        wasHoldingGrape = holdingGrape.value;
 	}
 
     private void OnTriggerEnter(Collider collider)
@@ -82,6 +106,9 @@ public class NetworkFly : MonoBehaviour {
                 holdingGrape.value = true;//Change the local value since we are authoritative
                 MinigameClient.Instance.SendBooleanToAll(holdingGrape);//Update the variable over the network
                 Debug.Log("Picked up a grape!");
+
+                // play pickup sound effect for authority fly
+                pickupSound.Play();
             }
         }
         else if(collider.tag == "DropZone")
@@ -117,6 +144,9 @@ public class NetworkFly : MonoBehaviour {
             // enable the overview camera
             //camera.enabled = false;
             overviewCamera.enabled = true;
+            overviewCamera.GetComponent<AudioListener>().enabled = true;
         }
+
+        Instantiate(flyDeathObject, transform.position, Quaternion.identity);
     }
 }

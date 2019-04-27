@@ -26,12 +26,28 @@ public class CupController : MonoBehaviour {
     private bool isCharging = false;
     private bool canCharge = false;  // Is this cup allowed to charge? (Player touching cup)
     private GameObject myCam;
+    private GameObject spectatorCam;
+
+    private GameObject sounds;
 
     private Text helpText;
 
 	void Start ()
     {
-        helpText = FindObjectOfType<Text>();
+        Text[] texts = FindObjectsOfType<Text>();
+
+        foreach (Text text in texts)
+        {
+            if (text.gameObject.name == "HelpText")
+            {
+                helpText = text;
+
+                break;
+
+            }
+
+        }
+        
         helpText.text = "Press and hold the cup to being charging your movement in the arrow's direction!";
 
         inControl = !MinigameClient.Instance.networkedPrefabs.IsSlave(GetComponent<NetworkID>().netID);
@@ -39,8 +55,16 @@ public class CupController : MonoBehaviour {
 		directorStartScale = director.transform.localScale;
 
 		SetInControl (inControl);
-		
-	}
+
+        spectatorCam = GameObject.Find("SpectatorCamera");
+        spectatorCam.GetComponent<Camera>().enabled = false;
+
+        sounds = GameObject.Find("CupHuntSounds");
+        if (sounds == null)
+            Debug.Log("SOUNDS IS NULL");
+        else Debug.Log("SOUNDS IS OK");
+
+    }
 	
 	void Update () 
     {
@@ -62,13 +86,18 @@ public class CupController : MonoBehaviour {
             float correctedForce = timeHeldRatio * moveForceMax;
 
             // If that path would make us collide with another cup, damp the force.
-            if (Physics.SphereCast(transform.position, 5f, director.transform.up, out hit, 10 * timeHeldRatio, LayerMask.GetMask("Cup")))
+            if (Physics.SphereCast(transform.position, 1f, director.transform.up, out hit, 2f * timeHeldRatio, LayerMask.GetMask("Cup")))
             {
-                correctedForce = Mathf.Clamp(hit.distance - correctedForceDistanceOffset, 0, 10) / 10 * moveForceMax;
+                correctedForce = Mathf.Clamp(hit.distance - correctedForceDistanceOffset, 0, 10f) / 10 * moveForceMax;
 
             }
 
 			GetComponent<Rigidbody>().AddForce (director.transform.up * correctedForce);
+
+            // play sound effect
+            GameObject soundObject = Instantiate(sounds, Vector3.zero, Quaternion.identity);
+            soundObject.GetComponent<Sounds>().playCupSlide();
+            Destroy(soundObject, 5);
 
             isCharging = false;
 
@@ -108,22 +137,39 @@ public class CupController : MonoBehaviour {
 
 	void OnTriggerEnter (Collider col)
 	{
+        // this should all really be commented out since you are destroying on
+        // the server side already
 		if (col.tag == "Ball")
 		{
+            /*
 			Debug.Log("Score!");
 
             col.GetComponent<Rigidbody>().isKinematic = true;
-            col.transform.SetParent(transform);
+            col.transform.SetParent(transform);*/
 
+            // play sound effect
+            GameObject soundObject = Instantiate(sounds, Vector3.zero, Quaternion.identity);
+            soundObject.GetComponent<Sounds>().playBallSink();
+            Destroy(soundObject, 5);
+
+            /*
             GameObject.Destroy(myCam);
             MinigameClient.Instance.NetworkDestroy(col.gameObject);
-            MinigameClient.Instance.NetworkDestroy(gameObject);
+            MinigameClient.Instance.NetworkDestroy(gameObject);*/
 
 		}
 
 	}
 
-	public void SetInControl (bool state)
+    private void OnDestroy()
+    {
+        spectatorCam.GetComponent<Camera>().enabled = true;
+        spectatorCam.GetComponent<AudioListener>().enabled = true;
+        Destroy(myCam);
+
+    }
+
+    public void SetInControl (bool state)
 	{
 		director.SetActive (state);
 		this.enabled = state;

@@ -38,9 +38,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4093186517478668}
   - component: {fileID: 114797758597204372}
+  - component: {fileID: 114963866029358326}
   - component: {fileID: 54022189960490184}
   - component: {fileID: 65943046438248452}
-  - component: {fileID: 135258971147675494}
+  - component: {fileID: 136796359848156358}
   - component: {fileID: 114740404489963516}
   m_Layer: 0
   m_Name: CupObject
@@ -59,6 +60,7 @@ GameObject:
   - component: {fileID: 4389855254523282}
   - component: {fileID: 54704252630322218}
   - component: {fileID: 64754678890799202}
+  - component: {fileID: 114785973795439336}
   m_Layer: 9
   m_Name: Cup
   m_TagString: Untagged
@@ -335,6 +337,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   netID: 
+  owner: 0
+--- !u!114 &114785973795439336
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1337508228371332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 578c82da09bf3c64fa1ca718479db5f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114797758597204372
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -354,7 +368,7 @@ MonoBehaviour:
   directorRotateSpeed: 180
   directorChargeTime: 3
   moveForceMax: 750
-  correctedForceDistanceOffset: 0.5
+  correctedForceDistanceOffset: 2
   directorChargeScale: {x: 6, y: 4, z: 1}
   powerColors:
     serializedVersion: 2
@@ -385,8 +399,19 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 4
     m_NumAlphaKeys: 2
---- !u!135 &135258971147675494
-SphereCollider:
+--- !u!114 &114963866029358326
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1216134835673108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2b54abd34685a94fb6c17dfa3eee6cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!136 &136796359848156358
+CapsuleCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -394,9 +419,10 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 3.4
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 3.59
+  m_Height: 11.05
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.89, z: 0}
 --- !u!212 &212652336847736592
 SpriteRenderer:
   m_ObjectHideFlags: 1

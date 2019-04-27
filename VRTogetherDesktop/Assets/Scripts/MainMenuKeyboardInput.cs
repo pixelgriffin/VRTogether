@@ -16,7 +16,7 @@ public class MainMenuKeyboardInput : MonoBehaviour {
         }
         else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            GetComponent<LoadMinigame>().Load("SpoopHouse");
+            GetComponent<LoadMinigame>().Load("BeatBoxer");
         }
         else if (Input.GetKeyDown(KeyCode.Alpha4))
         {

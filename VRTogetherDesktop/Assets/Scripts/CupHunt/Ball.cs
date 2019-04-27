@@ -13,9 +13,14 @@ public class Ball : MonoBehaviour {
     private Rigidbody body;
     public BallThrow thrower;
 
+    private GameObject sounds;
+
 	void Start ()
     {
         body = GetComponent<Rigidbody>();
+        sounds = GameObject.Find("CupHuntSounds");
+        if (sounds == null)
+            Debug.Log("SOUNDS IS NULL");
 	}
 	
 	void FixedUpdate ()
@@ -27,6 +32,25 @@ public class Ball : MonoBehaviour {
     {
         StartCoroutine(DestroyTimer());
 
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.CompareTag("Table"))
+        {
+            GameObject soundObject = Instantiate(sounds, Vector3.zero, Quaternion.identity);
+            soundObject.GetComponent<Sounds>().playBallBounce();
+            Destroy(soundObject, 5);
+
+            MinigameServer.Instance.NetworkDestroy(gameObject);
+
+        }
+        else if (collision.collider.CompareTag("Cup"))
+        {
+            GameObject soundObject = Instantiate(sounds, Vector3.zero, Quaternion.identity);
+            soundObject.GetComponent<Sounds>().playCupHit();
+            Destroy(soundObject, 5);
+        }
     }
 
     IEnumerator DestroyTimer ()
