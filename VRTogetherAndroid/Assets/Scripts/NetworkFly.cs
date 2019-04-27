@@ -7,6 +7,7 @@ public class NetworkFly : MonoBehaviour {
 
     public GameObject body;
     public GameObject grape;
+    public GameObject flyDeathObject;
 
     private NetworkID id;
     private bool isSlave = false;
