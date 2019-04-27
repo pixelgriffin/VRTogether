@@ -139,5 +139,7 @@ public class NetworkFly : MonoBehaviour {
             //camera.enabled = false;
             overviewCamera.enabled = true;
         }
+
+        Instantiate(flyDeathObject, transform.position, Quaternion.identity);
     }
 }
