@@ -26,6 +26,7 @@ public class CupController : MonoBehaviour {
     private bool isCharging = false;
     private bool canCharge = false;  // Is this cup allowed to charge? (Player touching cup)
     private GameObject myCam;
+    private GameObject spectatorCam;
 
     private GameObject sounds;
 
@@ -54,6 +55,9 @@ public class CupController : MonoBehaviour {
 		directorStartScale = director.transform.localScale;
 
 		SetInControl (inControl);
+
+        spectatorCam = GameObject.Find("SpectatorCamera");
+        spectatorCam.GetComponent<Camera>().enabled = false;
 
         sounds = GameObject.Find("CupHuntSounds");
         if (sounds == null)
@@ -156,6 +160,14 @@ public class CupController : MonoBehaviour {
 		}
 
 	}
+
+    private void OnDestroy()
+    {
+        spectatorCam.GetComponent<Camera>().enabled = true;
+        spectatorCam.GetComponent<AudioListener>().enabled = true;
+        Destroy(myCam);
+
+    }
 
     public void SetInControl (bool state)
 	{
