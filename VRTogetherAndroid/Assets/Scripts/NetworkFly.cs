@@ -15,6 +15,8 @@ public class NetworkFly : MonoBehaviour {
     private bool wasHoldingGrape;
 
     //private RightJoystickTouchContoller joystick;
+    private GameObject cameraObject;
+    private GameObject overviewCameraObject;
     private Camera camera;
     private Camera overviewCamera;
     private Canvas flyCanvas, joystickCanvas;
@@ -41,14 +43,18 @@ public class NetworkFly : MonoBehaviour {
 
             // create a camera with the same transform as the fly and parent it
             GameObject cameraObject = Instantiate(GameObject.Find("EmptyObject"), this.transform);
+            cameraObject.AddComponent<AudioListener>();
             camera = cameraObject.AddComponent<Camera>();
             camera.name = "camera_" + id.netID;
             camera.nearClipPlane = 0.1f;
 
-            // enable the camera
-            overviewCamera = GameObject.Find("FlyOverviewCamera").GetComponent<Camera>();
+            // enable the camera and audio listeners
+            overviewCameraObject = GameObject.Find("FlyOverviewCamera");
+            overviewCamera = overviewCameraObject.GetComponent<Camera>();
             overviewCamera.enabled = false;
+            overviewCameraObject.GetComponent<AudioListener>().enabled = false;
             camera.enabled = true;
+            cameraObject.GetComponent<AudioListener>().enabled = true;
 
             // enable the fly canvas
             flyCanvas = GameObject.Find("FlyCanvas").GetComponent<Canvas>();
@@ -138,6 +144,7 @@ public class NetworkFly : MonoBehaviour {
             // enable the overview camera
             //camera.enabled = false;
             overviewCamera.enabled = true;
+            overviewCamera.GetComponent<AudioListener>().enabled = true;
         }
 
         Instantiate(flyDeathObject, transform.position, Quaternion.identity);
