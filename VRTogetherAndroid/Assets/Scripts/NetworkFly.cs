@@ -7,6 +7,7 @@ public class NetworkFly : MonoBehaviour {
 
     public GameObject body;
     public GameObject grape;
+    public GameObject objectivePointer;
     public GameObject flyDeathObject;
 
     private NetworkID id;
@@ -14,7 +15,7 @@ public class NetworkFly : MonoBehaviour {
     private NetworkBool holdingGrape = new NetworkBool("holdingGrape", false);
     private bool wasHoldingGrape;
 
-    //private RightJoystickTouchContoller joystick;
+    private GameObject pointerInstance;
     private GameObject cameraObject;
     private GameObject overviewCameraObject;
     private Camera camera;
@@ -37,6 +38,12 @@ public class NetworkFly : MonoBehaviour {
         // if this is not a slave, set camera to active and enable joystick canvas if using joystick controls
         if (!isSlave)
         {
+            // instantiate the objective pointer object as a child of this object
+            pointerInstance = Instantiate(
+                objectivePointer,
+                transform.position,
+                Quaternion.identity);
+
             holdingGrape.value = false;
 
             //joystick = GameObject.Find("RightJoystickTouchController").GetComponent<RightJoystickTouchContoller>();
@@ -89,6 +96,8 @@ public class NetworkFly : MonoBehaviour {
         else //if this is us
         {
             body.SetActive(false); //don't show body
+
+            pointerInstance.transform.position = transform.position;
         }
 
         grape.SetActive(holdingGrape.value);//If we are holding a grape then show a grape
@@ -103,6 +112,7 @@ public class NetworkFly : MonoBehaviour {
             //If we control this fly we should tell everyone else we now are holding a grape
             if (!isSlave && !holdingGrape.value)
             {
+                pointerInstance.GetComponent<ObjectivePointer>().enabled = true;
                 holdingGrape.value = true;//Change the local value since we are authoritative
                 MinigameClient.Instance.SendBooleanToAll(holdingGrape);//Update the variable over the network
                 Debug.Log("Picked up a grape!");
@@ -118,6 +128,7 @@ public class NetworkFly : MonoBehaviour {
             {
                 if (holdingGrape.value)
                 {
+                    pointerInstance.GetComponent<ObjectivePointer>().enabled = false;
                     holdingGrape.value = false;
                     MinigameClient.Instance.SendBooleanToAll(holdingGrape);//Update the variable over the network
 
