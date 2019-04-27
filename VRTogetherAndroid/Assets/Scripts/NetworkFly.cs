@@ -11,12 +11,14 @@ public class NetworkFly : MonoBehaviour {
     private NetworkID id;
     private bool isSlave = false;
     private NetworkBool holdingGrape = new NetworkBool("holdingGrape", false);
+    private bool wasHoldingGrape;
 
     //private RightJoystickTouchContoller joystick;
     private Camera camera;
     private Camera overviewCamera;
     private Canvas flyCanvas, joystickCanvas;
 
+    private AudioSource pickupSound;
 
     void Start () {
 
@@ -32,6 +34,8 @@ public class NetworkFly : MonoBehaviour {
         // if this is not a slave, set camera to active and enable joystick canvas if using joystick controls
         if (!isSlave)
         {
+            holdingGrape.value = false;
+
             //joystick = GameObject.Find("RightJoystickTouchController").GetComponent<RightJoystickTouchContoller>();
 
             // create a camera with the same transform as the fly and parent it
@@ -56,12 +60,24 @@ public class NetworkFly : MonoBehaviour {
                 joystickCanvas.enabled = true;
             }
         }
+
+        // get the pick up sound
+        AudioSource[] sources = GetComponents<AudioSource>();
+        pickupSound = sources[1];
+
+        wasHoldingGrape = false;
     }
 	
 	void Update () {
         if (isSlave) //if this is a slave
         {
             body.SetActive(true); //show body
+
+            if (!wasHoldingGrape && holdingGrape.value)
+            {
+                // play pickup sound effect for the slave fly
+                pickupSound.Play();
+            }
         }
         else //if this is us
         {
@@ -69,6 +85,7 @@ public class NetworkFly : MonoBehaviour {
         }
 
         grape.SetActive(holdingGrape.value);//If we are holding a grape then show a grape
+        wasHoldingGrape = holdingGrape.value;
 	}
 
     private void OnTriggerEnter(Collider collider)
@@ -82,6 +99,9 @@ public class NetworkFly : MonoBehaviour {
                 holdingGrape.value = true;//Change the local value since we are authoritative
                 MinigameClient.Instance.SendBooleanToAll(holdingGrape);//Update the variable over the network
                 Debug.Log("Picked up a grape!");
+
+                // play pickup sound effect for authority fly
+                pickupSound.Play();
             }
         }
         else if(collider.tag == "DropZone")
