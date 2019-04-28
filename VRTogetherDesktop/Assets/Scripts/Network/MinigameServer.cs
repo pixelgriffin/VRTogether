@@ -175,8 +175,11 @@ namespace VRTogether.Net
 
         public void EndGame(string returnScene, bool vrWon, int score)
         {
-            if(AllPlayersReady())
-            {
+            //if(AllPlayersReady())
+            //{
+                readyPlayers.Clear();
+                playersReady = false;
+
                 StringMessage msg = new StringMessage();
                 msg.str = returnScene;
 
@@ -186,7 +189,7 @@ namespace VRTogether.Net
                 MacrogameServer.Instance.AddScore(vrWon, score);
 
                 SceneManager.LoadScene(returnScene);
-            }
+            //}
 
         }
 

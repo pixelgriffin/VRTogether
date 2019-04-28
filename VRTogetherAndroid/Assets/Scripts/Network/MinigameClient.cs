@@ -36,14 +36,9 @@ namespace VRTogether.Net
 
                 if (SceneManager.GetActiveScene().name == MacrogameClient.Instance.GetMinigameSceneToLoad())
                 {
-                    client.Send(MacroMsgType.MacroClientMinigameReady, new EmptyMessage());
+                    //client.Send(MacroMsgType.MacroClientMinigameReady, new EmptyMessage());
                     MacrogameClient.Instance.ClearMinigameSceneToLoad();
-                    Debug.Log("Initial message sent");
                 }
-            }
-            else
-            {
-                Debug.Log("Error. Client is null!");
             }
         }
 
@@ -60,6 +55,11 @@ namespace VRTogether.Net
 
                 client.Send(MiniMsgType.MiniSyncOrientation, orient);
             }
+        }
+
+        public void ReadyUp()
+        {
+            client.Send(MacroMsgType.MacroClientMinigameReady, new EmptyMessage());
         }
 
         public void RegisterVariable(string id, NetworkVariable var)

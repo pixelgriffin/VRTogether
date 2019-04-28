@@ -16,6 +16,8 @@ namespace VRTogether.Net
 
         public string playerName = "Player";
 
+        public string mainMenu = "Scenes/MainMenu";
+
         [HideInInspector]
         public UnityEvent OnNameRejected = new UnityEvent();
         [HideInInspector]
@@ -32,6 +34,7 @@ namespace VRTogether.Net
         private int vrScore = 0;
 
         public bool isListening = false;
+        private bool didDisconnect = false;
 
         private NetworkClient client;
 
@@ -74,6 +77,8 @@ namespace VRTogether.Net
                 client.RegisterHandler(MacroMsgType.MacroServerSendPlayerName, OnReceivedPlayerName);
                 client.RegisterHandler(MacroMsgType.MacroServerSendScore, OnReceivedScore);
 
+                client.RegisterHandler(MsgType.Disconnect, OnDisconnectedFromServer);
+
                 client.Connect(ip, 4444);
                 isListening = true;
 
@@ -95,6 +100,7 @@ namespace VRTogether.Net
         public void Disconnect()
         {
             client.Shutdown();
+            client = null;
 
             isListening = false;
         }
@@ -135,6 +141,22 @@ namespace VRTogether.Net
         public NetworkClient GetClient()
         {
             return client;
+        }
+
+        public bool ConsumeDisconnectedFlag()
+        {
+            bool temp = didDisconnect;
+            didDisconnect = false;
+
+            return temp;
+        }
+
+        private void OnDisconnectedFromServer(NetworkMessage msg)
+        {
+            Disconnect();
+            didDisconnect = true;
+
+            SceneManager.LoadScene(mainMenu);
         }
 
         private void OnReceivedScore(NetworkMessage msg)
