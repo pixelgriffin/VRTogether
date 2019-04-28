@@ -23,6 +23,7 @@ public class TestSpawn : MonoBehaviour {
             GameObject newBall = MinigameServer.Instance.NetworkInstantiate(ball);
 
             newBall.transform.position = transform.position;
+            newBall.GetComponent<Ball>().enabled = true;
 
         }
 		
