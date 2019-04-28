@@ -151,7 +151,13 @@ public class LobbyManager : MonoBehaviour
                 ip = code;
                 errorText.SetActive(false);
 
-                MacrogameClient.Instance.AttemptConnection(ip);
+                 if (!MacrogameClient.Instance.AttemptConnection(ip))
+                {
+                    EnableError("A connection could not be established.");
+                    Debug.Log("Failed to connect to IP: " + ip);
+
+
+                }
 
             }
 
