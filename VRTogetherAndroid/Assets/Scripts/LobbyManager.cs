@@ -23,6 +23,7 @@ public class LobbyManager : MonoBehaviour
 
     public Text roomCodeText;
     public Text playerListText;
+    public GameObject disconnectedText;
 
     public InputField userNameInput;
 
@@ -57,6 +58,13 @@ public class LobbyManager : MonoBehaviour
             MacrogameClient.Instance.RequestScoreUpdate();
             MacrogameClient.Instance.RequestNameList();
             SwitchToLobby();
+        }
+        else
+        {
+            if(MacrogameClient.Instance.ConsumeDisconnectedFlag())
+            {
+                disconnectedText.SetActive(true);
+            }
         }
     }
 
@@ -102,6 +110,11 @@ public class LobbyManager : MonoBehaviour
     private void OnNameReceived(string name)
     {
         AddPlayerNameToPlayerList(name);
+    }
+
+    public void ClearDisconnectText()
+    {
+        disconnectedText.SetActive(false);
     }
 
     public void JoinLobby()
