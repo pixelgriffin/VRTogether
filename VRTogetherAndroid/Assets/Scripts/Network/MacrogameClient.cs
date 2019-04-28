@@ -33,7 +33,7 @@ namespace VRTogether.Net
         private Dictionary<string, int> playerScores = new Dictionary<string, int>();
         private int vrScore = 0;
 
-        private bool isListening = false;
+        public bool isListening = false;
         private bool didDisconnect = false;
 
         private NetworkClient client;
@@ -62,7 +62,7 @@ namespace VRTogether.Net
             return (client != null && client.isConnected);
         }
 
-        public bool AttemptConnection(string ip)
+        public NetworkClient AttemptConnection(string ip)
         {
             if (!isListening)
             {
@@ -85,16 +85,14 @@ namespace VRTogether.Net
                 if (client.isConnected)
                 {
                     Debug.Log("connected with id: " + client.connection.connectionId);
-                    return true;
-
-                } else
-                {
-                    return false;
 
                 }
+
+                return client;
+
             } else
             {
-                return false;  // Already connected
+                return client;  // Already connected
 
             }
         }
