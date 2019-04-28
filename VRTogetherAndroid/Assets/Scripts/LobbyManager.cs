@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
+
 using VRTogether.Net;
 
 public class LobbyManager : MonoBehaviour
@@ -108,6 +110,8 @@ public class LobbyManager : MonoBehaviour
     {
         if (code != string.Empty)
         {
+            StopCoroutine("CheckConnection");
+
             Debug.Log("Recieved code: " + code);
 
             //roomCodeText.text = "Room Code: " + code;
@@ -151,19 +155,9 @@ public class LobbyManager : MonoBehaviour
                 ip = code;
                 errorText.SetActive(false);
 
-                 if (!MacrogameClient.Instance.AttemptConnection(ip))
-                {
-                    EnableError("A connection could not be established.");
-                    Debug.Log("Failed to connect to IP: " + ip);
-
-
-                }
+                StartCoroutine(CheckConnection(MacrogameClient.Instance.AttemptConnection(ip)));
 
             }
-
-            //Debug.Log("Wow shit bork, we got the ip:" + ip);
-
-
 
         }
 
@@ -286,6 +280,21 @@ public class LobbyManager : MonoBehaviour
         state = motionToggle.isOn;
 
         PlayerPrefs.SetInt("Gyro", (state ? 1 : 0));
+
+    }
+
+    public IEnumerator CheckConnection (NetworkClient client)
+    {
+        yield return new WaitForSeconds(5f);
+
+        if (!client.isConnected)
+        {
+            EnableError("A connection could not be established.");
+            Debug.Log("Failed to connect to IP: " + ip);
+
+            MacrogameClient.Instance.isListening = false;
+
+        }
 
     }
 }
