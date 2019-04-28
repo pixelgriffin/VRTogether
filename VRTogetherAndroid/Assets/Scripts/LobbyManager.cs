@@ -22,6 +22,7 @@ public class LobbyManager : MonoBehaviour
     public GameObject lobbyPanel;
     public GameObject mainPanel;
     public GameObject errorText;
+    public GameObject radialImage;
 
     public Text roomCodeText;
     public Text playerListText;
@@ -111,6 +112,7 @@ public class LobbyManager : MonoBehaviour
         if (code != string.Empty)
         {
             StopCoroutine("CheckConnection");
+            radialImage.SetActive(false);
 
             Debug.Log("Recieved code: " + code);
 
@@ -285,6 +287,8 @@ public class LobbyManager : MonoBehaviour
 
     public IEnumerator CheckConnection (NetworkClient client)
     {
+        radialImage.SetActive(true);
+
         yield return new WaitForSeconds(5f);
 
         if (!client.isConnected)
@@ -295,6 +299,8 @@ public class LobbyManager : MonoBehaviour
             MacrogameClient.Instance.isListening = false;
 
         }
+
+        radialImage.SetActive(false);
 
     }
 }
