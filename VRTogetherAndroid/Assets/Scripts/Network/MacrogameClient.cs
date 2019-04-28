@@ -59,7 +59,7 @@ namespace VRTogether.Net
             return (client != null && client.isConnected);
         }
 
-        public void AttemptConnection(string ip)
+        public bool AttemptConnection(string ip)
         {
             if (!isListening)
             {
@@ -77,7 +77,20 @@ namespace VRTogether.Net
                 client.Connect(ip, 4444);
                 isListening = true;
 
-                Debug.Log("connected with id: " + client.connection.connectionId);
+                if (client.isConnected)
+                {
+                    Debug.Log("connected with id: " + client.connection.connectionId);
+                    return true;
+
+                } else
+                {
+                    return false;
+
+                }
+            } else
+            {
+                return false;  // Already connected
+
             }
         }
 
