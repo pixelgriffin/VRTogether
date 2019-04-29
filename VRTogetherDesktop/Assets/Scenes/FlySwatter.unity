@@ -1548,6 +1548,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 220658144019159388, guid: 8e2da01dd3a574c17bb2cdd993c037c1,
+        type: 2}
+      propertyPath: m_SourcePositions.Array.size
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4419566849232608, guid: 8e2da01dd3a574c17bb2cdd993c037c1, type: 2}
       propertyPath: m_LocalPosition.x
       value: 2
@@ -1583,6 +1588,96 @@ Prefab:
     - target: {fileID: 1804438012005890, guid: 8e2da01dd3a574c17bb2cdd993c037c1, type: 2}
       propertyPath: m_StaticEditorFlags
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 108740931116020302, guid: 8e2da01dd3a574c17bb2cdd993c037c1,
+        type: 2}
+      propertyPath: m_Lightmapping
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 108740931116020302, guid: 8e2da01dd3a574c17bb2cdd993c037c1,
+        type: 2}
+      propertyPath: m_Intensity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 108740931116020302, guid: 8e2da01dd3a574c17bb2cdd993c037c1,
+        type: 2}
+      propertyPath: m_BounceIntensity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 108806814528569580, guid: 8e2da01dd3a574c17bb2cdd993c037c1,
+        type: 2}
+      propertyPath: m_BounceIntensity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 108381228187846588, guid: 8e2da01dd3a574c17bb2cdd993c037c1,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 108381228187846588, guid: 8e2da01dd3a574c17bb2cdd993c037c1,
+        type: 2}
+      propertyPath: m_Intensity
+      value: 1.19
+      objectReference: {fileID: 0}
+    - target: {fileID: 108381228187846588, guid: 8e2da01dd3a574c17bb2cdd993c037c1,
+        type: 2}
+      propertyPath: m_Shadows.m_Type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 108222955694195978, guid: 8e2da01dd3a574c17bb2cdd993c037c1,
+        type: 2}
+      propertyPath: m_Lightmapping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 108222955694195978, guid: 8e2da01dd3a574c17bb2cdd993c037c1,
+        type: 2}
+      propertyPath: m_Intensity
+      value: 2.13
+      objectReference: {fileID: 0}
+    - target: {fileID: 108381228187846588, guid: 8e2da01dd3a574c17bb2cdd993c037c1,
+        type: 2}
+      propertyPath: m_BounceIntensity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 220658144019159388, guid: 8e2da01dd3a574c17bb2cdd993c037c1,
+        type: 2}
+      propertyPath: m_SourcePositions.Array.data[8].x
+      value: -0.2956171
+      objectReference: {fileID: 0}
+    - target: {fileID: 220658144019159388, guid: 8e2da01dd3a574c17bb2cdd993c037c1,
+        type: 2}
+      propertyPath: m_SourcePositions.Array.data[8].y
+      value: -3.2599716
+      objectReference: {fileID: 0}
+    - target: {fileID: 220658144019159388, guid: 8e2da01dd3a574c17bb2cdd993c037c1,
+        type: 2}
+      propertyPath: m_SourcePositions.Array.data[8].z
+      value: -1.5857584
+      objectReference: {fileID: 0}
+    - target: {fileID: 220658144019159388, guid: 8e2da01dd3a574c17bb2cdd993c037c1,
+        type: 2}
+      propertyPath: m_SourcePositions.Array.data[9].x
+      value: -0.2956171
+      objectReference: {fileID: 0}
+    - target: {fileID: 220658144019159388, guid: 8e2da01dd3a574c17bb2cdd993c037c1,
+        type: 2}
+      propertyPath: m_SourcePositions.Array.data[9].y
+      value: -3.2599716
+      objectReference: {fileID: 0}
+    - target: {fileID: 220658144019159388, guid: 8e2da01dd3a574c17bb2cdd993c037c1,
+        type: 2}
+      propertyPath: m_SourcePositions.Array.data[9].z
+      value: -1.5857584
+      objectReference: {fileID: 0}
+    - target: {fileID: 108381228187846588, guid: 8e2da01dd3a574c17bb2cdd993c037c1,
+        type: 2}
+      propertyPath: m_Shadows.m_Bias
+      value: 0.011
+      objectReference: {fileID: 0}
+    - target: {fileID: 108381228187846588, guid: 8e2da01dd3a574c17bb2cdd993c037c1,
+        type: 2}
+      propertyPath: m_Shadows.m_NormalBias
+      value: 0.39
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8e2da01dd3a574c17bb2cdd993c037c1, type: 2}
