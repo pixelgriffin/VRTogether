@@ -54,6 +54,7 @@ public class NetworkFly : MonoBehaviour {
             camera = cameraObject.AddComponent<Camera>();
             camera.name = "camera_" + id.netID;
             camera.nearClipPlane = 0.1f;
+            camera.cullingMask = 0xFFFFFFF & 0xFFEFFFF; // measure everything except objective pointer layer
 
             // enable the camera and audio listeners
             overviewCameraObject = GameObject.Find("FlyOverviewCamera");
