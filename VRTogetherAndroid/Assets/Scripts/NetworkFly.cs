@@ -21,7 +21,7 @@ public class NetworkFly : MonoBehaviour {
     private Camera overviewCamera;
     private Canvas flyCanvas, joystickCanvas;
 
-    private AudioSource pickupSound;
+    private AudioSource pickupSound, dropoffSound;
 
     void Start () {
 
@@ -71,6 +71,7 @@ public class NetworkFly : MonoBehaviour {
         // get the pick up sound
         AudioSource[] sources = GetComponents<AudioSource>();
         pickupSound = sources[1];
+        dropoffSound = sources[2];
 
         wasHoldingGrape = false;
     }
@@ -128,6 +129,9 @@ public class NetworkFly : MonoBehaviour {
                     Debug.Log("Score!");
                 }
             }
+
+            // play drop off sound effect for all flies
+            dropoffSound.Play();
         }
     }
 
