@@ -111,7 +111,7 @@ public class NetworkFly : MonoBehaviour {
 
             pointerInstance.transform.position = transform.position;
             pointerInstance.transform.LookAt(objective.transform);
-            pointerInstance.transform.Rotate(Vector3.right, 90f, Space.Self);
+            //pointerInstance.transform.Rotate(Vector3.right, 90f, Space.Self);
         }
 
         grape.SetActive(holdingGrape.value);//If we are holding a grape then show a grape
