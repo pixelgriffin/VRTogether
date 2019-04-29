@@ -6,6 +6,7 @@ using VRTogether.Net;
 public class NetworkFly : MonoBehaviour {
 
     public GameObject grape;
+    public GameObject flyDeathObject;
 
     //We need a reference to our network id so we can do network stuff later
     private NetworkID id;
@@ -61,5 +62,6 @@ public class NetworkFly : MonoBehaviour {
     private void OnDestroy()
     {
         levelManager.DecrPlayersAliveCount();
+        Instantiate(flyDeathObject, transform.position, Quaternion.identity);
     }
 }
