@@ -14,8 +14,6 @@ public class ObjectivePointer : MonoBehaviour {
     private void Update()
     {
         transform.LookAt(objective);
-        //transform.Rotate(Vector3.forward, 90f, Space.Self);
-        //transform.Rotate(Vector3.up, -90f, Space.Self);
         transform.Rotate(Vector3.right, 90f, Space.Self);
     }
 }

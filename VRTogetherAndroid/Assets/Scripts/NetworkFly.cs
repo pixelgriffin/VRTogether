@@ -15,7 +15,10 @@ public class NetworkFly : MonoBehaviour {
     private NetworkBool holdingGrape = new NetworkBool("holdingGrape", false);
     private bool wasHoldingGrape;
 
+    private GameObject objective;
+    private GameObject objectivePointerCamera;
     private GameObject pointerInstance;
+
     private GameObject cameraObject;
     private GameObject overviewCameraObject;
     private Camera camera;
@@ -46,7 +49,8 @@ public class NetworkFly : MonoBehaviour {
 
             holdingGrape.value = false;
 
-            //joystick = GameObject.Find("RightJoystickTouchController").GetComponent<RightJoystickTouchContoller>();
+            objective = GameObject.Find("FlyGoal");
+            objectivePointerCamera = GameObject.Find("ObjectivePointerCamera");
 
             // create a camera with the same transform as the fly and parent it
             GameObject cameraObject = Instantiate(GameObject.Find("EmptyObject"), this.transform);
@@ -99,7 +103,13 @@ public class NetworkFly : MonoBehaviour {
         {
             body.SetActive(false); //don't show body
 
+            objectivePointerCamera.transform.rotation = transform.rotation;
+            objectivePointerCamera.transform.position = transform.position;
+            objectivePointerCamera.transform.Translate(new Vector3(0f,0f,-0.9f), Space.Self);
+
             pointerInstance.transform.position = transform.position;
+            pointerInstance.transform.LookAt(objective.transform);
+            pointerInstance.transform.Rotate(Vector3.right, 90f, Space.Self);
         }
 
         grape.SetActive(holdingGrape.value);//If we are holding a grape then show a grape
