@@ -12,6 +12,7 @@ public class CupGameOver : MonoBehaviour {
     private float startTime = -1f;
 
     private NetworkFloat timeRemaining = new NetworkFloat("timeRemaining", -1f);
+    private bool justStarted = true;
 
     public bool atLeastOne = false;
 
@@ -26,40 +27,56 @@ public class CupGameOver : MonoBehaviour {
             id.netID,
             timeRemaining);
 
-        startTime = Time.time;
+        startTime = 0.0f;
         timeAllowed = MacrogameServer.Instance.GetMacroPlayers().Count * timePerCup;  // The game will last as long as timePerCup * number of mobile players seconds
 	}
 	
 	void FixedUpdate () {
-        cups = FindObjectsOfType<Cup>();
 
-        if (!atLeastOne && cups.Length > 0)
+        if (MinigameServer.Instance.AllPlayersReady())
         {
-            atLeastOne = true;
+            if (justStarted)
+            {
+                startTime = Time.time;
+                justStarted = false;
+            }
 
+            cups = FindObjectsOfType<Cup>();
+
+            if (!atLeastOne && cups.Length > 0)
+            {
+                atLeastOne = true;
+
+            }
+
+            if (cups.Length == 0 && atLeastOne)
+            {
+                MinigameServer.Instance.EndGame("Scenes/MainMenu", true, 1);
+
+            }
+
+            if (Time.time >= startTime + timeAllowed)
+            {
+                MinigameServer.Instance.EndGame("Scenes/MainMenu", false, 1);
+
+            }
+            else
+            {
+                timeRemaining.value = timeAllowed - (Time.time - startTime);
+
+                timerText.text = "Time Remaining:\n" + GetTimeFormattedAsTimer(timeRemaining.value);
+
+                MinigameServer.Instance.SendFloatToAll(timeRemaining);
+
+            }
         }
-
-        if (cups.Length == 0 && atLeastOne)
+        else
         {
-            MinigameServer.Instance.EndGame("Scenes/MainMenu", true, 1);
-
-        }
-
-        if (Time.time >= startTime + timeAllowed)
-        {
-            MinigameServer.Instance.EndGame("Scenes/MainMenu", false, 1);
-
-        } else
-        {
-            timeRemaining.value = timeAllowed - (Time.time - startTime);
-
+            timeRemaining.value = timeAllowed;
             timerText.text = "Time Remaining:\n" + GetTimeFormattedAsTimer(timeRemaining.value);
-
             MinigameServer.Instance.SendFloatToAll(timeRemaining);
-
         }
-		
-	}
+    }
 
     string GetTimeFormattedAsTimer(float sentTime)
     {

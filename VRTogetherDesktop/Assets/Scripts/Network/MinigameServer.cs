@@ -126,6 +126,17 @@ namespace VRTogether.Net
             }
         }
 
+        public void NetworkRequestUnslave(GameObject obj)
+        {
+            if (obj.GetComponent<NetworkID>() != null)
+            {
+                StringMessage idMsg = new StringMessage();
+                idMsg.str = obj.GetComponent<NetworkID>().netID;
+
+                NetworkServer.SendToAll(MiniMsgType.MiniRequestDestroySlave, idMsg);
+            }
+        }
+
         public bool NetworkDestroy(GameObject netObj)
         {
             if (netObj.GetComponent<NetworkID>() != null)
@@ -175,8 +186,11 @@ namespace VRTogether.Net
 
         public void EndGame(string returnScene, bool vrWon, int score)
         {
-            if(AllPlayersReady())
-            {
+            //if(AllPlayersReady())
+            //{
+                readyPlayers.Clear();
+                playersReady = false;
+
                 StringMessage msg = new StringMessage();
                 msg.str = returnScene;
 
@@ -186,7 +200,7 @@ namespace VRTogether.Net
                 MacrogameServer.Instance.AddScore(vrWon, score);
 
                 SceneManager.LoadScene(returnScene);
-            }
+            //}
 
         }
 

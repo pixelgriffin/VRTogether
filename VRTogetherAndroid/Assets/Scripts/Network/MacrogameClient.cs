@@ -16,6 +16,8 @@ namespace VRTogether.Net
 
         public string playerName = "Player";
 
+        public string mainMenu = "Scenes/MainMenu";
+
         [HideInInspector]
         public UnityEvent OnNameRejected = new UnityEvent();
         [HideInInspector]
@@ -31,7 +33,8 @@ namespace VRTogether.Net
         private Dictionary<string, int> playerScores = new Dictionary<string, int>();
         private int vrScore = 0;
 
-        private bool isListening = false;
+        public bool isListening = false;
+        private bool didDisconnect = false;
 
         private NetworkClient client;
 
@@ -59,7 +62,7 @@ namespace VRTogether.Net
             return (client != null && client.isConnected);
         }
 
-        public void AttemptConnection(string ip)
+        public NetworkClient AttemptConnection(string ip)
         {
             if (!isListening)
             {
@@ -74,16 +77,30 @@ namespace VRTogether.Net
                 client.RegisterHandler(MacroMsgType.MacroServerSendPlayerName, OnReceivedPlayerName);
                 client.RegisterHandler(MacroMsgType.MacroServerSendScore, OnReceivedScore);
 
+                client.RegisterHandler(MsgType.Disconnect, OnDisconnectedFromServer);
+
                 client.Connect(ip, 4444);
                 isListening = true;
 
-                Debug.Log("connected with id: " + client.connection.connectionId);
+                if (client.isConnected)
+                {
+                    Debug.Log("connected with id: " + client.connection.connectionId);
+
+                }
+
+                return client;
+
+            } else
+            {
+                return client;  // Already connected
+
             }
         }
 
         public void Disconnect()
         {
             client.Shutdown();
+            client = null;
 
             isListening = false;
         }
@@ -124,6 +141,22 @@ namespace VRTogether.Net
         public NetworkClient GetClient()
         {
             return client;
+        }
+
+        public bool ConsumeDisconnectedFlag()
+        {
+            bool temp = didDisconnect;
+            didDisconnect = false;
+
+            return temp;
+        }
+
+        private void OnDisconnectedFromServer(NetworkMessage msg)
+        {
+            Disconnect();
+            didDisconnect = true;
+
+            SceneManager.LoadScene(mainMenu);
         }
 
         private void OnReceivedScore(NetworkMessage msg)

@@ -147,6 +147,14 @@ namespace VRTogether.Net
                 }
             }
 
+            foreach (NetworkID netID in slaveNetObjs)
+            {
+                if (netID.netID == id)
+                {
+                    return netID.gameObject;
+                }
+            }
+
             return null;
         }
 
