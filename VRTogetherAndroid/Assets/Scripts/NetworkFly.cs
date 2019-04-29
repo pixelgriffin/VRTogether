@@ -10,14 +10,14 @@ public class NetworkFly : MonoBehaviour {
     public GameObject objectivePointer;
     public GameObject flyDeathObject;
 
+    private GameObject objective;
+    private GameObject objectivePointerCamera;
+    private GameObject pointerInstance;
+
     private NetworkID id;
     private bool isSlave = false;
     private NetworkBool holdingGrape = new NetworkBool("holdingGrape", false);
     private bool wasHoldingGrape;
-
-    private GameObject objective;
-    private GameObject objectivePointerCamera;
-    private GameObject pointerInstance;
 
     private GameObject cameraObject;
     private GameObject overviewCameraObject;
@@ -47,10 +47,12 @@ public class NetworkFly : MonoBehaviour {
                 transform.position,
                 Quaternion.identity);
 
-            holdingGrape.value = false;
-
+            // disable the objective pointer and get the objective and objective camera
+            pointerInstance.SetActive(false);
             objective = GameObject.Find("FlyGoal");
             objectivePointerCamera = GameObject.Find("ObjectivePointerCamera");
+
+            holdingGrape.value = false;
 
             // create a camera with the same transform as the fly and parent it
             GameObject cameraObject = Instantiate(GameObject.Find("EmptyObject"), this.transform);
@@ -58,7 +60,7 @@ public class NetworkFly : MonoBehaviour {
             camera = cameraObject.AddComponent<Camera>();
             camera.name = "camera_" + id.netID;
             camera.nearClipPlane = 0.1f;
-            camera.cullingMask = 0xFFFFFFF & 0xFFEFFFF; // measure everything except objective pointer layer
+            camera.cullingMask = 0xFFFFFFF & 0xFFEFFFF; // render everything except objective pointer layer
 
             // enable the camera and audio listeners
             overviewCameraObject = GameObject.Find("FlyOverviewCamera");
