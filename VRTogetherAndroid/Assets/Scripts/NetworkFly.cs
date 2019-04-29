@@ -113,7 +113,7 @@ public class NetworkFly : MonoBehaviour {
             //If we control this fly we should tell everyone else we now are holding a grape
             if (!isSlave && !holdingGrape.value)
             {
-                pointerInstance.GetComponent<ObjectivePointer>().enabled = true;
+                pointerInstance.SetActive(true);
                 holdingGrape.value = true;//Change the local value since we are authoritative
                 MinigameClient.Instance.SendBooleanToAll(holdingGrape);//Update the variable over the network
                 Debug.Log("Picked up a grape!");
@@ -129,7 +129,7 @@ public class NetworkFly : MonoBehaviour {
             {
                 if (holdingGrape.value)
                 {
-                    pointerInstance.GetComponent<ObjectivePointer>().enabled = false;
+                    pointerInstance.SetActive(false);
                     holdingGrape.value = false;
                     MinigameClient.Instance.SendBooleanToAll(holdingGrape);//Update the variable over the network
 
