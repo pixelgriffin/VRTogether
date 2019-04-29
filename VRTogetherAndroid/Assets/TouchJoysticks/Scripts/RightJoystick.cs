@@ -48,14 +48,15 @@ public class RightJoystick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPo
             bgImage = GetComponent<Image>(); // gets the background image of this joystick
             joystickKnobImage = transform.GetChild(0).GetComponent<Image>(); // gets the joystick "knob" image (the handle of the joystick), the joystick knob game object must be a child of this game object and have an image component 
             //bgImage.rectTransform.SetAsLastSibling(); // ensures that this joystick will always render on top of other UI elements
-            bgImage.rectTransform.GetWorldCorners(fourCornersArray); // fills the fourCornersArray with the world space positions of the four corners of the background image of this joystick
+
+            ////bgImage.rectTransform.GetWorldCorners(fourCornersArray); // fills the fourCornersArray with the world space positions of the four corners of the background image of this joystick
 
             bgImageStartPosition = fourCornersArray[3]; // saves the world space position of the bottom right hand corner of the background image of this joystick as the image was placed on the canvas before play was pressed 
-            bgImage.rectTransform.pivot = new Vector2(1, 0); // places the bottom right corner of background image of this joystick onto the pivot (wherever it may be in the canvas) 
+            //bgImage.rectTransform.pivot = new Vector2(1, 0); // places the bottom right corner of background image of this joystick onto the pivot (wherever it may be in the canvas) 
 
-            bgImage.rectTransform.anchorMin = new Vector2(1, 0); // sets the min anchors to the lower right corner of the canvas
-            bgImage.rectTransform.anchorMax = new Vector2(1, 0); // sets the max anchors to the lower right corner of the canvas
-            bgImage.rectTransform.position = bgImageStartPosition; // sets the background image of this joystick back to the same position it was on the canvas before play was pressed
+            //bgImage.rectTransform.anchorMin = new Vector2(1, 0); // sets the min anchors to the lower right corner of the canvas
+            //bgImage.rectTransform.anchorMax = new Vector2(1, 0); // sets the max anchors to the lower right corner of the canvas
+            //bgImage.rectTransform.position = bgImageStartPosition; // sets the background image of this joystick back to the same position it was on the canvas before play was pressed
         }
     }
 
