@@ -32,6 +32,8 @@ public class ChickenSpawnCamera : MonoBehaviour {
 
             GameObject.Find("ChickenOverviewCamera").GetComponent<Camera>().enabled = false;
             camera.enabled = true;
+
+            GameObject.Find("Canvas").GetComponent<Canvas>().enabled = true;
         }
     }
 	
