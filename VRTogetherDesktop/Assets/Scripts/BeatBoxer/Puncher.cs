@@ -27,6 +27,7 @@ public class Puncher : MonoBehaviour
     {
         if(collision.collider.gameObject.layer == LayerMask.NameToLayer("BeatChunk") && collision.collider.GetComponent<Rigidbody>() == null)
         {
+            collision.collider.gameObject.transform.parent.GetComponent<MoveTowardPlayer>().GetPunched();
             collision.collider.gameObject.transform.parent = null;
 
             Rigidbody body = collision.collider.gameObject.AddComponent<Rigidbody>();

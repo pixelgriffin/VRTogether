@@ -207,7 +207,7 @@ namespace VRTogether.Net
         {
             StringMessage idMsg = msg.ReadMessage<StringMessage>();
 
-            Debug.Log("Looking for requested slave to kill");
+            Debug.Log("Looking for requested slave to kill: " + idMsg.str);
 
             GameObject obj = networkedPrefabs.GetNetworkedObject(idMsg.str);
             if(obj != null)
@@ -216,6 +216,10 @@ namespace VRTogether.Net
                 NetworkDestroy(obj);
 
                 Debug.Log("Killed");
+            }
+            else
+            {
+                Debug.Log("wat? no existy: " + idMsg.str);
             }
         }
 

@@ -1,14 +1,59 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using VRTogether.Net;
 
 public class CubeSpawner : MonoBehaviour {
 
     public GameObject cubePrefab;
 
-	void Update () {
-        if (MinigameClient.Instance.AllPlayersReady())
+    public Text beatText;
+
+    public float bpm = 127;
+
+    public int maxBeats = 2;
+
+    private int beatsLeft = 0;
+
+    private List<Vector3> spawnPoints = new List<Vector3>();
+
+    private void Start()
+    {
+        beatsLeft = maxBeats;
+        StartCoroutine(SpawnQueued());
+        StartCoroutine(IncreaseBeatCount());
+    }
+
+    private IEnumerator IncreaseBeatCount()
+    {
+        yield return new WaitForSeconds(2f / (127 / 60f));
+
+        beatsLeft++;
+        if (beatsLeft > maxBeats)
+            beatsLeft = maxBeats;
+
+        StartCoroutine(IncreaseBeatCount());
+    }
+
+    private IEnumerator SpawnQueued()
+    {
+        yield return new WaitForSeconds(1f / (127 / 60f));
+
+        foreach(Vector3 point in spawnPoints)
+        {
+            MinigameClient.Instance.NetworkRequestServerInstantiate(cubePrefab, point, Quaternion.identity);
+        }
+
+        spawnPoints.Clear();
+
+        StartCoroutine(SpawnQueued());
+    }
+
+    void Update () {
+        beatText.text = "Beats Left: " + beatsLeft;
+
+        if (MinigameClient.Instance.AllPlayersReady() && beatsLeft > 0)
         {
             if (Input.touchSupported)
             {
@@ -23,7 +68,8 @@ public class CubeSpawner : MonoBehaviour {
                     {
                         Vector3 spawnPoint = hit.point;
                         spawnPoint.y = Random.Range(0.25f, 1.25f);
-                        MinigameClient.Instance.NetworkRequestServerInstantiate(cubePrefab, spawnPoint, Quaternion.identity);
+                        spawnPoints.Add(spawnPoint);
+                        beatsLeft--;
                     }
                 }
             }
@@ -31,16 +77,15 @@ public class CubeSpawner : MonoBehaviour {
             {
                 if (Input.GetMouseButtonDown(0))
                 {
-                    Debug.Log("MOUSE DOWN");
                     Ray r = Camera.main.ScreenPointToRay(Input.mousePosition);
 
                     RaycastHit hit;
                     if (Physics.Raycast(r, out hit))
                     {
-                        Debug.Log("RAYCAST HIT, REQUESTING SPAWN");
                         Vector3 spawnPoint = hit.point;
                         spawnPoint.y = Random.Range(0.25f, 1.25f);
-                        MinigameClient.Instance.NetworkRequestServerInstantiate(cubePrefab, spawnPoint, Quaternion.identity);
+                        spawnPoints.Add(spawnPoint);
+                        beatsLeft--;
                     }
                 }
             }
