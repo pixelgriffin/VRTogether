@@ -13,6 +13,8 @@ public class NetworkFly : MonoBehaviour {
     private NetworkBool holdingGrape = new NetworkBool("holdingGrape", false);
     private bool wasHoldingGrape;
 
+    private AudioSource pickupSound, dropoffSound;
+
     private FlyLevelManager levelManager;
 
 	void Start () {
@@ -20,6 +22,10 @@ public class NetworkFly : MonoBehaviour {
 
         MinigameServer.Instance.RegisterVariable(id.netID, holdingGrape);
         wasHoldingGrape = false;
+
+        AudioSource[] sources = GetComponents<AudioSource>();
+        pickupSound = sources[0];
+        dropoffSound = sources[1];
 
         levelManager = GameObject.Find("LevelManager").GetComponent<FlyLevelManager>();
 	}
@@ -32,7 +38,12 @@ public class NetworkFly : MonoBehaviour {
         if (!wasHoldingGrape && holdingGrape.value)
         {
             // play pickup sound
-            GetComponent<AudioSource>().Play();
+            pickupSound.Play();
+        }
+        else if (wasHoldingGrape && !holdingGrape.value)
+        {
+            // play the dropoff sound
+            dropoffSound.Play();
         }
 
         wasHoldingGrape = holdingGrape.value;
