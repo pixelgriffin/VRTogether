@@ -48,7 +48,7 @@ public class NetworkFly : MonoBehaviour {
                 Quaternion.identity);
 
             // disable the objective pointer and get the objective and objective camera
-            pointerInstance.SetActive(false);
+            //pointerInstance.SetActive(false);
             objective = GameObject.Find("FlyGoal");
             objectivePointerCamera = GameObject.Find("ObjectivePointerCamera");
 
@@ -107,9 +107,11 @@ public class NetworkFly : MonoBehaviour {
 
             objectivePointerCamera.transform.rotation = transform.rotation;
             objectivePointerCamera.transform.position = transform.position;
-            objectivePointerCamera.transform.Translate(new Vector3(0f,0f,-0.9f), Space.Self);
+            objectivePointerCamera.transform.Translate(new Vector3(0f,0.25f,-2.0f), Space.Self);
+
 
             pointerInstance.transform.position = transform.position;
+            //pointerInstance.transform.Translate(new Vector3(0f, 0f, 0.5f), Space.Self);
             pointerInstance.transform.LookAt(objective.transform);
             //pointerInstance.transform.Rotate(Vector3.right, 90f, Space.Self);
         }
