@@ -48,7 +48,7 @@ public class NetworkFly : MonoBehaviour {
                 Quaternion.identity);
 
             // disable the objective pointer and get the objective and objective camera
-            //pointerInstance.SetActive(false);
+            pointerInstance.SetActive(false);
             objective = GameObject.Find("FlyGoal");
             objectivePointerCamera = GameObject.Find("ObjectivePointerCamera");
 
