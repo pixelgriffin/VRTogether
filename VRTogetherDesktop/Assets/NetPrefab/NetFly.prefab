@@ -1259,6 +1259,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grape: {fileID: 1088927404885672}
+  flyDeathObject: {fileID: 1468691809879338, guid: d35b5896f4ecd478aa9727dda2f78bb2,
+    type: 2}
 --- !u!114 &114858804306656040
 MonoBehaviour:
   m_ObjectHideFlags: 1
