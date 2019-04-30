@@ -16,6 +16,9 @@ namespace VRTogether.Net
 
         private Dictionary<string, NetworkVariable> vars = new Dictionary<string, NetworkVariable>();
 
+        //calculated average RTT (ms)
+        private int rtt;
+
         private void Start()
         {
             client = MacrogameClient.Instance.GetClient();
@@ -239,9 +242,13 @@ namespace VRTogether.Net
         {
             SlaveOrientMessage orient = msg.ReadMessage<SlaveOrientMessage>();
 
+            //Update average RTT since this function is called more often than any other function
+            UpdateRTT(client.GetRTT());
+
             GameObject obj = networkedPrefabs.GetSlaveObject(orient.networkID);
             if (obj != null)
             {
+                //apply lerp to transform
                 Transform t = obj.transform;
                 t.position = orient.loc;
                 t.rotation = orient.rot;
@@ -296,6 +303,13 @@ namespace VRTogether.Net
         private void OnOtherPlayersReady(NetworkMessage msg)
         {
             allPlayersReady = true;
+        }
+
+        //updates rtt value from recieved message rtt
+        private void UpdateRTT(float newRtt)
+        {
+            //calculate weighted average
+            rtt = (int) (newRtt * 0.7f + rtt * 0.3f);
         }
     }
 }
