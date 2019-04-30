@@ -1,15 +1,18 @@
 fileFormatVersion: 2
-guid: 430603e5f285a4b239ab31a5e7195112
+guid: 4151d569188bd2e44a7285aa408cce9a
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: default
-    400000: //RootNode
-    400002: default
-    2100000: Counter
-    2100002: Wood
-    2100004: Gold
+    100000: default
+    100002: //RootNode
+    400000: default
+    400002: //RootNode
+    2100000: Wheel
+    2100002: Metal
+    2100004: body
+    2100006: Metal_Black
+    2100008: Hat
+    2100010: Grape
     2300000: default
     3300000: default
     4300000: default
@@ -52,7 +55,7 @@ ModelImporter:
     importCameras: 1
     importLights: 1
     swapUVChannels: 0
-    generateSecondaryUV: 1
+    generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0
