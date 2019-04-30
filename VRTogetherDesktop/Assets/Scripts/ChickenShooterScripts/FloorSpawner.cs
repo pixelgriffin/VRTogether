@@ -75,6 +75,7 @@ public class FloorSpawner : MonoBehaviour {
                 }
 
                 floorInstance.name = "FloorPiece" + i;
+                floorInstance.layer = 10;
 
                 if (i == spaceCount - 1 && (360 % spaceCount) == 0)
                 {

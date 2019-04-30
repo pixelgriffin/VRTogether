@@ -43,7 +43,7 @@ public class ChickenFeed : MonoBehaviour {
             // destroy game object
             MinigameServer.Instance.NetworkDestroy(collision.gameObject);
         }
-        else if (collisionSoundTimer >= collisionSoundInteval)
+        else if (collisionSoundTimer >= collisionSoundInteval && collision.gameObject.layer == 10)
         {
             // play the wall collision sound effect
             wallCollisionSound.Play();
