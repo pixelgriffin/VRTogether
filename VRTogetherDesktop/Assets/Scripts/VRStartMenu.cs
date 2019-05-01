@@ -9,4 +9,10 @@ public class VRStartMenu : MonoBehaviour {
     {
         SceneManager.LoadScene("Initialization");
     }
+
+    public void OnExitButtonPressed()
+    {
+        Debug.Log("Exit button pressed");
+        Application.Quit();
+    }
 }
