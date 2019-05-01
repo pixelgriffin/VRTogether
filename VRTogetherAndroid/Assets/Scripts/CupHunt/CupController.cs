@@ -163,9 +163,13 @@ public class CupController : MonoBehaviour {
 
     private void OnDestroy()
     {
-        spectatorCam.GetComponent<Camera>().enabled = true;
-        spectatorCam.GetComponent<AudioListener>().enabled = true;
-        Destroy(myCam);
+        if (spectatorCam)
+        {
+            spectatorCam.GetComponent<Camera>().enabled = true;
+            spectatorCam.GetComponent<AudioListener>().enabled = true;
+            Destroy(myCam);
+
+        }
 
     }
 
