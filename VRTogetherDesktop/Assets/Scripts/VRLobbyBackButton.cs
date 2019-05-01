@@ -8,7 +8,7 @@ public class VRLobbyBackButton : MonoBehaviour {
 
 	public void OnBackButtonPressed()
     {
-        Destroy(MacrogameServer.Instance);
+        Destroy(MacrogameServer.Instance.gameObject);
 
         SceneManager.LoadScene("StartMenu");
     }
