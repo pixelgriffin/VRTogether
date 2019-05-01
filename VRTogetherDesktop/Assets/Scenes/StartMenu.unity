@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.9605702, g: 0.5151286, b: 0.24809743, a: 1}
+  m_IndirectSpecularColor: {r: 0.9614738, g: 0.51457536, b: 0.24748197, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5639,10 +5639,11 @@ GameObject:
   - component: {fileID: 1114050912}
   - component: {fileID: 1114050911}
   - component: {fileID: 1114050910}
+  - component: {fileID: 1114050909}
   - component: {fileID: 1114050914}
   - component: {fileID: 1114050913}
   m_Layer: 5
-  m_Name: FlySwatterStart
+  m_Name: StartButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5667,6 +5668,17 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -223.9}
   m_SizeDelta: {x: 860.2, y: 1119.1}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1114050909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1114050907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09880f8ca5f474ad6ba3b16480ac23ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1114050910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5706,9 +5718,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: Load
-        m_Mode: 5
+      - m_Target: {fileID: 1114050909}
+        m_MethodName: OnStartButtonPressed
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -6216,7 +6228,6 @@ GameObject:
   - component: {fileID: 1904779485}
   - component: {fileID: 1904779484}
   - component: {fileID: 1904779483}
-  - component: {fileID: 1904779486}
   - component: {fileID: 1904779482}
   - component: {fileID: 1904779488}
   m_Layer: 5
@@ -6303,18 +6314,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 1.36}
   m_SizeDelta: {x: 3840, y: 2160}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1904779486
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1904779481}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fee183890ff1ad4419d3b54918b6233b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  codeText: {fileID: 0}
 --- !u!114 &1904779488
 MonoBehaviour:
   m_ObjectHideFlags: 0

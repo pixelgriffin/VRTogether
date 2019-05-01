@@ -61,4 +61,13 @@ public class GenerateCode : MonoBehaviour {
         }
         return localIP;
     }
+
+    public void DestroyCode()
+    {
+        if (GENERATED_CODE)
+        {
+            StartCoroutine(server.ReleaseCode(CODE));
+            GENERATED_CODE = false;
+        }
+    }
 }
