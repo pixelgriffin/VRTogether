@@ -34,6 +34,8 @@ namespace VRTogether.Net
 
         private void OnDestroy()
         {
+            Debug.Log("Destroying Macrogame server...");
+
             base.OnDestroy();
 
             NetworkServer.Shutdown();
