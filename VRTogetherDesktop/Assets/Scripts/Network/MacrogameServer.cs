@@ -26,9 +26,13 @@ namespace VRTogether.Net
 
         void Awake()
         {
+            Debug.Log("Starting Macrogame server...");
+
             base.Awake();
 
-            TryStartServer();
+            bool startedServer = TryStartServer();
+            Debug.Log("Try start server returned " + startedServer);
+
             DontDestroyOnLoad(this.gameObject);
         }
 
@@ -39,6 +43,8 @@ namespace VRTogether.Net
             base.OnDestroy();
 
             NetworkServer.Shutdown();
+
+            isListening = false;
         }
 
         private void OnLevelWasLoaded(int level)
