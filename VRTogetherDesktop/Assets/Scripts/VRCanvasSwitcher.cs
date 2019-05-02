@@ -13,8 +13,15 @@ public class VRCanvasSwitcher : MonoBehaviour {
         optionsCanvas = transform.GetChild(1).gameObject;
     }
 
+    private void Start()
+    {
+        optionsCanvas.SetActive(false);
+    }
+
     public IEnumerator SwitchCanvas(float time)
     {
+        Debug.Log("Entered switch coroutine");
+
         float angle;
         float elapsedTime = 0f;
 
@@ -58,12 +65,16 @@ public class VRCanvasSwitcher : MonoBehaviour {
         Quaternion startRot = transform.rotation;
         Quaternion endRot = Quaternion.AngleAxis(angle, Vector3.up);
 
+        Debug.Log("Starting switch");
+
         while (elapsedTime < time)
         {
             transform.rotation = Quaternion.Lerp(startRot, endRot, elapsedTime / time);
             elapsedTime += Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
+
+        Debug.Log("Finished switch");
 
         transform.rotation = endRot;
 

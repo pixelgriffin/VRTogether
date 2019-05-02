@@ -25,11 +25,13 @@ public class VRStartMenu : MonoBehaviour {
 
     public void OnOptionsButtonPressed()
     {
-        canvasManager.GetComponent<VRCanvasSwitcher>().SwitchCanvas(0.5f);
+        StartCoroutine(
+            canvasManager.GetComponent<VRCanvasSwitcher>().SwitchCanvas(0.5f));
     }
 
     public void OnBackButtonPressed()
     {
-        canvasManager.GetComponent<VRCanvasSwitcher>().SwitchCanvas(0.5f);
+        StartCoroutine(
+            canvasManager.GetComponent<VRCanvasSwitcher>().SwitchCanvas(0.5f));
     }
 }
