@@ -5,7 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class VRStartMenu : MonoBehaviour {
 
-	public void OnStartButtonPressed()
+    private GameObject canvasManager;
+
+    private void Awake()
+    {
+        canvasManager = transform.parent.parent.parent.gameObject;
+    }
+
+    public void OnStartButtonPressed()
     {
         SceneManager.LoadScene("Initialization");
     }
@@ -14,5 +21,15 @@ public class VRStartMenu : MonoBehaviour {
     {
         Debug.Log("Exit button pressed");
         Application.Quit();
+    }
+
+    public void OnOptionsButtonPressed()
+    {
+        canvasManager.GetComponent<VRCanvasSwitcher>().SwitchCanvas(0.5f);
+    }
+
+    public void OnBackButtonPressed()
+    {
+        canvasManager.GetComponent<VRCanvasSwitcher>().SwitchCanvas(0.5f);
     }
 }
