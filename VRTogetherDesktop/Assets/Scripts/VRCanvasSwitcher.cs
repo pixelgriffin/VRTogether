@@ -59,7 +59,7 @@ public class VRCanvasSwitcher : MonoBehaviour {
                 canvas.enabled = true;
             }
 
-            angle = -180f;
+            angle = 0f;
         }
 
         Quaternion startRot = transform.rotation;
