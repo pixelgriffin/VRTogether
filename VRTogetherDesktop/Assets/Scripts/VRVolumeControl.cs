@@ -14,6 +14,16 @@ public class VRVolumeControl : MonoBehaviour {
 
     private void Start()
     {
+        float masterVol, musicVol, soundVol;
+
+        masterMixer.audioMixer.GetFloat("Master", out masterVol);
+        musicMixer.audioMixer.GetFloat("MasterMusic", out musicVol);
+        soundMixer.audioMixer.GetFloat("MasterSound", out soundVol);
+
+        masterSlider.value = masterVol;
+        musicSlider.value = musicVol;
+        soundSlider.value = soundVol;
+
         masterSlider.onValueChanged.AddListener(delegate { OnMasterVolumeChanged(masterSlider.value); });
         musicSlider.onValueChanged.AddListener(delegate { OnMusicVolumeChanged(musicSlider.value); });
         soundSlider.onValueChanged.AddListener(delegate { OnSoundEffectVolumeChanged(soundSlider.value); });
