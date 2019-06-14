@@ -9,7 +9,7 @@ public class VRStartMenu : MonoBehaviour {
 
     private void Awake()
     {
-        canvasManager = transform.parent.parent.parent.gameObject;
+        //canvasManager = transform.parent.parent.parent.gameObject;
     }
 
     public void OnStartButtonPressed()
@@ -26,12 +26,12 @@ public class VRStartMenu : MonoBehaviour {
     public void OnOptionsButtonPressed()
     {
         StartCoroutine(
-            canvasManager.GetComponent<VRCanvasSwitcher>().SwitchCanvas(0.5f));
+            gameObject.GetComponent<VRCanvasSwitcher>().SwitchCanvas(0.5f));
     }
 
     public void OnBackButtonPressed()
     {
         StartCoroutine(
-            canvasManager.GetComponent<VRCanvasSwitcher>().SwitchCanvas(0.5f));
+            gameObject.GetComponent<VRCanvasSwitcher>().SwitchCanvas(0.5f));
     }
 }

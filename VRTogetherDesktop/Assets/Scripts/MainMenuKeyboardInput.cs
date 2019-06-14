@@ -1,26 +1,38 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using Valve.VR.InteractionSystem;
 
 public class MainMenuKeyboardInput : MonoBehaviour {
+
+    public LoadMinigame minigameLoader;
+    public GenerateCode codeGenerator;
+    public VRLobbyBackButton backButton;
 	
 	private void Update () 
     {
 		if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            GetComponent<LoadMinigame>().Load("FlySwatter");
+            minigameLoader.Load("FlySwatter");
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            GetComponent<LoadMinigame>().Load("ChickenShooter");
+            minigameLoader.Load("ChickenShooter");
         }
         else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            GetComponent<LoadMinigame>().Load("BeatBoxer");
+            minigameLoader.Load("BeatBoxer");
         }
         else if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            GetComponent<LoadMinigame>().Load("CupHunt");
+            minigameLoader.Load("CupHunt");
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            codeGenerator.DestroyCode();
+            backButton.OnBackButtonPressed();
+            // does not play sound
         }
     }
 }
