@@ -8,9 +8,9 @@ public class ChickenController : MonoBehaviour {
     public float zMoveSpeed = 1.0f;
     public float xMoveSpeed = 1.0f;
     public float maxVelocityX = 1.0f;
-    public float jumpHeight = 2.0f;
+    public float jumpHeight = 3.0f;
     public float mass = 0.1f;
-    public float gravity = -5.0f;
+    public float gravity = -9.0f;
     public float jumpTime = 0.5f;
     public float soundInterval;
 

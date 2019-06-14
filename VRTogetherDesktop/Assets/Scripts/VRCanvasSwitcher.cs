@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class VRCanvasSwitcher : MonoBehaviour {
 
+    public bool switchingCanvas;
+
     private GameObject mainMenuCanvas, optionsCanvas;
     private int currentCanvas = 0;
 
@@ -15,12 +17,14 @@ public class VRCanvasSwitcher : MonoBehaviour {
 
     private void Start()
     {
+        switchingCanvas = false;
         optionsCanvas.SetActive(false);
     }
 
     public IEnumerator SwitchCanvas(float time)
     {
         Debug.Log("Entered switch coroutine");
+        switchingCanvas = true;
 
         float angle;
         float elapsedTime = 0f;
@@ -88,5 +92,7 @@ public class VRCanvasSwitcher : MonoBehaviour {
             optionsCanvas.SetActive(false);
             currentCanvas = 0;
         }
+
+        switchingCanvas = false;
     }
 }

@@ -175,11 +175,17 @@ namespace VRTogether.Net
 
         public GameObject GetSlaveObject(string id)
         {
+            // I changed this loop to check if netid is null before doing anything
+            // This fix solved an issue in cup hunt where the game was not returning
+            // to lobby for mobile players - Alex
             foreach (NetworkID netID in slaveNetObjs)
             {
-                if (netID.netID == id)
+                if (netID != null)
                 {
-                    return netID.gameObject;
+                    if (netID.netID == id)
+                    {
+                        return netID.gameObject;
+                    }
                 }
             }
 
